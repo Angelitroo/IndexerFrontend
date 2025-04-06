@@ -1,0 +1,95 @@
+.login-background {
+  --background: transparent;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.login-card {
+  width: 90%;
+  max-width: 380px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .branding {
+    margin-bottom: 24px;
+
+    img {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #e67e22;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: #7f8c8d;
+    }
+  }
+
+  .input-item {
+    --background: #ffffff;
+    --border-color: #dcdcdc;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    height: 44px;
+
+    ion-input {
+      font-size: 0.9rem;
+      padding: 4px 8px;
+      --padding-start: 8px;
+      --padding-end: 8px;
+      color: #000000 !important;
+
+      ::placeholder {
+        color: #000000 !important;
+        opacity: 1;
+      }
+
+      /* Para asegurar que el placeholder se ve negro en todos los navegadores */
+      &::part(native) {
+        color: #000000 !important;
+      }
+    }
+  }
+
+  .login-button {
+    --background: #e67e22;
+    --background-activated: #d35400;
+    --color: white;
+    font-weight: bold;
+    border-radius: 12px;
+    margin-top: 8px;
+  }
+
+  .registro-text {
+    margin-top: 16px;
+    font-size: 0.9rem;
+
+    a {
+      color: #e67e22;
+      font-weight: 500;
+      text-decoration: none;
+    }
+  }
+}
