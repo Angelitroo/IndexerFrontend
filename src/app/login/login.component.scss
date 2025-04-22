@@ -1,9 +1,11 @@
 .login-background {
   --background: transparent;
+  background: linear-gradient(to bottom, #ffffff, #ffb745);
   background-size: cover;
   background-position: center;
   height: 100%;
 }
+
 
 .content-wrapper {
   display: flex;
