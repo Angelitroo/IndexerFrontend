@@ -75,6 +75,19 @@
     }
   }
 
+  .input-ubi {
+    --background: #ffffff;
+    --border-color: #dcdcdc;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    height: 44px;
+    color: black;
+    font-size: 0.9rem;
+    padding: 4px 8px;
+    --padding-start: 15px;
+    --padding-end: 8px;
+  }
+
   .login-button {
     --background: #e67e22;
     --background-activated: #d35400;
