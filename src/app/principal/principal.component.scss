@@ -1,0 +1,123 @@
+.login-background {
+  --background: transparent;
+  background: linear-gradient(to bottom, #ffffff, #ffb745);
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  padding: 24px 16px;
+}
+
+.branding {
+  text-align: center;
+  margin-bottom: 16px;
+
+  img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #e67e22;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: #7f8c8d;
+  }
+}
+
+.searchbar-container {
+  display: flex;
+  justify-content: center; /* Centra la barra de búsqueda */
+  margin-bottom: 16px; /* Espacio debajo de la barra */
+}
+
+.input-item {
+  --background: #ffffff;
+  --border-color: #dcdcdc;
+  border-radius: 12px;
+  height: 44px;
+  width: 50%; /* Ajusta el tamaño de la barra */
+}
+
+.card-grid-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scroll-snap-type: x mandatory;
+}
+
+.product-card {
+  --background: #ffffff;
+  min-width: 250px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in-out;
+
+  img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+
+  ion-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+  }
+
+  ion-card-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #e67e22;
+  }
+}
+
+.price-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: baseline;
+  margin: 8px 0;
+}
+
+.actual-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e67e22;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.rating {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.delivery {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.login-button {
+  --background: #e67e22;
+  --background-activated: #d35400;
+  --color: white;
+  font-weight: bold;
+  border-radius: 12px;
+  margin-top: 8px;
+}

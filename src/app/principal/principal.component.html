@@ -1,3 +1,42 @@
-<p>
-  Pantalla principal
-</p>
+<ion-content class="login-background">
+  <div class="branding">
+    <img src="assets/indexer.png" alt="Logo" />
+    <h1>Ofertas destacadas</h1>
+    <p>Explora los productos con descuentos</p>
+  </div>
+
+  <!-- Contenedor para centrar la barra de búsqueda -->
+  <div class="searchbar-container">
+    <ion-searchbar placeholder="Buscar producto..." class="input-item"></ion-searchbar>
+  </div>
+
+  <div class="card-grid-horizontal">
+    <ion-card *ngFor="let producto of productos" class="product-card">
+      <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+      <ion-card-header>
+        <ion-card-title>{{ producto.title }}</ion-card-title>
+        <ion-badge color="danger" *ngIf="producto.discount">
+          {{ producto.discount }} OFF
+        </ion-badge>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="price-row">
+          <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
+          <span class="old-price">€{{ producto.oldPrice.toFixed(2) }}</span>
+        </div>
+        <div class="rating">⭐ {{ producto.rating }}</div>
+        <div class="delivery">{{ producto.delivery }}</div>
+        <ion-button
+          expand="block"
+          fill="outline"
+          size="small"
+          [href]="producto.url"
+          target="_blank"
+          class="login-button"
+        >
+          Ver más
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
