@@ -22,6 +22,12 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   isLoading = false;
+  isRegistro: boolean = false;
+  paises: string[] = [
+    'España', 'Francia', 'Alemania', 'Italia', 'Reino Unido', 'Portugal', 'Bélgica',
+    'Países Bajos', 'Suecia', 'Noruega', 'Dinamarca', 'Finlandia', 'Suiza', 'Austria',
+    'Polonia', 'República Checa', 'Hungría', 'Rumanía', 'Bulgaria'
+  ];
 
 
   private apiUrl = 'http://localhost:8080/auth/login';
@@ -41,6 +47,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  cambioRegistro() {
+    this.isRegistro = !this.isRegistro;
+  }
+
 
   async presentToast(message: string, color: 'success' | 'danger' = 'danger') {
     const toast = await this.toastController.create({
