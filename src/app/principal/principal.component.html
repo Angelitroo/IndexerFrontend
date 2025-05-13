@@ -17,8 +17,10 @@
   <div class="searchbar-container">
     <ion-searchbar placeholder="Buscar producto..." class="input-item"></ion-searchbar>
   </div>
-
+  <ng-container *ngFor="let empresa of empresas">
+    <h2 class="empresa-titulo">{{ empresa }}</h2>
   <div class="card-grid-horizontal">
+
     <ion-card *ngFor="let producto of productos" class="product-card">
       <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
       <ion-card-header>
@@ -34,17 +36,11 @@
         </div>
         <div class="rating">⭐ {{ producto.rating }}</div>
         <div class="delivery">{{ producto.delivery }}</div>
-        <ion-button
-          expand="block"
-          fill="outline"
-          size="small"
-          [href]="producto.url"
-          target="_blank"
-          class="login-button"
-        >
+        <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">
           Ver más
         </ion-button>
       </ion-card-content>
     </ion-card>
   </div>
+  </ng-container>
 </ion-content>

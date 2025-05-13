@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule, NgFor, NgIf } from '@angular/common'; // 👈 importa NgFor y NgIf
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { Producto } from '../models/Producto';
@@ -14,6 +14,7 @@ import {notificationsOutline, personCircleOutline} from "ionicons/icons";
   styleUrls: ['./principal.component.scss']
 })
 export class PrincipalComponent {
+  empresas: string[] = ['Amazon', 'eBay', 'AliExpress', 'PCComponentes', 'MediaMarkt', 'Carrefour', 'El Corte Inglés'];
 
   productos: Producto[] = [
     {

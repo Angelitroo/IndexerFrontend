@@ -33,7 +33,7 @@
 .searchbar-container {
   display: flex;
   justify-content: center; /* Centra la barra de búsqueda */
-  margin-bottom: 16px; /* Espacio debajo de la barra */
+  margin-bottom: 60px; /* Espacio debajo de la barra */
 }
 
 .input-item {
@@ -151,5 +151,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.empresa-titulo{
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4d4d4d;
+  margin-bottom: 8px;
+  margin-left: 20px;
 }
 
