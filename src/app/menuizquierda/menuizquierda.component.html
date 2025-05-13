@@ -1,0 +1,41 @@
+<ion-card class="filter-menu">
+  <ion-card-header class="titulo">
+    <ion-card-title>Filtrar productos</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <!-- Ordenar por -->
+    <ion-label class="category-label">Ordenar por</ion-label>
+    <ion-item>
+      <ion-select placeholder="Seleccionar">
+        <ion-select-option value="precio-asc">Precio: Menor a mayor</ion-select-option>
+        <ion-select-option value="precio-desc">Precio: Mayor a menor</ion-select-option>
+        <ion-select-option value="popularidad">Popularidad</ion-select-option>
+        <ion-select-option value="novedades">Novedades</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Precio entre -->
+    <ion-label class="category-label">Precio entre (€)</ion-label>
+    <div class="price-inputs">
+      <ion-item class="compact-input">
+        <ion-input type="number" placeholder="Mín"></ion-input>
+      </ion-item>
+      <ion-item class="compact-input">
+        <ion-input type="number" placeholder="Máx"></ion-input>
+      </ion-item>
+    </div>
+
+
+    <!-- Categorías -->
+    <ion-label class="category-label">Categorías</ion-label>
+    <ion-list>
+      <ion-item *ngFor="let categoria of categorias">
+        <ion-checkbox slot="start"></ion-checkbox>
+        <ion-label>{{ categoria }}</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="block">Aplicar filtros</ion-button>
+    <ion-button>Restablecer</ion-button>
+  </ion-card-content>
+</ion-card>

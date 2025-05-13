@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { Producto } from '../models/Producto';
 import {addIcons} from "ionicons";
 import {notificationsOutline, personCircleOutline} from "ionicons/icons";
+import {MenuizquierdaComponent} from "../menuizquierda/menuizquierda.component";
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf], // 👈 agrégalos aquí
+  imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf, MenuizquierdaComponent], // 👈 agrégalos aquí
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.scss']
 })

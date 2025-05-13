@@ -1,0 +1,33 @@
+import { Component, OnInit } from '@angular/core';
+import {IonicModule} from "@ionic/angular";
+import {FormsModule} from "@angular/forms";
+import {NgForOf} from "@angular/common";
+
+@Component({
+  selector: 'app-menuizquierda',
+  templateUrl: './menuizquierda.component.html',
+  styleUrls: ['./menuizquierda.component.scss'],
+  standalone: true,
+  imports: [
+    IonicModule,
+    FormsModule,
+    NgForOf
+  ]
+})
+export class MenuizquierdaComponent  implements OnInit {
+  categorias: string[] = [
+    'Electrónica',
+    'Moda',
+    'Hogar',
+    'Juguetes',
+    'Deportes',
+    'Belleza',
+    'Automóvil'
+  ];
+
+
+  constructor() { }
+
+  ngOnInit() {}
+
+}
