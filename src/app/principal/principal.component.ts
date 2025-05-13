@@ -3,6 +3,8 @@ import { CommonModule, NgFor, NgIf } from '@angular/common'; // 👈 importa NgF
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { Producto } from '../models/Producto';
+import {addIcons} from "ionicons";
+import {notificationsOutline, personCircleOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-product-list',
@@ -48,4 +50,10 @@ export class PrincipalComponent {
       url: 'https://example.com/smartwatch'
     }
   ];
+  constructor() {
+    addIcons({
+      'person-circle-outline': personCircleOutline,
+      'notifications-outline': notificationsOutline
+    });
+  }
 }

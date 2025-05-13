@@ -26,7 +26,7 @@
 
   p {
     font-size: 0.95rem;
-    color: #7f8c8d;
+    color: #4d4d4d;
   }
 }
 
@@ -39,10 +39,12 @@
 .input-item {
   --background: #ffffff;
   --border-color: #dcdcdc;
+  --color: #4d4d4d; /* Color del texto y de la lupa */
   border-radius: 12px;
   height: 44px;
-  width: 50%; /* Ajusta el tamaño de la barra */
+  width: 50%;
 }
+
 
 .card-grid-horizontal {
   display: flex;
@@ -64,10 +66,14 @@
   transition: transform 0.2s ease-in-out;
 
   img {
-    width: 100%;
+    width: 65%;
     height: 160px;
     object-fit: cover;
+    margin: 0 auto;
+    display: block;
+    border-radius: 8px;
   }
+
 
   ion-card-header {
     display: flex;
@@ -121,3 +127,29 @@
   border-radius: 12px;
   margin-top: 8px;
 }
+
+.top-icons {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 16px;
+  z-index: 10;
+  background: none;
+  border: none;
+
+  ion-icon {
+    font-size: 48px;
+    color: #e67e22;
+    cursor: pointer;
+  }
+}
+.top-icons button {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
