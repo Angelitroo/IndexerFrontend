@@ -55,7 +55,18 @@
   padding-bottom: 16px;
   scroll-snap-type: x mandatory;
   margin-left: 25%;
+  scroll-behavior: smooth; // opcional para animación suave
+  -webkit-overflow-scrolling: touch;
+
+  /* Ocultar la barra de scroll */
+  scrollbar-width: none;            /* Firefox */
+  -ms-overflow-style: none;         /* IE y Edge */
 }
+
+.card-grid-horizontal::-webkit-scrollbar {
+  display: none;                    /* Chrome, Safari y Opera */
+}
+
 
 .product-card {
   --background: #ffffff;
