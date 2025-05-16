@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs/operators';
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private authService: AuthService
   ) {
 
     this.loginForm = this.fb.group({
@@ -81,11 +83,16 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('Login successful:', response);
-
           this.presentToast('Inicio de sesión exitoso!', 'success');
 
-          this.router.navigateByUrl('/principal');
+          if(this.authService.esAdmin()) {
+            this.router.navigateByUrl('/paneladmin');
+          }
+          else {
+            this.router.navigateByUrl('/principal');
+          }
         },
+
         error: (error: HttpErrorResponse) => {
           console.error('Login failed:', error);
 
