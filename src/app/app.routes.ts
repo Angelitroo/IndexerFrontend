@@ -22,4 +22,8 @@ export const routes: Routes = [
     path:"paneladmin",
     loadComponent: () => import('./paneladmin/paneladmin.component').then((m) => m.PaneladminComponent),
   },
+  {
+    path:"crearproducto",
+    loadComponent: () => import('./crearproducto/crearproducto.component').then((m) => m.CrearproductoComponent),
+  },
 ];

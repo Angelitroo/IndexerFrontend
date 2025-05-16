@@ -43,103 +43,9 @@
   --color: #4d4d4d; /* Color del texto y de la lupa */
   border-radius: 12px;
   height: 44px;
-  width: 50%;
+  width: 40%;
 }
 
-
-.card-grid-horizontal {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  overflow-x: auto;
-  padding-bottom: 16px;
-  scroll-snap-type: x mandatory;
-  margin-left: 25%;
-  scroll-behavior: smooth; // opcional para animación suave
-  -webkit-overflow-scrolling: touch;
-
-  /* Ocultar la barra de scroll */
-  scrollbar-width: none;            /* Firefox */
-  -ms-overflow-style: none;         /* IE y Edge */
-}
-
-.card-grid-horizontal::-webkit-scrollbar {
-  display: none;                    /* Chrome, Safari y Opera */
-}
-
-
-.product-card {
-  --background: #ffffff;
-  min-width: 250px;
-  flex-shrink: 0;
-  scroll-snap-align: start;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease-in-out;
-
-  img {
-    width: 65%;
-    height: 160px;
-    object-fit: cover;
-    margin: 0 auto;
-    display: block;
-    border-radius: 8px;
-  }
-
-
-  ion-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-  }
-
-  ion-card-title {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #e67e22;
-  }
-}
-
-.price-row {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  align-items: baseline;
-  margin: 8px 0;
-}
-
-.actual-price {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #e67e22;
-}
-
-.old-price {
-  text-decoration: line-through;
-  color: gray;
-}
-
-.rating {
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.delivery {
-  font-size: 0.85rem;
-  color: #666;
-  margin-bottom: 8px;
-}
-
-.login-button {
-  --background: #e67e22;
-  --background-activated: #d35400;
-  --color: white;
-  font-weight: bold;
-  border-radius: 12px;
-  margin-top: 8px;
-}
 
 .top-icons {
   position: absolute;
@@ -165,12 +71,80 @@
   align-items: center;
   justify-content: center;
 }
-
-.empresa-titulo{
-  font-size: 1.5rem;
+ion-button {
+  --background: #e67e22;
+  --color: white;
+  --background-activated: #d35400;
+  border-radius: 12px;
   font-weight: bold;
-  color: #4d4d4d;
-  margin-bottom: 8px;
-  margin-left: 25%;
 }
 
+
+.perfil-grid {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1300px;
+}
+
+.product-card {
+  --background: #ffffff;
+  width: 100%;
+  max-width: 240px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+  height: 400px; /* MÁS ALTA */
+
+  img {
+    width: 100%;
+    height: 180px; /* MÁS ALTA TAMBIÉN */
+    object-fit: contain; /* que se vea entera la imagen */
+    margin: 16px auto 0;
+    display: block;
+    border-radius: 8px;
+    background-color: #f5f5f5; /* opcional para mejor contraste */
+  }
+
+  ion-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+  }
+
+  ion-card-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #e67e22;
+    white-space: nowrap;        /* ❗ evita saltos de línea */
+    overflow: hidden;           /* ❗ oculta el exceso */
+    text-overflow: ellipsis;    /* ❗ añade "..." al final */
+    max-width: 180px;           /* ✅ puedes ajustar este ancho según tus tarjetas */
+  }
+
+}
+.rating {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 8px 0;
+  white-space: nowrap;        /* No saltar de línea */
+  overflow: hidden;           /* Ocultar lo que sobre */
+  text-overflow: ellipsis;    /* Mostrar "..." si se desborda */
+  max-width: 180px;           /* Ajusta si lo necesitas */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.login-button {
+  --background: #e67e22;
+  --background-activated: #d35400;
+  --color: white;
+  font-weight: bold;
+  border-radius: 12px;
+  margin-top: 8px;
+}
