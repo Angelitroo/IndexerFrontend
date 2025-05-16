@@ -7,10 +7,8 @@
         <p>Las mejores ofertas en un solo lugar</p>
       </div>
 
-
       <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
         <ion-item class="input-item">
-
           <ion-input
             type="text"
             placeholder="Usuario"
@@ -18,89 +16,145 @@
             inputmode="text"
             required>
           </ion-input>
-
         </ion-item>
 
-        <ion-item class="input-item">
+        <div *ngIf="loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)" class="error-messages">
+          <ion-text color="danger" *ngIf="loginForm.get('username')?.errors?.['required']">
+            El usuario es requerido.
+          </ion-text>
+        </div>
 
+        <ion-item class="input-item">
           <ion-input
             type="password"
             placeholder="Contraseña"
             formControlName="password"
             required>
           </ion-input>
-
         </ion-item>
 
+        <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="error-messages">
+          <ion-text color="danger" *ngIf="loginForm.get('password')?.errors?.['required']">
+            La contraseña es requerida.
+          </ion-text>
+        </div>
 
         <ion-button
           type="submit"
           expand="block"
-          class="login-button">
-        <!--[disabled]="loginForm.invalid || isLoading">-->
-        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-        <span *ngIf="!isLoading">Iniciar sesión</span>
-      </ion-button>
+          class="login-button"
+          [disabled]="loginForm.invalid || isLoading">
+          <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+          <span *ngIf="!isLoading">Iniciar sesión</span>
+        </ion-button>
 
-      <ion-text color="light">
-        <p class="registro-text">
-          ¿No tienes cuenta? <a (click)="cambioRegistro()">Regístrate</a>
-        </p>
-      </ion-text>
-    </form>
+        <ion-text color="light">
+          <p class="registro-text">
+            ¿No tienes cuenta? <a (click)="cambioRegistro()">Regístrate</a>
+          </p>
+        </ion-text>
+      </form>
+    </div>
   </div>
-</div>
 </ion-content>
 
+
 <ion-content class="login-background" *ngIf="isRegistro">
-<div class="content-wrapper">
-  <div class="login-card">
-    <div class="branding">
-      <img src="assets/indexer.png" alt="Logo de la app" />
-      <h1>Indexer</h1>
-      <p>Las mejores ofertas en un solo lugar</p>
+  <div class="content-wrapper">
+    <div class="login-card">
+      <div class="branding">
+        <img src="assets/indexer.png" alt="Logo de la app" />
+        <h1>Indexer</h1>
+        <p>Las mejores ofertas en un solo lugar</p>
+      </div>
+
+
+      <form class="login-form" [formGroup]="registroForm" (ngSubmit)="registro()">
+        <ion-item class="input-item">
+          <ion-input
+            type="text"
+          placeholder="Nombre de usuario"
+          formControlName="username"
+          inputmode="text"
+          required>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="registroForm.get('username')?.invalid && (registroForm.get('username')?.dirty || registroForm.get('username')?.touched)" class="error-messages">
+          <ion-text color="danger" *ngIf="registroForm.get('username')?.errors?.['required']">
+            El nombre de usuario es requerido.
+          </ion-text>
+          <ion-text color="danger" *ngIf="registroForm.get('username')?.errors?.['minlength']">
+            Debe tener al menos 3 caracteres.
+          </ion-text>
+        </div>
+
+        <ion-item class="input-ubi">
+          <ion-select
+            placeholder="Selecciona una provincia"
+            formControlName="pais"
+            required>
+            <ion-select-option *ngFor="let pais of paises" [value]="pais">
+              {{ pais }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <div *ngIf="registroForm.get('pais')?.invalid && (registroForm.get('pais')?.dirty || registroForm.get('pais')?.touched)" class="error-messages">
+          <ion-text color="danger" *ngIf="registroForm.get('pais')?.errors?.['required']">
+            La provincia es requerida.
+          </ion-text>
+        </div>
+
+        <ion-item class="input-item">
+          <ion-input
+            type="email"
+            placeholder="Correo electrónico"
+            formControlName="email"
+            inputmode="email"
+            required>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="registroForm.get('email')?.invalid && (registroForm.get('email')?.dirty || registroForm.get('email')?.touched)" class="error-messages">
+          <ion-text color="danger" *ngIf="registroForm.get('email')?.errors?.['required']">
+            El correo electrónico es requerido.
+          </ion-text>
+          <ion-text color="danger" *ngIf="registroForm.get('email')?.errors?.['email']">
+            Correo electrónico no válido.
+          </ion-text>
+        </div>
+
+        <ion-item class="input-item">
+          <ion-input
+            type="password"
+            placeholder="Contraseña"
+            formControlName="password"
+            required>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="registroForm.get('password')?.invalid && (registroForm.get('password')?.dirty || registroForm.get('password')?.touched)" class="error-messages">
+          <ion-text color="danger" *ngIf="registroForm.get('password')?.errors?.['required']">
+            La contraseña es requerida.
+          </ion-text>
+          <ion-text color="danger" *ngIf="registroForm.get('password')?.errors?.['minlength']">
+            La contraseña debe tener al menos 6 caracteres.
+          </ion-text>
+        </div>
+
+        <ion-button
+          type="submit"
+          expand="block"
+          class="login-button"
+          [disabled]="registroForm.invalid || isLoading">
+          <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+          <span *ngIf="!isLoading">Registrarse</span>
+        </ion-button>
+
+        <ion-text color="light">
+          <p class="registro-text">
+            ¿Ya tiene una cuenta? <a (click)="cambioRegistro()">Inicie sesión</a>
+          </p>
+        </ion-text>
+      </form>
     </div>
-
-    <ion-item class="input-item">
-      <ion-input
-        type="name"
-        placeholder="Nombre de usuario"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item class="input-ubi">
-      <ion-select name="pais" placeholder="Selecciona una provincia">
-        <ion-select-option *ngFor="let pais of paises" [value]="pais">
-          {{ pais }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <form class="login-form">
-      <ion-item class="input-item">
-        <ion-input
-          type="email"
-          placeholder="Correo electrónico"
-        ></ion-input>
-      </ion-item>
-
-      <ion-item class="input-item">
-        <ion-input
-          type="password"
-          placeholder="Contraseña"
-        ></ion-input>
-      </ion-item>
-
-      <ion-button expand="block" [routerLink]="'/principal'" class="login-button">
-        Registrarse
-      </ion-button>
-
-      <ion-text color="light">
-        <p class="registro-text">
-          ¿Ya tiene una cuenta? <a (click)="cambioRegistro()">Inicie sesión</a>
-        </p>
-      </ion-text>
-    </form>
   </div>
-</div>
 </ion-content>

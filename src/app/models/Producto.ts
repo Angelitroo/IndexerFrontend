@@ -8,4 +8,5 @@ export interface Producto {
   rating: string;
   delivery: string;
   url: string;
+  empresa: string;
 }

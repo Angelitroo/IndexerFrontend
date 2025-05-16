@@ -21,6 +21,7 @@ import { finalize } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  registroForm: FormGroup;
   isLoading = false;
   isRegistro: boolean = false;
   paises: string[] = [
@@ -30,7 +31,8 @@ export class LoginComponent implements OnInit {
   ];
 
 
-  private apiUrl = 'http://localhost:8080/auth/login';
+  private loginApiUrl = 'http://localhost:8080/auth/login';
+  private registroApiUrl = 'http://localhost:8080/auth/registro';
 
   constructor(
     private fb: FormBuilder,
@@ -40,9 +42,16 @@ export class LoginComponent implements OnInit {
   ) {
 
     this.loginForm = this.fb.group({
-
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
+    });
+
+
+    this.registroForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      pais: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -50,6 +59,14 @@ export class LoginComponent implements OnInit {
 
   cambioRegistro() {
     this.isRegistro = !this.isRegistro;
+
+    if (this.isRegistro) {
+      this.loginForm.reset();
+    } else {
+      this.registroForm.reset();
+    }
+
+    this.isLoading = false;
   }
 
 
@@ -71,10 +88,9 @@ export class LoginComponent implements OnInit {
     }
 
     this.isLoading = true;
-
     const credentials = this.loginForm.value;
 
-    this.http.post<any>(this.apiUrl, credentials)
+    this.http.post<any>(this.loginApiUrl, credentials)
       .pipe(
         finalize(() => this.isLoading = false)
       )
@@ -83,23 +99,56 @@ export class LoginComponent implements OnInit {
           console.log('Login successful:', response);
 
           this.presentToast('Inicio de sesión exitoso!', 'success');
-
           this.router.navigateByUrl('/principal');
         },
         error: (error: HttpErrorResponse) => {
           console.error('Login failed:', error);
-
           let errorMessage = 'Error de inicio de sesión. Inténtalo de nuevo.';
           if (error.status === 401 || error.status === 403) {
-            errorMessage = 'Credenciales incorrectas. Verifica tu correo y contraseña.';
+            errorMessage = 'Credenciales incorrectas. Verifica tu usuario y contraseña.';
           } else if (error.status === 0) {
             errorMessage = 'No se pudo conectar al servidor. Verifica tu conexión o que el servidor esté corriendo.';
           } else if (error.error && typeof error.error === 'string') {
             errorMessage = error.error;
           } else if (error.error && error.error.message) {
             errorMessage = error.error.message;
+          } else if (error.error && error.error.mensaje) {
+            errorMessage = error.error.mensaje;
           }
+          this.presentToast(errorMessage, 'danger');
+        }
+      });
+  }
 
+  registro() {
+    if (this.registroForm.invalid) {
+      this.presentToast('Por favor, completa todos los campos correctamente para el registro.');
+      this.registroForm.markAllAsTouched();
+      return;
+    }
+
+    this.isLoading = true;
+    const registroData = this.registroForm.value;
+
+    this.http.post<string>(this.registroApiUrl, registroData, { responseType: 'text' as 'json' })
+      .pipe(
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe({
+        next: (responseMessage) => {
+          console.log('Registro successful:', responseMessage);
+          this.presentToast(responseMessage, 'success');
+          this.isRegistro = false;
+          this.registroForm.reset();
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Registro failed:', error);
+          let errorMessage = 'Error en el registro. Inténtalo de nuevo.';
+          if (error.error && typeof error.error === 'string') {
+            errorMessage = error.error;
+          } else if (error.status === 0) {
+            errorMessage = 'No se pudo conectar al servidor. Verifica tu conexión o que el servidor esté corriendo.';
+          }
           this.presentToast(errorMessage, 'danger');
         }
       });

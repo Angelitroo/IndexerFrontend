@@ -15,37 +15,95 @@
   </div>
 
   <div class="searchbar-container">
-    <ion-searchbar placeholder="Buscar producto..." class="input-item"></ion-searchbar>
+    <ion-searchbar
+      placeholder="Buscar producto..."
+      class="input-item"
+      (ionInput)="onSearchChange($event)"
+      [debounce]="500"
+      [(ngModel)]="searchTerm">
+    </ion-searchbar>
   </div>
 
-  <app-menuizquierda></app-menuizquierda>
+  <app-menuizquierda (filtersApplied)="onFiltersChanged($event)"></app-menuizquierda>
 
-  <ng-container *ngFor="let empresa of empresas">
-    <h2 class="empresa-titulo">{{ empresa }}</h2>
+  <div *ngIf="isLoading" style="display: flex; justify-content: center; margin-top: 20px;">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
 
-    <div class="card-grid-horizontal-wrapper">
-      <div class="card-grid-horizontal" #scrollArea>
-        <ion-card *ngFor="let producto of productos" class="product-card">
-          <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
-          <ion-card-header>
-            <ion-card-title>{{ producto.title }}</ion-card-title>
-            <ion-badge color="danger" *ngIf="producto.discount">
-              {{ producto.discount }} OFF
-            </ion-badge>
-          </ion-card-header>
-          <ion-card-content>
-            <div class="price-row">
-              <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
-              <span class="old-price">€{{ producto.oldPrice.toFixed(2) }}</span>
-            </div>
-            <div class="rating">⭐ {{ producto.rating }}</div>
-            <div class="delivery">{{ producto.delivery }}</div>
-            <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">
-              Ver más
-            </ion-button>
-          </ion-card-content>
-        </ion-card>
+  <ng-container *ngIf="!isLoading">
+
+    <ng-container *ngIf="isInitialView">
+      <ng-container *ngFor="let empresa of initialEmpresas">
+        <h2 class="empresa-titulo">{{ empresa }}</h2>
+        <div class="card-grid-horizontal-wrapper">
+          <div class="card-grid-horizontal" #scrollArea>
+            <ion-card *ngFor="let producto of initialHardcodedProductos" class="product-card">
+              <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+              <ion-card-header>
+                <ion-card-title>{{ producto.title }}</ion-card-title>
+                <ion-badge color="danger" *ngIf="getDiscountValue(producto.discount) > 0">
+                  {{ producto.discount }} OFF
+                </ion-badge>
+              </ion-card-header>
+              <ion-card-content>
+                <div class="price-row">
+                  <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
+                  <span class="old-price" *ngIf="producto.oldPrice">€{{ producto.oldPrice!.toFixed(2) }}</span>
+                </div>
+                <div class="rating" *ngIf="producto.rating">⭐ {{ producto.rating }}</div>
+                <div class="delivery" *ngIf="producto.delivery">{{ producto.delivery }}</div>
+                <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">
+                  Ver más
+                </ion-button>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="!isInitialView">
+      <div *ngIf="!hasProductsToDisplay() && searchTerm" style="text-align: center; margin-top: 20px; color: var(--ion-color-medium);">
+        <p>No se encontraron productos para "{{searchTerm}}" con los filtros aplicados.</p>
       </div>
-    </div>
+      <div *ngIf="!hasProductsToDisplay() && !searchTerm && !isInitialView" style="text-align: center; margin-top: 20px; color: var(--ion-color-medium);">
+        <p>No hay productos que coincidan con los filtros actuales.</p>
+      </div>
+
+      <ng-container *ngFor="let group of groupedProducts">
+        <h2 class="empresa-titulo" *ngIf="group.items.length > 0 ||
+            (activeFilters.selectedEmpresas?.includes(group.empresa)) ||
+            (!activeFilters.selectedEmpresas || activeFilters.selectedEmpresas.length === 0)">
+          {{ group.empresa }}
+        </h2>
+
+        <div class="card-grid-horizontal-wrapper" *ngIf="group.items.length > 0">
+          <div class="card-grid-horizontal" #scrollArea>
+            <ion-card *ngFor="let producto of group.items" class="product-card">
+              <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+              <ion-card-header>
+                <ion-card-title>{{ producto.title }}</ion-card-title>
+
+                <ion-badge color="danger" *ngIf="getDiscountValue(producto.discount) > 0">
+                  {{ producto.discount }} OFF
+                </ion-badge>
+              </ion-card-header>
+              <ion-card-content>
+                <div class="price-row">
+                  <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
+                  <span class="old-price" *ngIf="producto.oldPrice">€{{ producto.oldPrice!.toFixed(2) }}</span>
+                </div>
+                <div class="rating" *ngIf="producto.rating">⭐ {{ producto.rating }}</div>
+                <div class="delivery" *ngIf="producto.delivery">{{ producto.delivery }}</div>
+                <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">
+                  Ver más
+                </ion-button>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
   </ng-container>
 </ion-content>
