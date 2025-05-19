@@ -26,4 +26,8 @@ export const routes: Routes = [
     path:"crearproducto",
     loadComponent: () => import('./crearproducto/crearproducto.component').then((m) => m.CrearproductoComponent),
   },
+  {
+    path:"carrousel",
+    loadComponent: () => import('./carrousel/carrousel.component').then((m) => m.CarrouselComponent),
+  },
 ];

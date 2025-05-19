@@ -1,3 +1,5 @@
+
+
 .login-background {
   --background: transparent;
   background: linear-gradient(to bottom, #ffffff, #ffb745);
@@ -5,6 +7,7 @@
   background-position: center;
   height: 100%;
   padding: 24px 16px;
+
 
 }
 
@@ -55,22 +58,75 @@
   padding-bottom: 16px;
   scroll-snap-type: x mandatory;
   margin-left: 25%;
-  scroll-behavior: smooth; // opcional para animación suave
+  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 
-  /* Ocultar la barra de scroll */
-  scrollbar-width: none;            /* Firefox */
-  -ms-overflow-style: none;         /* IE y Edge */
 }
 
-.card-grid-horizontal::-webkit-scrollbar {
-  display: none;                    /* Chrome, Safari y Opera */
+
+
+.custom-swiper {
+  --swiper-navigation-size: 40px;
+  --swiper-navigation-color: #e67e22;
+  position: relative;
+  margin-left: 25%;
+  padding: 10px 40px 40px 40px; /* Ajuste de padding: arriba derecha abajo izquierda */
+  margin-bottom: 20px; /* Espacio adicional debajo */
 }
+
+::ng-deep .custom-swiper .swiper {
+  padding-bottom: 30px; /* Espacio para la paginación */
+}
+
+::ng-deep .custom-swiper .swiper-button-prev {
+  left: 0 !important;
+  margin-left: 0 !important;
+}
+
+::ng-deep .custom-swiper .swiper-button-next {
+  right: 0 !important;
+  margin-right: 0 !important;
+}
+
+::ng-deep .custom-swiper .swiper-button-prev,
+::ng-deep .custom-swiper .swiper-button-next {
+  position: absolute;
+  top: calc(50% - 20px); /* Ajuste fino de posición vertical */
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+::ng-deep .custom-swiper .swiper-pagination {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+::ng-deep .custom-swiper .swiper-pagination-bullet {
+  background: #e67e22;
+  opacity: 0.5;
+  width: 10px;
+  height: 10px;
+}
+
+::ng-deep .custom-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+
 
 
 .product-card {
   --background: #ffffff;
   min-width: 250px;
+  width: 220px;
   flex-shrink: 0;
   scroll-snap-align: start;
   border-radius: 16px;

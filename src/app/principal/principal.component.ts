@@ -7,11 +7,14 @@ import {addIcons} from "ionicons";
 import {notificationsOutline, personCircleOutline} from "ionicons/icons";
 import {MenuizquierdaComponent} from "../menuizquierda/menuizquierda.component";
 import { AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { SwiperModule } from 'swiper/angular';
+import SwiperCore, { Navigation, Pagination } from 'swiper';
+SwiperCore.use([Navigation, Pagination]);
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf, MenuizquierdaComponent], // 👈 agrégalos aquí
+  imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf, MenuizquierdaComponent, SwiperModule], // 👈 agrégalos aquí
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.scss']
 })
@@ -99,6 +102,28 @@ export class PrincipalComponent implements AfterViewInit{
     },
     {
       id: 6,
+      title: 'Monitor Full HD 24"',
+      discount: '20%',
+      actualPrice: 119.99,
+      oldPrice: 149.99,
+      image: 'https://m.media-amazon.com/images/I/81QpkIctqPL._AC_SL1500_.jpg',
+      rating: '4.6',
+      delivery: 'Entrega en 48h',
+      url: 'https://example.com/monitor-fullhd'
+    },
+    {
+      id: 7,
+      title: 'Monitor Full HD 24"',
+      discount: '20%',
+      actualPrice: 119.99,
+      oldPrice: 149.99,
+      image: 'https://m.media-amazon.com/images/I/81QpkIctqPL._AC_SL1500_.jpg',
+      rating: '4.6',
+      delivery: 'Entrega en 48h',
+      url: 'https://example.com/monitor-fullhd'
+    },
+    {
+      id: 8,
       title: 'Monitor Full HD 24"',
       discount: '20%',
       actualPrice: 119.99,

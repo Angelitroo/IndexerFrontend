@@ -15,9 +15,6 @@ import { ProductoService } from "../services/producto.service";
   standalone: true,
   imports: [
     IonicModule,
-    MenuizquierdaComponent,
-    NgForOf,
-    NgIf,
     FormsModule
   ]
 })
