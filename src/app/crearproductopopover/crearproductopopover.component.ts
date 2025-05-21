@@ -49,6 +49,7 @@ export class ProductoPopoverComponent implements OnInit {
   }
 
   crearProducto(): void {
+    this.popoverCtrl.dismiss(true); // Cierra el popover inmediatamente
     const nuevoProducto: Partial<Producto> = {
       title: this.producto.title,
       discount: this.producto.discount,
@@ -59,11 +60,9 @@ export class ProductoPopoverComponent implements OnInit {
       delivery: this.producto.delivery,
       url: this.producto.url
     };
-
     this.productoService.guardarProducto(nuevoProducto).subscribe({
       next: () => {
         this.mostrarToast('Producto creado con éxito', 'success');
-        this.popoverCtrl.dismiss(true);  // Puedes pasar data si quieres
       },
       error: (err: any) => {
         console.error(err);
