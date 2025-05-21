@@ -68,10 +68,10 @@ export class CrearproductoComponent implements OnInit {
     };
 
     if (perfilId !== undefined) {
-      this.productoService.guardarProducto(perfilId, nuevoProducto).subscribe({
+      this.productoService.guardarProducto(nuevoProducto).subscribe({
         next: () => {
           this.mostrarToast('Producto creado con éxito', 'success');
-          this.router.navigate(['/productos']).then(() => {
+          this.router.navigate(['/paneladmin']).then(() => {
             window.location.reload();
           });
         },

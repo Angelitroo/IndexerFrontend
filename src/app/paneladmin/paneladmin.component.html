@@ -15,16 +15,65 @@
   </div>
 
   <div class="searchbar-container">
-    <ion-searchbar placeholder="Buscar usuario..." class="input-item"></ion-searchbar>
-    <ion-button [routerLink]="'/crearproducto'">Crear Producto</ion-button>
+    <ion-searchbar placeholder="Buscar perfil..." class="input-item"></ion-searchbar>
+    <ion-button (click)="abrirCrearProducto()">Crear Producto</ion-button>
   </div>
 
-  <!-- tarjetas de todos los perfiles -->
+  <!-- Productos destacados -->
+  <h2 class="subtitulo">Productos destacados</h2>
+  <swiper
+    [navigation]="true"
+    [pagination]="{ clickable: true }"
+    [loop]="false"
+    [slidesPerView]="5"
+    [slidesPerGroup]="1"
+    [spaceBetween]="16"
+  class="custom-swiper"
+  >
+  <ng-template swiperSlide *ngFor="let producto of productos">
+    <ion-card class="product-card">
+      <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+      <ion-card-header>
+        <ion-card-title>{{ producto.title }}</ion-card-title>
+        <ion-badge color="danger" *ngIf="producto.discount">
+          {{ producto.discount }} OFF
+        </ion-badge>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="price-row">
+          <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
+          <span class="old-price">€{{ producto.oldPrice.toFixed(2) }}</span>
+        </div>
+        <div class="rating">⭐ {{ producto.rating }}</div>
+        <div class="delivery">{{ producto.delivery }}</div>
+        <ion-button
+          expand="block"
+          fill="outline"
+          size="small"
+          [href]="producto.url"
+          target="_blank"
+          class="login-button"
+        >
+          Ver más
+        </ion-button>
+        <ion-button expand="block" fill="outline" size="small" class="login-button">
+          Modificar
+        </ion-button>
+        <ion-button expand="block" fill="outline" size="small" color="danger" class="login-button">
+          Eliminar
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+  </swiper>
+
+  <!-- Perfiles -->
+  <h2 class="subtitulo">Perfiles</h2>
   <ion-grid class="perfil-grid">
     <ion-row justify-content-center>
       <ion-col size="2" size-sm="8" size-md="4" size-lg="2.4" *ngFor="let perfil of perfiles">
-        <ion-card class="product-card">
-          <img [src]="perfil.imagen" alt="Im  agen de {{ perfil.nombre }}" />
+        <ion-card class="perfil-card">
+          <img [src]="perfil.imagen" alt="Imagen de {{ perfil.nombre }}" />
           <ion-card-header>
             <ion-card-title>{{ perfil.nombre }} {{ perfil.apellido }}</ion-card-title>
             <ion-badge color="warning">
@@ -47,6 +96,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
 </ion-content>

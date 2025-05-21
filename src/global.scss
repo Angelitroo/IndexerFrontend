@@ -35,3 +35,14 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+
+
+ion-popover {
+  --background: transparent !important;
+  --box-shadow: none !important;
+  --border-radius: 0 !important;
+  --width: auto !important;
+  --min-width: auto !important;
+}

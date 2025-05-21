@@ -14,8 +14,8 @@ export class ProductoService {
 
   constructor(private httpClient: HttpClient, private authService: AuthService) {}
 
-  guardarProducto(id: number, producto: Partial<Producto>): Observable<Producto> {
+  guardarProducto(producto: Partial<Producto>): Observable<Producto> {
     const options = this.authService.getAuthHeaders();
-    return this.httpClient.post<Producto>(`${this.apiUrl}/productos/guardar/${id}`, producto, options);
+    return this.httpClient.post<Producto>(`${this.apiUrl}/productos/guardar/`, producto, options);
   }
 }

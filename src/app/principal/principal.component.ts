@@ -9,12 +9,13 @@ import {MenuizquierdaComponent} from "../menuizquierda/menuizquierda.component";
 import { AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { SwiperModule } from 'swiper/angular';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
+import {RouterLink} from "@angular/router";
 SwiperCore.use([Navigation, Pagination]);
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf, MenuizquierdaComponent, SwiperModule], // 👈 agrégalos aquí
+  imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf, MenuizquierdaComponent, SwiperModule, RouterLink], // 👈 agrégalos aquí
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.scss']
 })

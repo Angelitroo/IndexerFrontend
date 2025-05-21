@@ -29,7 +29,7 @@
           <ion-col>
             <ion-item>
               <ion-label position="floating">Precio actual</ion-label>
-              <ion-textarea [(ngModel)]="producto.actualPrice" rows="3"></ion-textarea>
+              <ion-textarea [(ngModel)]="producto.actualPrice" rows="1"></ion-textarea>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -38,7 +38,7 @@
           <ion-col>
             <ion-item>
               <ion-label position="floating">Precio antiguo</ion-label>
-              <ion-textarea [(ngModel)]="producto.oldPrice" rows="3"></ion-textarea>
+              <ion-textarea [(ngModel)]="producto.oldPrice" rows="1"></ion-textarea>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -47,7 +47,7 @@
           <ion-col>
             <ion-item>
               <ion-label position="floating">Descuento Aplicado</ion-label>
-              <ion-textarea [(ngModel)]="producto.discount" rows="3"></ion-textarea>
+              <ion-textarea [(ngModel)]="producto.discount" rows="1"></ion-textarea>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -56,16 +56,17 @@
           <ion-col>
             <ion-item>
               <ion-label position="floating">Valoración</ion-label>
-              <ion-textarea [(ngModel)]="producto.rating" rows="3"></ion-textarea>
+              <ion-textarea [(ngModel)]="producto.rating" rows="1"></ion-textarea>
             </ion-item>
           </ion-col>
         </ion-row>
 
+        <!-- Estoy pensando en quitar entrega, pon el typescript que se asigne como null en el objeto si se puede o algo por defecto -->
         <ion-row>
           <ion-col>
             <ion-item>
               <ion-label position="floating">Entrega</ion-label>
-              <ion-textarea [(ngModel)]="producto.delivery" rows="3"></ion-textarea>
+              <ion-textarea [(ngModel)]="producto.delivery" rows="1"></ion-textarea>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -74,7 +75,7 @@
           <ion-col>
             <ion-item>
               <ion-label position="floating">Url del Producto</ion-label>
-              <ion-textarea [(ngModel)]="producto.url" rows="3"></ion-textarea>
+              <ion-textarea [(ngModel)]="producto.url" rows="1"></ion-textarea>
             </ion-item>
           </ion-col>
         </ion-row>
