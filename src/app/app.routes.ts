@@ -23,10 +23,6 @@ export const routes: Routes = [
     loadComponent: () => import('./paneladmin/paneladmin.component').then((m) => m.PaneladminComponent),
   },
   {
-    path:"crearproducto",
-    loadComponent: () => import('./crearproducto/crearproducto.component').then((m) => m.CrearproductoComponent),
-  },
-  {
     path:"carrousel",
     loadComponent: () => import('./carrousel/carrousel.component').then((m) => m.CarrouselComponent),
   },
