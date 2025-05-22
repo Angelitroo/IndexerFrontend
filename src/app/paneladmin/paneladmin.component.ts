@@ -5,7 +5,6 @@ import {NgForOf, NgIf} from "@angular/common";
 import {Perfil} from "../models/Perfil";
 import {AuthService} from "../services/auth.service";
 import {PerfilService} from "../services/perfil.service";
-import {RouterLink} from "@angular/router";
 import {Producto} from "../models/Producto";
 import {SwiperModule} from "swiper/angular";
 import {ProductoPopoverComponent} from "../crearproductopopover/crearproductopopover.component";
@@ -17,7 +16,6 @@ import {ProductoPopoverComponent} from "../crearproductopopover/crearproductopop
     standalone: true,
   imports: [
     IonicModule,
-    RouterLink,
     NgForOf,
     SwiperModule,
     NgIf,
