@@ -13,5 +13,17 @@ export const routes: Routes = [
   {
     path:"principal",
     loadComponent: () => import('./principal/principal.component').then((m) => m.PrincipalComponent),
-  }
+  },
+  {
+    path:"modificarperfil",
+    loadComponent: () => import('./modificarperfil/modificarperfil.component').then((m) => m.ModificarperfilComponent),
+  },
+  {
+    path:"paneladmin",
+    loadComponent: () => import('./paneladmin/paneladmin.component').then((m) => m.PaneladminComponent),
+  },
+  {
+    path:"carrousel",
+    loadComponent: () => import('./carrousel/carrousel.component').then((m) => m.CarrouselComponent),
+  },
 ];

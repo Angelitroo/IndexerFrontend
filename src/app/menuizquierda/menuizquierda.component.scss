@@ -93,21 +93,15 @@
 .compact-input ion-input {
   --padding-start: 0;
   --padding-end: 0;
-  --highlight-color-focused: transparent;
-  --highlight-color: transparent;
+  --highlight-color-focused: #e67e22; /* color de enfoque visible */
+  --highlight-color: #e67e22;
   --background: transparent;
   --box-shadow: none;
   --border: none;
   font-size: 0.85rem;
   border: none !important;
 }
-ion-input input {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-  font-size: 0.85rem;
-}
+
 .titulo{
   justify-content: start;
 }

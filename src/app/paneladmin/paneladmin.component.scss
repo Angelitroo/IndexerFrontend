@@ -1,0 +1,251 @@
+.background {
+  --background: transparent;
+  background: linear-gradient(to bottom, #ffffff, #ffb745);
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  padding: 24px 16px;
+}
+
+.branding {
+  text-align: center;
+  margin-bottom: 16px;
+
+  img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #e67e22;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: #4d4d4d;
+  }
+}
+
+.searchbar-container {
+  display: flex;
+  justify-content: center; /* Centra la barra de búsqueda */
+  margin-bottom: 60px; /* Espacio debajo de la barra */
+}
+
+.input-item {
+  --background: #ffffff;
+  --border-color: #dcdcdc;
+  --color: #4d4d4d; /* Color del texto y de la lupa */
+  border-radius: 12px;
+  height: 44px;
+  width: 40%;
+}
+
+
+.top-icons {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 16px;
+  z-index: 10;
+  background: none;
+  border: none;
+
+  ion-icon {
+    font-size: 48px;
+    color: #e67e22;
+    cursor: pointer;
+  }
+}
+.top-icons button {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ion-button {
+  --background: #e67e22;
+  --color: white;
+  --background-activated: #d35400;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+
+.perfil-grid {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1300px;
+}
+
+.perfil-card {
+  --background: #ffffff;
+  width: 100%;
+  max-width: 240px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+  height: 400px; /* MÁS ALTA */
+
+  img {
+    width: 100%;
+    height: 180px; /* MÁS ALTA TAMBIÉN */
+    object-fit: contain; /* que se vea entera la imagen */
+    margin: 16px auto 0;
+    display: block;
+    border-radius: 8px;
+    background-color: #f5f5f5; /* opcional para mejor contraste */
+  }
+
+  ion-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+  }
+
+  ion-card-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #e67e22;
+    white-space: nowrap; /* ❗ evita saltos de línea */
+    overflow: hidden; /* ❗ oculta el exceso */
+    text-overflow: ellipsis; /* ❗ añade "..." al final */
+    max-width: 180px; /* ✅ puedes ajustar este ancho según tus tarjetas */
+  }
+}
+
+
+.product-card {
+    --background: #ffffff;
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    text-align: center;
+    height: 450px; /* MÁS ALTA */
+
+    img {
+      width: 100%;
+      height: 180px; /* MÁS ALTA TAMBIÉN */
+      object-fit: contain; /* que se vea entera la imagen */
+      margin: 16px auto 0;
+      display: block;
+      border-radius: 8px;
+      background-color: #f5f5f5; /* opcional para mejor contraste */
+    }
+
+    ion-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+    }
+
+    ion-card-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #e67e22;
+      white-space: nowrap; /* ❗ evita saltos de línea */
+      overflow: hidden; /* ❗ oculta el exceso */
+      text-overflow: ellipsis; /* ❗ añade "..." al final */
+      max-width: 180px; /* ✅ puedes ajustar este ancho según tus tarjetas */
+    }
+  }
+
+
+.rating {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 8px 0;
+  white-space: nowrap;        /* No saltar de línea */
+  overflow: hidden;           /* Ocultar lo que sobre */
+  text-overflow: ellipsis;    /* Mostrar "..." si se desborda */
+  max-width: 180px;           /* Ajusta si lo necesitas */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.login-button {
+  --background: #e67e22;
+  --background-activated: #d35400;
+  --color: white;
+  font-weight: bold;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+.subtitulo{
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4d4d4d;
+  margin-bottom: 8px;
+  margin-left: 20%;
+}
+
+
+//el swiper culiao
+.custom-swiper {
+  --swiper-navigation-size: 40px;
+  --swiper-navigation-color: #e67e22;
+  position: relative;
+  padding: 10px 16px 40px 16px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  max-width: 1300px;
+}
+
+::ng-deep .custom-swiper .swiper {
+  padding-bottom: 30px;
+}
+
+::ng-deep .custom-swiper .swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep .custom-swiper .swiper-button-prev,
+::ng-deep .custom-swiper .swiper-button-next {
+  top: calc(50% - 20px);
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+::ng-deep .custom-swiper .swiper-pagination {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+::ng-deep .custom-swiper .swiper-pagination-bullet {
+  background: #e67e22;
+  opacity: 0.5;
+  width: 10px;
+  height: 10px;
+}
+
+::ng-deep .custom-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+

@@ -1,4 +1,4 @@
-.login-background {
+.background {
   --background: transparent;
   background: linear-gradient(to bottom, #ffffff, #ffb745);
   background-size: cover;
@@ -98,6 +98,7 @@
   }
 
   .registro-text {
+    color: #7f8c8d;
     margin-top: 16px;
     font-size: 0.9rem;
 

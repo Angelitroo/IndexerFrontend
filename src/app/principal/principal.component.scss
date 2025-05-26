@@ -1,42 +1,53 @@
-.login-background {
+.background {
   --background: transparent;
   background: linear-gradient(to bottom, #ffffff, #ffb745);
   background-size: cover;
   background-position: center;
   height: 100%;
   padding: 24px 16px;
+
+
 }
+
 .branding {
   text-align: center;
   margin-bottom: 16px;
+
   img {
     width: 64px;
     height: 64px;
     margin-bottom: 10px;
   }
+
   h1 {
     font-size: 1.8rem;
     font-weight: bold;
     color: #e67e22;
     margin-bottom: 4px;
   }
+
   p {
     font-size: 0.95rem;
     color: #4d4d4d;
   }
 }
+
 .searchbar-container {
   display: flex;
-  justify-content: center;
+  justify-content: center; /* Centra la barra de búsqueda */
+  margin-bottom: 60px; /* Espacio debajo de la barra */
 }
+
 .input-item {
   --background: #ffffff;
   --border-color: #dcdcdc;
-  --color: #4d4d4d;
+  --color: #4d4d4d; /* Color del texto y de la lupa */
   border-radius: 12px;
   height: 44px;
   width: 50%;
 }
+
+
 .card-grid-horizontal {
   display: flex;
   flex-direction: row;
@@ -47,65 +58,104 @@
   margin-left: 25%;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+
 }
-.card-grid-horizontal::-webkit-scrollbar {
-  display: none;
+
+
+
+.custom-swiper {
+  --swiper-navigation-size: 40px;
+  --swiper-navigation-color: #e67e22;
+  position: relative;
+  margin-left: 25%;
+  padding: 10px 40px 40px 40px; /* Ajuste de padding: arriba derecha abajo izquierda */
+  margin-bottom: 20px; /* Espacio adicional debajo */
 }
+
+::ng-deep .custom-swiper .swiper {
+  padding-bottom: 30px; /* Espacio para la paginación */
+}
+
+::ng-deep .custom-swiper .swiper-button-prev {
+  left: 0 !important;
+  margin-left: 0 !important;
+}
+
+::ng-deep .custom-swiper .swiper-button-next {
+  right: 0 !important;
+  margin-right: 0 !important;
+}
+
+::ng-deep .custom-swiper .swiper-button-prev,
+::ng-deep .custom-swiper .swiper-button-next {
+  position: absolute;
+  top: calc(50% - 20px); /* Ajuste fino de posición vertical */
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+::ng-deep .custom-swiper .swiper-pagination {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+::ng-deep .custom-swiper .swiper-pagination-bullet {
+  background: #e67e22;
+  opacity: 0.5;
+  width: 10px;
+  height: 10px;
+}
+
+::ng-deep .custom-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+
+
+
 .product-card {
   --background: #ffffff;
   min-width: 250px;
-  max-width: 250px;
+  width: 220px;
   flex-shrink: 0;
   scroll-snap-align: start;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.2s ease-in-out;
-  display: flex;
-  flex-direction: column;
 
   img {
-    width: 100%;
+    width: 65%;
     height: 160px;
-    object-fit: contain;
+    object-fit: cover;
     margin: 0 auto;
     display: block;
-    background-color: #f0f0f0;
+    border-radius: 8px;
   }
+
 
   ion-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     padding: 8px 12px;
-    width: 100%;
   }
 
   ion-card-title {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #e67e22;
-    white-space: normal;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    line-height: 1.3;
-    flex-grow: 1;
-    margin-right: 8px;
-    min-height: calc(0.9rem * 1.3 * 2);
-  }
-
-  ion-card-content {
-    padding: 8px 12px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: space-between;
-    width: 100%;
   }
 }
+
 .price-row {
   display: flex;
   gap: 8px;
@@ -113,34 +163,38 @@
   align-items: baseline;
   margin: 8px 0;
 }
+
 .actual-price {
   font-size: 1.2rem;
   font-weight: bold;
   color: #e67e22;
 }
+
 .old-price {
   text-decoration: line-through;
   color: gray;
 }
+
 .rating {
   font-size: 0.9rem;
   color: #555;
-  text-align: center;
 }
+
 .delivery {
   font-size: 0.85rem;
   color: #666;
   margin-bottom: 8px;
-  text-align: center;
 }
+
 .login-button {
   --background: #e67e22;
   --background-activated: #d35400;
   --color: white;
   font-weight: bold;
   border-radius: 12px;
-  margin-top: auto;
+  margin-top: 8px;
 }
+
 .top-icons {
   position: absolute;
   top: 16px;
@@ -150,6 +204,7 @@
   z-index: 10;
   background: none;
   border: none;
+
   ion-icon {
     font-size: 48px;
     color: #e67e22;
@@ -164,6 +219,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .empresa-titulo{
   font-size: 1.5rem;
   font-weight: bold;
@@ -171,3 +227,4 @@
   margin-bottom: 8px;
   margin-left: 25%;
 }
+

@@ -1,0 +1,20 @@
+<ion-content>
+  <swiper
+    [navigation]="true"
+    [pagination]="{ clickable: true }"
+    [loop]="true"
+    class="mySwiper"
+  >
+    <ng-template swiperSlide *ngFor="let item of [1, 2, 3, 4, 5, 6, 7]">
+      <a href="#" class="card-link">
+        <img
+          src="https://media.istockphoto.com/id/520619396/es/foto/blanco-aislado-fotograf%C3%ADa-de-abrir-la-caja-de-cart%C3%B3n-sobre-fondo-blanco.jpg?s=612x612&w=0&k=20&c=KVp5v2VvWRgqpucVkhBEdjxCfm40_ozhlYYltrplNfs="
+          class="card-image"
+        />
+        <p class="badge">Sigmael</p>
+        <h2 class="card-title">El mejor carrusel de tu vida</h2>
+        <button class="card-button">&gt;</button>
+      </a>
+    </ng-template>
+  </swiper>
+</ion-content>
