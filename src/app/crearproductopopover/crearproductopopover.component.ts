@@ -21,7 +21,8 @@ export class ProductoPopoverComponent implements OnInit {
     image: '',
     rating: '',
     delivery: '',
-    url: ''
+    url: '',
+    empresa: ''
   };
 
   imagePath: string = '';

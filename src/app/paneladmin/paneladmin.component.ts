@@ -129,7 +129,8 @@ export class PaneladminComponent  implements OnInit {
       image: 'https://www.energysistem.com/cdnassets/products/45839/serie_2000.webp?2/d/8/1/2d818c47d79454c36d45c0f6cdb63cd0311b1729_Silent_ANC__45839_B2B_principal.jpg',
       rating: '4.5',
       delivery: 'Entrega rápida',
-      url: ''
+      url: '',
+      empresa: ''
     },
     {
       id: 2,
@@ -140,7 +141,8 @@ export class PaneladminComponent  implements OnInit {
       image: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
       rating: '4.8',
       delivery: 'Entrega en 24h',
-      url: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg'
+      url: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
+      empresa: ''
     },
     {
       id: 3,
@@ -151,7 +153,8 @@ export class PaneladminComponent  implements OnInit {
       image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch'
+      url: 'https://example.com/smartwatch',
+      empresa: ''
     }
     ,
     {
@@ -163,7 +166,8 @@ export class PaneladminComponent  implements OnInit {
       image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch'
+      url: 'https://example.com/smartwatch',
+      empresa: ''
     }
     ,
     {
@@ -175,7 +179,8 @@ export class PaneladminComponent  implements OnInit {
       image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch'
+      url: 'https://example.com/smartwatch',
+      empresa: ''
     }
   ];
 
