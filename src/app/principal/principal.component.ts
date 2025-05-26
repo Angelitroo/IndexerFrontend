@@ -10,6 +10,8 @@ import { Producto } from '../models/Producto';
 import { ProductFilters } from '../models/ProductFilters';
 import { MenuizquierdaComponent } from "../menuizquierda/menuizquierda.component";
 import { finalize } from 'rxjs/operators';
+import {RouterLink} from "@angular/router";
+import {SwiperModule} from "swiper/angular";
 
 
 interface BackendProduct {
@@ -36,7 +38,9 @@ interface BackendProduct {
     IonicModule,
     FormsModule,
     MenuizquierdaComponent,
-    HttpClientModule
+    HttpClientModule,
+    RouterLink,
+    SwiperModule
   ],
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.scss']
