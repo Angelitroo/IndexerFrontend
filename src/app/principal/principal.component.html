@@ -1,11 +1,7 @@
-<ion-content class="login-background">
+<ion-content class="background">
   <div class="top-icons">
-    <button>
-      <ion-icon name="notifications-outline"></ion-icon>
-    </button>
-    <button [routerLink]="'/modificarperfil'">
-      <ion-icon name="person-circle-outline"></ion-icon>
-    </button>
+    <button><ion-icon name="notifications-outline"></ion-icon></button>
+    <button [routerLink]="'/modificarperfil'"><ion-icon name="person-circle-outline"></ion-icon></button>
   </div>
 
   <div class="branding">
@@ -24,104 +20,96 @@
     </ion-searchbar>
   </div>
 
-  <app-menuizquierda (filtersApplied)="onFiltersChanged($event)"></app-menuizquierda>
+  <div class="main-layout-container">
+    <app-menuizquierda (filtersApplied)="onFiltersChanged($event)"></app-menuizquierda>
 
-  <div *ngIf="isLoading" style="display: flex; justify-content: center; margin-top: 20px;">
-    <ion-spinner name="crescent"></ion-spinner>
+    <div class="content-area">
+      <div *ngIf="isLoading" style="display: flex; justify-content: center; margin-top: 20px;">
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+
+      <!-- DEBUGGING LINES - Remove after fixing -->
+      <!--
+      <p style="color: black; background: yellow; padding: 5px;">DEBUG: isLoading: {{ isLoading }}</p>
+      <p style="color: black; background: lightgreen; padding: 5px;">DEBUG: isInitialView: {{ isInitialView }}</p>
+      <p *ngIf="isInitialView" style="color: black; background: orange; padding: 5px;">DEBUG: initialEmpresas count: {{ initialEmpresas.length }}</p>
+      <p *ngIf="!isInitialView" style="color: black; background: cyan; padding: 5px;">DEBUG: groupedProducts count: {{ groupedProducts.length }}</p>
+      -->
+
+      <ng-container *ngIf="!isLoading">
+        <!-- Initial View -->
+        <ng-container *ngIf="isInitialView">
+          <ng-container *ngFor="let empresa of initialEmpresas; let i = index">
+            <!-- <p style="color: black; background: pink; padding: 5px;">DEBUG Init: Empresa {{ i }}: {{ empresa }}, Products: {{ getProductsForEmpresaInInitialView(empresa).length }}</p> -->
+            <ng-container *ngIf="getProductsForEmpresaInInitialView(empresa).length > 0">
+              <h2 class="empresa-titulo">{{ empresa }}</h2>
+              <swiper class="custom-swiper" [config]="swiperConfig"> <!-- Use [config] -->
+                <ng-template swiperSlide *ngFor="let producto of getProductsForEmpresaInInitialView(empresa)">
+                  <ion-card class="product-card">
+                    <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+                    <ion-card-header>
+                      <ion-card-title>{{ producto.title }}</ion-card-title>
+                      <ion-badge color="danger" *ngIf="getDiscountValue(producto.discount) > 0">
+                        {{ producto.discount }} OFF
+                      </ion-badge>
+                    </ion-card-header>
+                    <ion-card-content>
+                      <div class="price-row">
+                        <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
+                        <span class="old-price" *ngIf="producto.oldPrice && producto.oldPrice > producto.actualPrice">€{{ producto.oldPrice!.toFixed(2) }}</span>
+                      </div>
+                      <div class="rating" *ngIf="producto.rating && producto.rating !== 'N/A'">⭐ {{ producto.rating }}</div>
+                      <div class="delivery" *ngIf="producto.delivery">{{ producto.delivery }}</div>
+                      <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">
+                        Ver más
+                      </ion-button>
+                    </ion-card-content>
+                  </ion-card>
+                </ng-template>
+              </swiper>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <!-- Search/Filtered View -->
+        <ng-container *ngIf="!isInitialView">
+          <div *ngIf="!hasProductsToDisplay() && searchTerm" class="no-results-message">
+            <p>No se encontraron productos para "{{searchTerm}}" con los filtros aplicados.</p>
+          </div>
+          <div *ngIf="!hasProductsToDisplay() && !searchTerm && !isInitialView" class="no-results-message">
+            <p>No hay productos que coincidan con los filtros actuales.</p>
+          </div>
+
+          <ng-container *ngFor="let group of groupedProducts; let j = index">
+            <!-- <p style="color: black; background: lightcoral; padding: 5px;">DEBUG Search: Group {{ j }}: {{ group.empresa }}, Items: {{ group.items.length }}</p> -->
+            <h2 class="empresa-titulo">{{ group.empresa }}</h2>
+            <swiper class="custom-swiper" [config]="swiperConfig"> <!-- Use [config] -->
+              <ng-template swiperSlide *ngFor="let producto of group.items">
+                <ion-card class="product-card">
+                  <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+                  <ion-card-header>
+                    <ion-card-title>{{ producto.title }}</ion-card-title>
+                    <ion-badge color="danger" *ngIf="getDiscountValue(producto.discount) > 0">
+                      {{ producto.discount }} OFF
+                    </ion-badge>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <div class="price-row">
+                      <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
+                      <span class="old-price" *ngIf="producto.oldPrice && producto.oldPrice > producto.actualPrice">€{{ producto.oldPrice!.toFixed(2) }}</span>
+                    </div>
+                    <div class="rating" *ngIf="producto.rating && producto.rating !== 'N/A'">⭐ {{ producto.rating }}</div>
+                    <div class="delivery" *ngIf="producto.delivery">{{ producto.delivery }}</div>
+                    <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">
+                      Ver más
+                    </ion-button>
+                  </ion-card-content>
+                </ion-card>
+              </ng-template>
+            </swiper>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
   </div>
-
-  <ng-container *ngIf="!isLoading">
-
-
-    <ng-container *ngIf="isInitialView">
-      <ng-container *ngFor="let empresa of initialEmpresas">
-        <h2 class="empresa-titulo">{{ empresa }}</h2>
-        <swiper
-          [navigation]="true"
-          [pagination]="{ clickable: true }"
-          [loop]="false"
-          [slidesPerView]="'auto'"
-        [slidesPerGroup]="1"
-        [spaceBetween]="10"
-        class="custom-swiper"
-        >
-        <ng-template swiperSlide *ngFor="let producto of initialHardcodedProductos">
-          <ion-card class="product-card">
-            <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
-            <ion-card-header>
-              <ion-card-title>{{ producto.title }}</ion-card-title>
-              <ion-badge color="danger" *ngIf="getDiscountValue(producto.discount) > 0">
-                {{ producto.discount }} OFF
-              </ion-badge>
-            </ion-card-header>
-            <ion-card-content>
-              <div class="price-row">
-                <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
-                <span class="old-price" *ngIf="producto.oldPrice">€{{ producto.oldPrice!.toFixed(2) }}</span>
-              </div>
-              <div class="rating" *ngIf="producto.rating">⭐ {{ producto.rating }}</div>
-              <div class="delivery" *ngIf="producto.delivery">{{ producto.delivery }}</div>
-              <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">
-                Ver más
-              </ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ng-template>
-        </swiper>
-      </ng-container>
-    </ng-container>
-
-
-    <ng-container *ngIf="!isInitialView">
-      <div *ngIf="!hasProductsToDisplay() && searchTerm" style="text-align: center; margin-top: 20px; color: var(--ion-color-medium);">
-        <p>No se encontraron productos para "{{searchTerm}}" con los filtros aplicados.</p>
-      </div>
-      <div *ngIf="!hasProductsToDisplay() && !searchTerm && !isInitialView" style="text-align: center; margin-top: 20px; color: var(--ion-color-medium);">
-        <p>No hay productos que coincidan con los filtros actuales.</p>
-      </div>
-
-      <ng-container *ngFor="let group of groupedProducts">
-        <h2 class="empresa-titulo" *ngIf="group.items.length > 0 ||
-            (activeFilters.selectedEmpresas?.includes(group.empresa)) ||
-            (!activeFilters.selectedEmpresas || activeFilters.selectedEmpresas.length === 0)">
-          {{ group.empresa }}
-        </h2>
-
-        <swiper
-          *ngIf="group.items.length > 0"
-          [navigation]="true"
-          [pagination]="{ clickable: true }"
-          [loop]="false"
-          [slidesPerView]="'auto'"
-        [slidesPerGroup]="1"
-        [spaceBetween]="10"
-        class="custom-swiper"
-        >
-        <ng-template swiperSlide *ngFor="let producto of group.items">
-          <ion-card class="product-card">
-            <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
-            <ion-card-header>
-              <ion-card-title>{{ producto.title }}</ion-card-title>
-              <ion-badge color="danger" *ngIf="getDiscountValue(producto.discount) > 0">
-                {{ producto.discount }} OFF
-              </ion-badge>
-            </ion-card-header>
-            <ion-card-content>
-              <div class="price-row">
-                <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
-                <span class="old-price" *ngIf="producto.oldPrice">€{{ producto.oldPrice!.toFixed(2) }}</span>
-              </div>
-              <div class="rating" *ngIf="producto.rating">⭐ {{ producto.rating }}</div>
-              <div class="delivery" *ngIf="producto.delivery">{{ producto.delivery }}</div>
-              <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">
-                Ver más
-              </ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ng-template>
-        </swiper>
-      </ng-container>
-    </ng-container>
-
-  </ng-container>
 </ion-content>
