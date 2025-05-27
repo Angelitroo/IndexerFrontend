@@ -8,6 +8,9 @@ import {PerfilService} from "../services/perfil.service";
 import {Producto} from "../models/Producto";
 import {SwiperModule} from "swiper/angular";
 import {ProductoPopoverComponent} from "../crearproductopopover/crearproductopopover.component";
+import {addIcons} from "ionicons";
+import {notificationsOutline, personCircleOutline} from "ionicons/icons";
+import {RouterLink} from "@angular/router";
 
 @Component({
     selector: 'app-paneladmin',
@@ -19,6 +22,7 @@ import {ProductoPopoverComponent} from "../crearproductopopover/crearproductopop
     NgForOf,
     SwiperModule,
     NgIf,
+    RouterLink,
   ]
 })
 export class PaneladminComponent  implements OnInit {
@@ -185,7 +189,10 @@ export class PaneladminComponent  implements OnInit {
     private authService: AuthService,
     private perfilService: PerfilService,
     private popoverCtrl: PopoverController
-  ) {  }
+
+  ) {addIcons({
+    'person-circle-outline': personCircleOutline,
+  });  }
 
   ngOnInit(){
     this.perfilId = this.authService.getPerfilIdFromToken();

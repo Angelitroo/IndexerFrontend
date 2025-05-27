@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule, ToastController } from "@ionic/angular";
 import { Router, RouterLink } from "@angular/router";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs/operators';
 import {AuthService} from "../services/auth.service";
+import {addIcons} from "ionicons";
+import {personCircleOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-login',
@@ -16,11 +18,12 @@ import {AuthService} from "../services/auth.service";
     IonicModule,
     RouterLink,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ]
 })
 export class LoginComponent implements OnInit {
-
+  imagePath: string = '';
   loginForm: FormGroup;
   isLoading = false;
   isRegistro: boolean = false;
@@ -39,7 +42,9 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toastController: ToastController,
     private authService: AuthService
-  ) {
+  ) {addIcons({
+    'person-circle-outline': personCircleOutline,
+  });
 
     this.loginForm = this.fb.group({
 

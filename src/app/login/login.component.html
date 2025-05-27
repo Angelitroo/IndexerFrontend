@@ -61,6 +61,31 @@
       <p>Las mejores ofertas en un solo lugar</p>
     </div>
 
+
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col class="ion-text-center">
+        <div class="foto-circular">
+          <ng-container *ngIf="imagePath && imagePath.trim() !== ''; else defaultIcon">
+            <img [src]="imagePath" alt="Vista previa" />
+          </ng-container>
+          <ng-template #defaultIcon>
+            <ion-icon name="person-circle-outline" class="icono-defecto"></ion-icon>
+          </ng-template>
+        </div>
+      </ion-col>
+
+    </ion-row>
+        <ion-item class="input-item">
+          <ion-input
+            [(ngModel)]="imagePath"
+            placeholder="Foto de perfil"
+            type="url"
+            clearInput
+          ></ion-input>
+        </ion-item>
+
+
+
     <ion-item class="input-item">
       <ion-input
         type="name"

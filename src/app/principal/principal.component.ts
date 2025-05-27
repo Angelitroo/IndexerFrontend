@@ -55,7 +55,7 @@ export class PrincipalComponent implements AfterViewInit{
       image: 'https://www.energysistem.com/cdnassets/products/45839/serie_2000.webp?2/d/8/1/2d818c47d79454c36d45c0f6cdb63cd0311b1729_Silent_ANC__45839_B2B_principal.jpg',
       rating: '4.5',
       delivery: 'Entrega rápida',
-      url: ''
+      url: 'https://amzn.eu/d/19sWE1t'
     },
     {
       id: 2,
