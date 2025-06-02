@@ -4,7 +4,9 @@ import { MenuizquierdaconfigComponent } from '../menuizquierdaconfig/menuizquier
 import { NgForOf, NgIf } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { Producto } from '../models/Producto';
+import SwiperCore, {Navigation, Pagination} from "swiper";
 
+SwiperCore.use([Navigation, Pagination]);
 @Component({
   selector: 'app-ofertasguardadas',
   templateUrl: './ofertasguardadas.component.html',
@@ -48,7 +50,7 @@ export class OfertasguardadasComponent implements OnInit {
       discount: '10%',
       actualPrice: 89.99,
       oldPrice: 99.99,
-      image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
+      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
       url: 'https://example.com/smartwatch'
@@ -60,7 +62,7 @@ export class OfertasguardadasComponent implements OnInit {
       discount: '10%',
       actualPrice: 89.99,
       oldPrice: 99.99,
-      image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
+      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
       url: 'https://example.com/smartwatch'
@@ -82,7 +84,7 @@ export class OfertasguardadasComponent implements OnInit {
       discount: '10%',
       actualPrice: 89.99,
       oldPrice: 99.99,
-      image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
+      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
       url: 'https://example.com/smartwatch'

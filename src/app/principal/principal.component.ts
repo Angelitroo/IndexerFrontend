@@ -6,7 +6,6 @@ import { Producto } from '../models/Producto';
 import {addIcons} from "ionicons";
 import {notificationsOutline, personCircleOutline} from "ionicons/icons";
 import {MenuizquierdaComponent} from "../menuizquierda/menuizquierda.component";
-import { AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { SwiperModule } from 'swiper/angular';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import {RouterLink} from "@angular/router";
@@ -30,7 +29,7 @@ export class PrincipalComponent implements OnInit{
       discount: '20%',
       actualPrice: 29.99,
       oldPrice: 39.99,
-      image: 'https://m.media-amazon.com/images/I/61lX+a+vOFL.jpg',
+      image: 'https://canarias.worten.es/i/ff5b01f16dddc7df279533f12f08f5e2f96fb153',
       rating: '4.5',
       delivery: 'Entrega rápida',
       url: 'https://amzn.eu/d/19sWE1t'
@@ -52,7 +51,7 @@ export class PrincipalComponent implements OnInit{
       discount: '10%',
       actualPrice: 89.99,
       oldPrice: 99.99,
-      image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
+      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
       url: 'https://example.com/smartwatch'

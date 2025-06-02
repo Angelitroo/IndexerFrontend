@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule, PopoverController} from "@ionic/angular";
-import {MenuizquierdaComponent} from "../menuizquierda/menuizquierda.component";
-import {CommonModule, NgFor, NgForOf, NgIf} from "@angular/common";
+import {CommonModule, NgFor, NgIf} from "@angular/common";
 import {Perfil} from "../models/Perfil";
 import {AuthService} from "../services/auth.service";
 import {PerfilService} from "../services/perfil.service";
 import {Producto} from "../models/Producto";
 import {SwiperModule} from "swiper/angular";
+import SwiperCore, { Navigation, Pagination } from 'swiper';
 import {ProductoPopoverComponent} from "../crearproductopopover/crearproductopopover.component";
 import {addIcons} from "ionicons";
-import {notificationsOutline, personCircleOutline} from "ionicons/icons";
+import {personCircleOutline} from "ionicons/icons";
 import {RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 
+SwiperCore.use([Navigation, Pagination]);
 @Component({
     selector: 'app-paneladmin',
     templateUrl: './paneladmin.component.html',
@@ -20,6 +21,7 @@ import {FormsModule} from "@angular/forms";
     standalone: true,
   imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf, SwiperModule, RouterLink]
 })
+
 export class PaneladminComponent  implements OnInit {
   perfilId: number | null = null;
 
@@ -147,7 +149,7 @@ export class PaneladminComponent  implements OnInit {
       discount: '10%',
       actualPrice: 89.99,
       oldPrice: 99.99,
-      image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
+      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
       url: 'https://example.com/smartwatch'
@@ -159,7 +161,7 @@ export class PaneladminComponent  implements OnInit {
       discount: '10%',
       actualPrice: 89.99,
       oldPrice: 99.99,
-      image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
+      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
       url: 'https://example.com/smartwatch'
@@ -171,18 +173,18 @@ export class PaneladminComponent  implements OnInit {
       discount: '10%',
       actualPrice: 89.99,
       oldPrice: 99.99,
-      image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
+      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
       url: 'https://example.com/smartwatch'
     },
     {
-      id: 5,
+      id: 6,
       title: 'Smartwatch Deportivo',
       discount: '10%',
       actualPrice: 89.99,
       oldPrice: 99.99,
-      image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
+      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
       url: 'https://example.com/smartwatch'
