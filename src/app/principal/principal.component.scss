@@ -1,20 +1,78 @@
-.backgroundclaro {
+/* Estilos base (iguales para ambos modos) */
+.background {
   --background: transparent;
-  background: linear-gradient(to bottom, #ffffff, #ffd38e);
-  background-size: cover;
-  background-position: center;
-  height: 100%;
-  padding: 24px 16px;
-}
-.backgroundoscuro {
-  --background: transparent;
-  background: linear-gradient(to bottom, #ffffff, #000000);
   background-size: cover;
   background-position: center;
   height: 100%;
   padding: 24px 16px;
 }
 
+.backgroundclaro {
+  background: linear-gradient(to bottom, #ffffff, #ffd38e);
+}
+
+.backgroundoscuro {
+  background: linear-gradient(to bottom, #1e1e1e, #2c2c2c);
+}
+
+/* Estilos para la barra de búsqueda */
+.searchclaro {
+  --background: #ffffff;
+  --color: #333333;
+  --placeholder-color: #666666;
+  --border-color: #dcdcdc;
+}
+
+.searchoscuro {
+  --background: #4e4e4e;
+  --color: #dddddd;
+  --placeholder-color: #aaaaaa;
+  --border-color: #666666;
+}
+
+.input-item {
+  border-radius: 12px;
+  height: 44px;
+  width: 50%;
+}
+
+/* Estilos para las tarjetas de producto */
+.product-card {
+  min-width: 250px;
+  width: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  position: relative;
+  height: 420px;
+}
+
+.cardclaro {
+  --background: #ffffff;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cardoscuro {
+  --background: #4e4e4e;
+  background: #4e4e4e;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+}
+
+.cardoscuro ion-card-title {
+  color: #ffb366;
+}
+
+/* Estilos para el texto */
+.claro {
+  color: #333;
+}
+
+.oscuro {
+  color: #ddd;
+}
+
+/* Estilos específicos para elementos */
 .branding {
   text-align: center;
   margin-bottom: 16px;
@@ -34,136 +92,84 @@
 
   p {
     font-size: 0.95rem;
-    color: #4d4d4d;
   }
 }
 
-.searchbar-container {
-  display: flex;
-  justify-content: center; /* Centra la barra de búsqueda */
-  margin-bottom: 60px; /* Espacio debajo de la barra */
+.empresa-titulo {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 40px 0 16px 27%;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1px;
+  border-left: 6px solid #e67e22;
+  padding-left: 12px;
+  border-radius: 4px;
 }
 
-.input-item {
-  --background: #ffffff;
-  --border-color: #dcdcdc;
-  --color: #4d4d4d; /* Color del texto y de la lupa */
-  border-radius: 12px;
-  height: 44px;
-  width: 50%;
+.empresa-titulo.claro {
+  color: #676767;
 }
 
-
-.card-grid-horizontal {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  overflow-x: auto;
-  padding-bottom: 16px;
-  scroll-snap-type: x mandatory;
-  margin-left: 25%;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-
+.empresa-titulo.oscuro {
+  color: #aaaaaa;
 }
 
-
-
+/* Estilos para el swiper */
 .custom-swiper {
   --swiper-navigation-size: 40px;
   --swiper-navigation-color: #e67e22;
   position: relative;
   margin-left: 25%;
-  padding: 10px 40px 40px 40px; /* Ajuste de padding: arriba derecha abajo izquierda */
-  margin-bottom: 20px; /* Espacio adicional debajo */
+  padding: 10px 40px 40px 40px;
+  margin-bottom: 20px;
 }
 
 ::ng-deep .custom-swiper .swiper {
-  padding-bottom: 30px; /* Espacio para la paginación */
-}
-
-::ng-deep .custom-swiper .swiper-button-prev {
-  left: 0 !important;
-  margin-left: 0 !important;
-}
-
-::ng-deep .custom-swiper .swiper-button-next {
-  right: 0 !important;
-  margin-right: 0 !important;
+  padding-bottom: 30px;
 }
 
 ::ng-deep .custom-swiper .swiper-button-prev,
 ::ng-deep .custom-swiper .swiper-button-next {
   position: absolute;
-  top: calc(50% - 20px); /* Ajuste fino de posición vertical */
+  top: calc(50% - 20px);
   width: 40px;
   height: 40px;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 10;
 }
 
-::ng-deep .custom-swiper .swiper-pagination {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
+/* Resto de estilos (igual que antes) */
+.searchbar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
 }
 
-::ng-deep .custom-swiper .swiper-pagination-bullet {
-  background: #e67e22;
-  opacity: 0.5;
-  width: 10px;
-  height: 10px;
+.product-card img {
+  height: 180px;
+  object-fit: contain;
+  margin: 30px auto 0;
+  display: block;
+  border-radius: 8px;
+  background-color: #f5f5f5;
 }
 
-::ng-deep .custom-swiper .swiper-pagination-bullet-active {
-  opacity: 1;
+ion-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
 }
 
-
-
-
-.product-card {
-  --background: #ffffff;
-  min-width: 250px;
-  width: 220px;
-  flex-shrink: 0;
-  scroll-snap-align: start;
-  border-radius: 16px;
+ion-card-title {
+  font-size: 1rem;
+  font-weight: bold;
+  white-space: nowrap;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease-in-out;
-
-  img {
-    height: 180px;
-    object-fit: contain;
-    margin: 30px auto 0;
-    display: block;
-    border-radius: 8px;
-    background-color: #f5f5f5;
-  }
-
-
-  ion-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-  }
-
-  ion-card-title {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #e67e22;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 220px; // antes 180px
-  }
+  text-overflow: ellipsis;
+  max-width: 220px;
 }
 
 .price-row {
@@ -178,7 +184,6 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: #e67e22;
-  margin-right: 10px;
 }
 
 .old-price {
@@ -188,7 +193,6 @@
 
 .rating {
   font-size: 0.9rem;
-  color: #555;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -197,7 +201,6 @@
 
 .delivery {
   font-size: 0.85rem;
-  color: #666;
   margin-bottom: 8px;
   white-space: nowrap;
   overflow: hidden;
@@ -230,6 +233,7 @@
     cursor: pointer;
   }
 }
+
 .top-icons button {
   background: none;
   border: none;
@@ -238,19 +242,6 @@
   align-items: center;
   justify-content: center;
 }
-
-.empresa-titulo {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #676767;
-  margin: 40px 0 16px 27%;
-  font-family: 'Poppins', sans-serif;
-  letter-spacing: 1px;
-  border-left: 6px solid #e67e22;
-  padding-left: 12px;
-  border-radius: 4px;
-}
-
 
 .heart-icon {
   position: absolute;
@@ -269,5 +260,3 @@
     transform: scale(1.15);
   }
 }
-
-

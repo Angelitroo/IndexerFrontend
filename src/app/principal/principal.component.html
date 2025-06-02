@@ -1,33 +1,32 @@
-<head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
-</head>
-
-<ion-content [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
+<ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
   <div class="top-icons">
     <button>
-      <ion-icon name="notifications-outline"></ion-icon>
+      <ion-icon name="notifications-outline" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
     </button>
     <button>
-      <ion-icon name="person-circle-outline" [routerLink]="'/modificarperfil'"></ion-icon>
+      <ion-icon name="person-circle-outline" [routerLink]="'/modificarperfil'" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
     </button>
   </div>
 
   <div class="branding">
     <img src="assets/indexer.png" alt="Logo" />
-    <h1>Ofertas destacadas</h1>
-    <p>Explora los productos con descuentos</p>
+    <h1 [class.claro]="modo" [class.oscuro]="!modo">Ofertas destacadas</h1>
+    <p [class.claro]="modo" [class.oscuro]="!modo">Explora los productos con descuentos</p>
   </div>
 
   <div class="searchbar-container">
-    <ion-searchbar placeholder="Buscar producto..." class="input-item"></ion-searchbar>
+    <ion-searchbar
+      placeholder="Buscar producto..."
+      class="input-item"
+      [class.searchclaro]="modo"
+      [class.searchoscuro]="!modo">
+    </ion-searchbar>
   </div>
 
   <app-menuizquierda></app-menuizquierda>
 
   <ng-container *ngFor="let empresa of empresas">
-    <h2 class="empresa-titulo">{{ empresa }}</h2>
+    <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">{{ empresa }}</h2>
 
     <swiper
       [navigation]="true"
@@ -38,21 +37,15 @@
       [spaceBetween]="2"
       class="custom-swiper"
     >
-
-
-    <ng-template
-        swiperSlide
-        *ngFor="let producto of productos"
-      >
-        <ion-card class="product-card">
+      <ng-template swiperSlide *ngFor="let producto of productos">
+        <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
           <div class="heart-icon" (click)="toggleFavorito(producto)">
             <ion-icon [name]="producto.favorito ? 'heart' : 'heart-outline'"></ion-icon>
           </div>
 
-
           <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
           <ion-card-header>
-            <ion-card-title>{{ producto.title }}</ion-card-title>
+            <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
             <ion-badge color="danger" *ngIf="producto.discount">
               {{ producto.discount }} OFF
             </ion-badge>
@@ -62,8 +55,8 @@
               <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
               <span class="old-price">€{{ producto.oldPrice.toFixed(2) }}</span>
             </div>
-            <div class="rating">⭐ {{ producto.rating }}</div>
-            <div class="delivery">{{ producto.delivery }}</div>
+            <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ producto.rating }}</div>
+            <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ producto.delivery }}</div>
             <ion-button
               expand="block"
               fill="outline"
@@ -78,7 +71,5 @@
         </ion-card>
       </ng-template>
     </swiper>
-
   </ng-container>
-
 </ion-content>
