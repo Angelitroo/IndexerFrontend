@@ -1,0 +1,121 @@
+.background {
+  --background: transparent;
+  background: linear-gradient(to bottom, #ffffff, #ffd38e);
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  padding: 24px 16px;
+}
+
+.layout {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  gap: 24px;
+}
+
+.menu-lateral {
+  width: 420px;
+  background-color: #fefefe;
+  border-right: 2px solid #ccc;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.formulario {
+  flex: 1;
+  max-width: 1200px;
+  padding: 0 16px;
+  border-radius: 12px;
+  margin: 0 auto;
+}
+
+.branding {
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 60px;
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #e67e22;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: #4d4d4d;
+  }
+}
+
+.product-card {
+  flex-shrink: 0;
+  min-height: 70px;
+  --background: #ffffff;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+
+  ion-card-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #e67e22;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.card-content {
+  flex-wrap: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.text-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.fecha {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.scroll-container {
+  max-height: 650px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 36px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Personaliza el scroll (opcional) */
+.scroll-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #e67e22;
+  border-radius: 6px;
+}
+
+.eliminar{
+  --background: #e67e22;
+  --color: white;
+  --background-activated: #d35400;
+  border-radius: 12px;
+  font-weight: bold;
+  margin-top: 16px;
+  float: right;
+}

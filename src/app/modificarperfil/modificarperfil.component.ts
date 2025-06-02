@@ -38,10 +38,6 @@ export class ModificarperfilComponent {
       ubicacion: this.ubicacion,
       imagen: this.imagePath,
     });
-    this.volver();
   }
 
-  volver() {
-    this.navCtrl.back();
-  }
 }

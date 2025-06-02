@@ -1,0 +1,27 @@
+<ion-content class="background">
+  <div class="layout">
+    <div class="menu-lateral">
+      <app-menuizquierdaconfig></app-menuizquierdaconfig>
+    </div>
+
+    <div class="formulario">
+      <div class="branding">
+        <h1>Historial</h1>
+        <p>Búsquedas Recientes</p>
+      </div>
+
+      <div class="scroll-container">
+        <ion-card class="product-card" *ngFor="let busqueda of historial">
+          <div class="card-content">
+            <ion-checkbox slot="start"></ion-checkbox>
+            <div class="text-content">
+              <ion-card-title>{{ busqueda.concepto }}</ion-card-title>
+              <div class="fecha">{{ busqueda.fecha }}</div>
+            </div>
+          </div>
+        </ion-card>
+      </div>
+      <ion-button class="eliminar">Eliminar</ion-button>
+    </div>
+  </div>
+</ion-content>
