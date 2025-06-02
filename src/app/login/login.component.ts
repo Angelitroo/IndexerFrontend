@@ -5,7 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs/operators';
-import { AuthService } from "../services/auth.service"; // Assuming path to AuthService
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -22,16 +22,15 @@ import { AuthService } from "../services/auth.service"; // Assuming path to Auth
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  registroForm: FormGroup; // From A
+  registroForm: FormGroup;
   isLoading = false;
   isRegistro: boolean = false;
-  paises: string[] = [ // From A (also in B, but A's is more complete if they differed)
+  paises: string[] = [
     'España', 'Francia', 'Alemania', 'Italia', 'Reino Unido', 'Portugal', 'Bélgica',
     'Países Bajos', 'Suecia', 'Noruega', 'Dinamarca', 'Finlandia', 'Suiza', 'Austria',
     'Polonia', 'República Checa', 'Hungría', 'Rumanía', 'Bulgaria'
   ];
 
-  // API URLs from A, more specific
   private loginApiUrl = 'http://localhost:8080/auth/login';
   private registroApiUrl = 'http://localhost:8080/auth/registro';
 
@@ -40,14 +39,14 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private toastController: ToastController,
-    private authService: AuthService // Added from B
+    private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
 
-    // registroForm from A
+
     this.registroForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       pais: ['', [Validators.required]],
@@ -58,7 +57,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() { }
 
-  // cambioRegistro from A (with form resets)
   cambioRegistro() {
     this.isRegistro = !this.isRegistro;
     if (this.isRegistro) {
@@ -66,7 +64,7 @@ export class LoginComponent implements OnInit {
     } else {
       this.registroForm.reset();
     }
-    this.isLoading = false; // Reset loading state on toggle
+    this.isLoading = false;
   }
 
   async presentToast(message: string, color: 'success' | 'danger' = 'danger') {
@@ -89,20 +87,26 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     const credentials = this.loginForm.value;
 
-    this.http.post<any>(this.loginApiUrl, credentials) // Using loginApiUrl from A
+    this.http.post<any>(this.loginApiUrl, credentials)
       .pipe(
         finalize(() => this.isLoading = false)
       )
       .subscribe({
         next: (response) => {
           console.log('Login successful:', response);
-          // Potentially store token or user info from response using authService
-          // e.g., this.authService.setSession(response);
+          if (response && response.token) {
+            localStorage.setItem('authToken', response.token);
+            console.log('Token stored in localStorage:', response.token);
+          } else {
+            console.error('Login response did not contain a token field. Response:', response);
+            this.presentToast('Error: No se recibió token del servidor.', 'danger');
+            return;
+          }
 
           this.presentToast('Inicio de sesión exitoso!', 'success');
 
-          // Admin check from B
-          if (this.authService.esAdmin()) { // Assuming esAdmin() checks stored role
+
+          if (this.authService.esAdmin()) {
             this.router.navigateByUrl('/paneladmin');
           } else {
             this.router.navigateByUrl('/principal');
@@ -117,9 +121,9 @@ export class LoginComponent implements OnInit {
             errorMessage = 'No se pudo conectar al servidor. Verifica tu conexión o que el servidor esté corriendo.';
           } else if (error.error && typeof error.error === 'string') {
             errorMessage = error.error;
-          } else if (error.error && error.error.message) { // From B
+          } else if (error.error && error.error.message) {
             errorMessage = error.error.message;
-          } else if (error.error && error.error.mensaje) { // From A
+          } else if (error.error && error.error.mensaje) {
             errorMessage = error.error.mensaje;
           }
           this.presentToast(errorMessage, 'danger');
@@ -127,7 +131,6 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  // registro method from A
   registro() {
     if (this.registroForm.invalid) {
       this.presentToast('Por favor, completa todos los campos correctamente para el registro.');
@@ -146,8 +149,8 @@ export class LoginComponent implements OnInit {
         next: (responseMessage) => {
           console.log('Registro successful:', responseMessage);
           this.presentToast(responseMessage, 'success');
-          this.isRegistro = false; // Switch back to login form
-          this.loginForm.reset(); // Reset login form as well for clean state
+          this.isRegistro = false;
+          this.loginForm.reset();
           this.registroForm.reset();
         },
         error: (error: HttpErrorResponse) => {
