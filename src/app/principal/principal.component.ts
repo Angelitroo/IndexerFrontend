@@ -33,7 +33,7 @@ export class PrincipalComponent implements OnInit{
       oldPrice: 39.99,
       image: 'https://canarias.worten.es/i/ff5b01f16dddc7df279533f12f08f5e2f96fb153',
       rating: '4.5',
-      delivery: 'Entrega rápida',
+      delivery: 'Entrega rápida o lo antes posible no se lo que me salga de los co',
       url: 'https://amzn.eu/d/19sWE1t'
     },
     {

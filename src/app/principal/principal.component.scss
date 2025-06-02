@@ -182,12 +182,20 @@
 .rating {
   font-size: 0.9rem;
   color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
 }
 
 .delivery {
   font-size: 0.85rem;
   color: #666;
   margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
 }
 
 .login-button {
