@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule, NavController} from "@ionic/angular";
 import {FormsModule} from "@angular/forms";
-import {MenuizquierdaperfilComponent} from "../menuizquierdaperfil/menuizquierdaperfil.component";
-import {NgForOf} from "@angular/common";
+import {MenuizquierdaconfigComponent} from "../menuizquierdaconfig/menuizquierdaconfig.component";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
     selector: 'app-modificarperfil',
@@ -12,8 +12,9 @@ import {NgForOf} from "@angular/common";
   imports: [
     IonicModule,
     FormsModule,
-    MenuizquierdaperfilComponent,
-    NgForOf
+    MenuizquierdaconfigComponent,
+    NgForOf,
+    NgIf
   ]
 })
 export class ModificarperfilComponent {

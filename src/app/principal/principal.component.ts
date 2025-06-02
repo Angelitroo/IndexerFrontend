@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -15,34 +15,12 @@ SwiperCore.use([Navigation, Pagination]);
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf, MenuizquierdaComponent, SwiperModule, RouterLink], // 👈 agrégalos aquí
+  imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf, MenuizquierdaComponent, SwiperModule, RouterLink],
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.scss']
 })
-export class PrincipalComponent implements AfterViewInit{
+export class PrincipalComponent implements OnInit{
   empresas: string[] = ['Amazon', 'eBay', 'AliExpress', 'PCComponentes', 'MediaMarkt', 'Carrefour', 'El Corte Inglés'];
-
-  @ViewChildren('scrollArea') scrollAreas!: QueryList<ElementRef<HTMLElement>>;
-
-  ngAfterViewInit() {
-    this.scrollAreas.forEach((areaRef) => {
-      const area = areaRef.nativeElement;
-
-      area.addEventListener(
-        'wheel',
-        (e: WheelEvent) => {
-          if (e.deltaY !== 0) {
-            e.preventDefault();
-            area.scrollLeft += e.deltaY;
-          }
-        },
-        { passive: false }
-      );
-    });
-  }
-
-
-
 
 
   productos: Producto[] = [
@@ -52,7 +30,7 @@ export class PrincipalComponent implements AfterViewInit{
       discount: '20%',
       actualPrice: 29.99,
       oldPrice: 39.99,
-      image: 'https://www.energysistem.com/cdnassets/products/45839/serie_2000.webp?2/d/8/1/2d818c47d79454c36d45c0f6cdb63cd0311b1729_Silent_ANC__45839_B2B_principal.jpg',
+      image: 'https://m.media-amazon.com/images/I/61lX+a+vOFL.jpg',
       rating: '4.5',
       delivery: 'Entrega rápida',
       url: 'https://amzn.eu/d/19sWE1t'
@@ -140,5 +118,7 @@ export class PrincipalComponent implements AfterViewInit{
       'person-circle-outline': personCircleOutline,
       'notifications-outline': notificationsOutline
     });
+  }
+  ngOnInit() {
   }
 }

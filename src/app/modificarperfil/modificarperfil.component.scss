@@ -7,7 +7,7 @@
   padding: 24px 16px;
 }
 
-.perfil-layout {
+.layout {
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -22,12 +22,12 @@
   border-radius: 12px;
 }
 
-.formulario-perfil {
+.formulario {
   flex: 1;
-  max-width: 1200px; /* Limita el ancho máximo del formulario */
+  max-width: 1200px;
   padding: 0 16px;
   border-radius: 12px;
-  margin: 0 auto; /* Centra el formulario en el espacio restante */
+  margin: 0 auto;
 }
 
 .branding {

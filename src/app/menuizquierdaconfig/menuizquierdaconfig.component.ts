@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from "@ionic/angular";
 import { addIcons } from "ionicons";
 import {
-  arrowBackOutline,
+  arrowBackOutline, heartOutline,
   homeOutline,
   personOutline,
   settingsOutline,
@@ -11,16 +11,16 @@ import {
 import { RouterLink } from "@angular/router";
 
 @Component({
-  selector: 'app-menuizquierdaperfil',
-  templateUrl: './menuizquierdaperfil.component.html',
-  styleUrls: ['./menuizquierdaperfil.component.scss'],
+  selector: 'app-menuizquierdaconfig',
+  templateUrl: './menuizquierdaconfig.component.html',
+  styleUrls: ['./menuizquierdaconfig.component.scss'],
   standalone: true,
   imports: [
     IonicModule,
     RouterLink
   ]
 })
-export class MenuizquierdaperfilComponent implements OnInit {
+export class MenuizquierdaconfigComponent implements OnInit {
 
   constructor() {
     addIcons({
@@ -28,7 +28,8 @@ export class MenuizquierdaperfilComponent implements OnInit {
       'person-outline': personOutline,
       'settings-outline': settingsOutline,
       'arrow-back-outline': arrowBackOutline,
-      'time-outline': timeOutline // Agregado para el icono de historial
+      'time-outline': timeOutline,
+      'heart-outline': heartOutline,
     });
   }
 

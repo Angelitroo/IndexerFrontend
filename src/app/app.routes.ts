@@ -26,4 +26,8 @@ export const routes: Routes = [
     path:"carrousel",
     loadComponent: () => import('./carrousel/carrousel.component').then((m) => m.CarrouselComponent),
   },
+  {
+    path:"ofertasguardadas",
+    loadComponent: () => import('./ofertasguardadas/ofertasguardadas.component').then((m) => m.OfertasguardadasComponent),
+  },
 ];

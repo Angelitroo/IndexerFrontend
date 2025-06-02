@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule, PopoverController} from "@ionic/angular";
 import {MenuizquierdaComponent} from "../menuizquierda/menuizquierda.component";
-import {NgForOf, NgIf} from "@angular/common";
+import {CommonModule, NgFor, NgForOf, NgIf} from "@angular/common";
 import {Perfil} from "../models/Perfil";
 import {AuthService} from "../services/auth.service";
 import {PerfilService} from "../services/perfil.service";
@@ -11,19 +11,14 @@ import {ProductoPopoverComponent} from "../crearproductopopover/crearproductopop
 import {addIcons} from "ionicons";
 import {notificationsOutline, personCircleOutline} from "ionicons/icons";
 import {RouterLink} from "@angular/router";
+import {FormsModule} from "@angular/forms";
 
 @Component({
     selector: 'app-paneladmin',
     templateUrl: './paneladmin.component.html',
     styleUrls: ['./paneladmin.component.scss'],
     standalone: true,
-  imports: [
-    IonicModule,
-    NgForOf,
-    SwiperModule,
-    NgIf,
-    RouterLink,
-  ]
+  imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf, SwiperModule, RouterLink]
 })
 export class PaneladminComponent  implements OnInit {
   perfilId: number | null = null;
@@ -130,7 +125,7 @@ export class PaneladminComponent  implements OnInit {
       discount: '20%',
       actualPrice: 29.99,
       oldPrice: 39.99,
-      image: 'https://www.energysistem.com/cdnassets/products/45839/serie_2000.webp?2/d/8/1/2d818c47d79454c36d45c0f6cdb63cd0311b1729_Silent_ANC__45839_B2B_principal.jpg',
+      image: 'https://m.media-amazon.com/images/I/61lX+a+vOFL.jpg',
       rating: '4.5',
       delivery: 'Entrega rápida',
       url: ''
@@ -170,6 +165,17 @@ export class PaneladminComponent  implements OnInit {
       url: 'https://example.com/smartwatch'
     }
     ,
+    {
+      id: 5,
+      title: 'Smartwatch Deportivo',
+      discount: '10%',
+      actualPrice: 89.99,
+      oldPrice: 99.99,
+      image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
+      rating: '4.6',
+      delivery: 'Entrega en 48h',
+      url: 'https://example.com/smartwatch'
+    },
     {
       id: 5,
       title: 'Smartwatch Deportivo',
@@ -222,7 +228,6 @@ export class PaneladminComponent  implements OnInit {
   async abrirCrearProducto() {
     const popover = await this.popoverCtrl.create({
       component: ProductoPopoverComponent,
-      cssClass: 'custom-popover', // Opcional, para estilos propios
       translucent: true,
       componentProps: {
         producto: null // O un objeto vacío para crear nuevo
@@ -231,7 +236,6 @@ export class PaneladminComponent  implements OnInit {
 
     popover.onDidDismiss().then((result) => {
       if (result.data) {
-        // Aquí puedes refrescar la lista de productos o hacer alguna acción al cerrar
         console.log('Producto creado/modificado');
       }
     });
