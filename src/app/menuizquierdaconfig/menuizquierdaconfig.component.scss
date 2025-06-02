@@ -2,6 +2,23 @@
   display: flex;
   height: 100vh; // que ocupe toda la pantalla vertical
 }
+.menu{
+  width: 420px;
+  background-color: var(--background);
+  border-right: 2px solid var(--border-color);
+  padding: 16px;
+  border-radius: 12px;
+  height: 100%;
+
+}
+.menuclaro {
+  --background: #fefefe;
+  --border-color: #ccc;
+}
+.menuoscuro {
+  --background: #2b2b2b;
+  --border-color: #616161;
+}
 
 
 ion-list {
@@ -10,12 +27,18 @@ ion-list {
 }
 
 ion-item {
-  --color: #4d4d4d;
+  --color: var(--color);
   --background: transparent;
   font-weight: 500;
   border-radius: 12px;
   margin-bottom: 30px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.itemclaro {
+  --color: #4d4d4d;
+}
+.itemoscuro {
+  --color: #ffffff;
 }
 
 ion-icon {
@@ -27,7 +50,6 @@ ion-label {
   font-size: 1rem;
   color: #4d4d4d;
 }
-
 
 .main-content {
   flex: 1;

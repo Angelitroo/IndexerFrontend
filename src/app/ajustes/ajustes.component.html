@@ -1,21 +1,18 @@
-<ion-content [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
+<ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
   <div class="layout">
     <!-- Menú lateral -->
-    <div class="menu-lateral">
-      <app-menuizquierdaconfig></app-menuizquierdaconfig>
-    </div>
+    <app-menuizquierdaconfig></app-menuizquierdaconfig>
 
     <!-- Contenido de configuración -->
     <div class="formulario">
       <div class="branding">
         <h1>Configuración</h1>
-        <p>Ajusta tus preferencias</p>
+        <p [class.claro]="modo" [class.oscuro]="!modo">Ajusta tus preferencias</p>
       </div>
 
-        <!-- Tema -->
       <!-- Tema -->
-      <ion-item lines="none">
-        <ion-label>Modo claro</ion-label>
+      <ion-item [class.itemclaro]="modo" [class.itemoscuro]="!modo" lines="none">
+        <ion-label [class.claro]="modo" [class.oscuro]="!modo">Modo claro</ion-label>
         <ion-button fill="clear" slot="end" (click)="setModo(true)">
           <ion-icon
             [name]="modo ? 'sunny' : 'sunny-outline'"
@@ -25,8 +22,8 @@
         </ion-button>
       </ion-item>
 
-      <ion-item lines="none">
-        <ion-label>Modo oscuro</ion-label>
+      <ion-item [class.itemclaro]="modo" [class.itemoscuro]="!modo" lines="none">
+        <ion-label [class.claro]="modo" [class.oscuro]="!modo">Modo oscuro</ion-label>
         <ion-button fill="clear" slot="end" (click)="setModo(false)">
           <ion-icon
             [name]="!modo ? 'moon' : 'moon-outline'"
@@ -36,22 +33,27 @@
         </ion-button>
       </ion-item>
 
-
       <!-- Notificaciones -->
-      <ion-item lines="none">
-        <ion-label>Notificaciones por email</ion-label>
+      <ion-item [class.itemclaro]="modo" [class.itemoscuro]="!modo" lines="none">
+        <ion-label [class.claro]="modo" [class.oscuro]="!modo">Notificaciones por email</ion-label>
         <ion-toggle slot="end" [(ngModel)]="notificacionesEmailActivadas"></ion-toggle>
       </ion-item>
 
-      <ion-item *ngIf="notificacionesEmailActivadas" lines="none">
-        <ion-label position="stacked">¿A qué correo le enviamos las notificaciones?</ion-label>
-        <ion-input type="email" [(ngModel)]="emailNotificacion" placeholder="ejemplo@correo.com"></ion-input>
+      <ion-item *ngIf="notificacionesEmailActivadas" [class.itemclaro]="modo" [class.itemoscuro]="!modo" lines="none">
+        <ion-label position="stacked" [class.claro]="modo" [class.oscuro]="!modo">
+          ¿A qué correo le enviamos las notificaciones?
+        </ion-label>
+        <ion-input
+          type="email"
+          [(ngModel)]="emailNotificacion"
+          placeholder="ejemplo@correo.com"
+          [class.claro]="modo"
+          [class.oscuro]="!modo"
+        ></ion-input>
+        <div class="contenedor-guardar">
+          <ion-button class="guardar" (click)="guardarCambios()">Guardar cambios</ion-button>
+        </div>
       </ion-item>
-
-      <div class="botones">
-        <ion-button expand="block" class="guardar">Guardar cambios</ion-button>
-
-      </div>
     </div>
   </div>
 </ion-content>

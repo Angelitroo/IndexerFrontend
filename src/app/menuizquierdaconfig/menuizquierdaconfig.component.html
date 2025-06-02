@@ -1,25 +1,26 @@
+<div class="menu" [class.menuclaro]="modo" [class.menuoscuro]="!modo">
 <div class="espaciado">
       <ion-list>
-        <ion-item button [routerLink]="['/principal']" lines="none">
+        <ion-item button [routerLink]="['/principal']" lines="none" [class.itemclaro]="modo" [class.itemoscuro]="!modo">
           <ion-icon name="home-outline" slot="start"></ion-icon>
           <ion-label>Inicio</ion-label>
         </ion-item>
-        <ion-item button [routerLink]="['/modificarperfil']" lines="none">
+        <ion-item button [routerLink]="['/modificarperfil']" lines="none" [class.itemclaro]="modo" [class.itemoscuro]="!modo">
           <ion-icon name="person-outline" slot="start"></ion-icon>
           <ion-label>Perfil</ion-label>
         </ion-item>
-        <ion-item button [routerLink]="['/ofertasguardadas']" lines="none">
+        <ion-item button [routerLink]="['/ofertasguardadas']" lines="none" [class.itemclaro]="modo" [class.itemoscuro]="!modo">
           <ion-icon name="heart-outline" slot="start"></ion-icon>
           <ion-label>Ofertas guardadas</ion-label>
         </ion-item>
-        <ion-item button [routerLink]="['/historial']" lines="none">
+        <ion-item button [routerLink]="['/historial']" lines="none" [class.itemclaro]="modo" [class.itemoscuro]="!modo">
           <ion-icon name="time-outline" slot="start"></ion-icon>
           <ion-label>Historial</ion-label>
         </ion-item>
-        <ion-item button [routerLink]="['/ajustes']" lines="none">
+        <ion-item button [routerLink]="['/ajustes']" lines="none" [class.itemclaro]="modo" [class.itemoscuro]="!modo">
           <ion-icon name="settings-outline" slot="start"></ion-icon>
           <ion-label>Configuración</ion-label>
         </ion-item>
       </ion-list>
 </div>
-
+</div>

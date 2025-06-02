@@ -39,6 +39,12 @@ export class ProductoPopoverComponent implements OnInit {
     if (this.producto.image) {
       this.imagePath = this.producto.image;
     }
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado !== null) {
+      this.modo = JSON.parse(modoGuardado);
+    } else {
+      this.modo = true;
+    }
   }
 
   async mostrarToast(mensaje: string, color: 'success' | 'danger') {

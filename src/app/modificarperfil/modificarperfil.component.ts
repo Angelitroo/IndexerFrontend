@@ -17,7 +17,7 @@ import {NgForOf, NgIf} from "@angular/common";
     NgIf
   ]
 })
-export class ModificarperfilComponent {
+export class ModificarperfilComponent implements OnInit {
   modo: boolean = true;
   imagePath: string = '';
   nombre: string = '';
@@ -41,4 +41,12 @@ export class ModificarperfilComponent {
     });
   }
 
+  ngOnInit() {
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado !== null) {
+      this.modo = JSON.parse(modoGuardado);
+    } else {
+      this.modo = true;
+    }
+  }
 }

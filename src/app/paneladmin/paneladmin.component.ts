@@ -216,6 +216,12 @@ export class PaneladminComponent  implements OnInit {
         this.perfiles = data;
       },
     });
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado !== null) {
+      this.modo = JSON.parse(modoGuardado);
+    } else {
+      this.modo = true;
+    }
   }
 
   private cargarMiPerfil(perfilId?: number | null) {

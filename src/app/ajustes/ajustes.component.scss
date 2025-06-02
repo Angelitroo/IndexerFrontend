@@ -1,18 +1,20 @@
-.backgroundclaro {
+.background {
   --background: transparent;
-  background: linear-gradient(to bottom, #ffffff, #ffd38e);
+  background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
   background-size: cover;
   background-position: center;
   height: 100%;
   padding: 24px 16px;
 }
+
+.backgroundclaro {
+  --bg-start: #ffffff;
+  --bg-end: #ffd38e;
+}
+
 .backgroundoscuro {
-  --background: transparent;
-  background: linear-gradient(to bottom, #ffffff, #000000);
-  background-size: cover;
-  background-position: center;
-  height: 100%;
-  padding: 24px 16px;
+  --bg-start: #676767;
+  --bg-end: #222222;
 }
 
 .layout {
@@ -22,13 +24,6 @@
   gap: 24px;
 }
 
-.menu-lateral {
-  width: 420px;
-  background-color: #fefefe;
-  border-right: 2px solid #ccc;
-  padding: 16px;
-  border-radius: 12px;
-}
 
 .formulario {
   flex: 1;
@@ -42,18 +37,25 @@
   text-align: center;
   margin-top: 24px;
   margin-bottom: 60px;
+}
 
-  h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #e67e22;
-    margin-bottom: 4px;
-  }
+.branding h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #e67e22;
+  margin-bottom: 4px;
+}
 
-  p {
-    font-size: 0.95rem;
-    color: #4d4d4d;
-  }
+.branding p {
+  font-size: 0.95rem;
+}
+
+.claro {
+  color: #4d4d4d;
+}
+
+.oscuro {
+  color: #ffffff;
 }
 
 ion-item {
@@ -64,23 +66,26 @@ ion-item {
   margin: 12px 0;
 }
 
-.botones {
+.itemclaro {
+  --background: #fefefe;
+  --border-color: #ccc;
+  --color: #4d4d4d;
+}
+
+.itemoscuro {
+  --background: #2b2b2b;
+  --border-color: #444444;
+  --color: #ffffff;
+}
+
+.contenedor-guardar {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end; /* para que los botones estén a la derecha */
-  gap: 12px; /* espacio entre botones */
-  margin-top: 24px;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 12px;
 }
 
 ion-button.guardar {
-  --background: #e67e22; /* naranja */
+  --background: #e67e22;
   --color: white;
 }
-
-ion-button.cerrar {
-  --background: #e74c3c; /* rojo */
-  --color: white;
-}
-
-
-

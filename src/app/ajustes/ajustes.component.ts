@@ -37,6 +37,7 @@ export class AjustesComponent implements OnInit {
   setModo(modo: boolean) {
     this.modo = modo;
     localStorage.setItem('modo', JSON.stringify(modo));
+    window.location.reload();
   }
 
 
@@ -48,6 +49,8 @@ export class AjustesComponent implements OnInit {
       this.modo = true;
     }
   }
+ guardarCambios(){
 
+ }
 
 }
