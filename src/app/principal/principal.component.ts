@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { Producto } from '../models/Producto';
 import {addIcons} from "ionicons";
-import {notificationsOutline, personCircleOutline} from "ionicons/icons";
+import {heart, heartOutline, notificationsOutline, personCircleOutline} from "ionicons/icons";
 import {MenuizquierdaComponent} from "../menuizquierda/menuizquierda.component";
 import { SwiperModule } from 'swiper/angular';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
@@ -20,11 +20,13 @@ SwiperCore.use([Navigation, Pagination]);
 })
 export class PrincipalComponent implements OnInit{
   empresas: string[] = ['Amazon', 'eBay', 'AliExpress', 'PCComponentes', 'MediaMarkt', 'Carrefour', 'El Corte Inglés'];
+  favorito: boolean = false;
 
 
   productos: Producto[] = [
     {
       id: 1,
+      favorito: false,
       title: 'Auriculares Bluetooth',
       discount: '20%',
       actualPrice: 29.99,
@@ -36,6 +38,7 @@ export class PrincipalComponent implements OnInit{
     },
     {
       id: 2,
+      favorito: false,
       title: 'Teclado Mecánico',
       discount: '15%',
       actualPrice: 59.99,
@@ -47,6 +50,7 @@ export class PrincipalComponent implements OnInit{
     },
     {
       id: 3,
+      favorito: false,
       title: 'Smartwatch Deportivo',
       discount: '10%',
       actualPrice: 89.99,
@@ -58,6 +62,7 @@ export class PrincipalComponent implements OnInit{
     },
     {
       id: 4,
+      favorito: false,
       title: 'Cámara Deportiva 4K',
       discount: '25%',
       actualPrice: 74.99,
@@ -69,6 +74,7 @@ export class PrincipalComponent implements OnInit{
     },
     {
       id: 5,
+      favorito: false,
       title: 'Altavoz Bluetooth Portátil',
       discount: '30%',
       actualPrice: 34.99,
@@ -80,6 +86,7 @@ export class PrincipalComponent implements OnInit{
     },
     {
       id: 6,
+      favorito: false,
       title: 'Monitor Full HD 24"',
       discount: '20%',
       actualPrice: 119.99,
@@ -91,6 +98,7 @@ export class PrincipalComponent implements OnInit{
     },
     {
       id: 7,
+      favorito: false,
       title: 'Monitor Full HD 24"',
       discount: '20%',
       actualPrice: 119.99,
@@ -102,6 +110,7 @@ export class PrincipalComponent implements OnInit{
     },
     {
       id: 8,
+      favorito: false,
       title: 'Monitor Full HD 24"',
       discount: '20%',
       actualPrice: 119.99,
@@ -115,9 +124,16 @@ export class PrincipalComponent implements OnInit{
   constructor() {
     addIcons({
       'person-circle-outline': personCircleOutline,
-      'notifications-outline': notificationsOutline
+      'notifications-outline': notificationsOutline,
+      'heart-outline': heartOutline,
+      'heart': heart
     });
   }
   ngOnInit() {
   }
+
+  toggleFavorito(producto: any): void {
+    producto.favorito = !producto.favorito;
+  }
+
 }

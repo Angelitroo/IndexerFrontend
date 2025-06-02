@@ -123,6 +123,7 @@ export class PaneladminComponent  implements OnInit {
   productos: Producto[] = [
     {
       id: 1,
+      favorito: false,
       title: 'Auriculares Bluetooth',
       discount: '20%',
       actualPrice: 29.99,
@@ -134,6 +135,7 @@ export class PaneladminComponent  implements OnInit {
     },
     {
       id: 2,
+      favorito: false,
       title: 'Teclado Mecánico',
       discount: '15%',
       actualPrice: 59.99,
@@ -145,6 +147,7 @@ export class PaneladminComponent  implements OnInit {
     },
     {
       id: 3,
+      favorito: false,
       title: 'Smartwatch Deportivo',
       discount: '10%',
       actualPrice: 89.99,
@@ -157,6 +160,7 @@ export class PaneladminComponent  implements OnInit {
     ,
     {
       id: 4,
+      favorito: false,
       title: 'Smartwatch Deportivo',
       discount: '10%',
       actualPrice: 89.99,
@@ -169,6 +173,7 @@ export class PaneladminComponent  implements OnInit {
     ,
     {
       id: 5,
+      favorito: false,
       title: 'Smartwatch Deportivo',
       discount: '10%',
       actualPrice: 89.99,
@@ -180,6 +185,7 @@ export class PaneladminComponent  implements OnInit {
     },
     {
       id: 6,
+      favorito: false,
       title: 'Smartwatch Deportivo',
       discount: '10%',
       actualPrice: 89.99,
@@ -244,4 +250,5 @@ export class PaneladminComponent  implements OnInit {
 
     await popover.present();
   }
+
 }

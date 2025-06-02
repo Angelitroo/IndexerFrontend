@@ -1,5 +1,6 @@
 export interface Producto {
   id: number;
+  favorito: boolean;
   title: string;
   discount: string;
   actualPrice: number;

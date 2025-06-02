@@ -5,6 +5,8 @@ import { NgForOf, NgIf } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { Producto } from '../models/Producto';
 import SwiperCore, {Navigation, Pagination} from "swiper";
+import {addIcons} from "ionicons";
+import {heart, heartOutline, notificationsOutline, personCircleOutline} from "ionicons/icons";
 
 SwiperCore.use([Navigation, Pagination]);
 @Component({
@@ -24,6 +26,7 @@ export class OfertasguardadasComponent implements OnInit {
   productos: Producto[] = [
     {
       id: 1,
+      favorito: true,
       title: 'Auriculares Bluetooth',
       discount: '20%',
       actualPrice: 29.99,
@@ -35,6 +38,7 @@ export class OfertasguardadasComponent implements OnInit {
     },
     {
       id: 2,
+      favorito: true,
       title: 'Teclado Mecánico',
       discount: '15%',
       actualPrice: 59.99,
@@ -46,6 +50,7 @@ export class OfertasguardadasComponent implements OnInit {
     },
     {
       id: 3,
+      favorito: true,
       title: 'Smartwatch Deportivo',
       discount: '10%',
       actualPrice: 89.99,
@@ -58,6 +63,7 @@ export class OfertasguardadasComponent implements OnInit {
     ,
     {
       id: 4,
+      favorito: true,
       title: 'Smartwatch Deportivo',
       discount: '10%',
       actualPrice: 89.99,
@@ -69,6 +75,7 @@ export class OfertasguardadasComponent implements OnInit {
     },
     {
       id: 5,
+      favorito: true,
       title: 'Teclado Mecánico',
       discount: '15%',
       actualPrice: 59.99,
@@ -80,6 +87,7 @@ export class OfertasguardadasComponent implements OnInit {
     },
     {
       id: 6,
+      favorito: true,
       title: 'Smartwatch Deportivo',
       discount: '10%',
       actualPrice: 89.99,
@@ -93,8 +101,17 @@ export class OfertasguardadasComponent implements OnInit {
   ];
 
 
-  constructor() { }
+  constructor() {
+    addIcons({
+      'heart-outline': heartOutline,
+      'heart': heart
+    });
+  }
 
   ngOnInit() {}
 
+
+  toggleFavorito(producto: any): void {
+    producto.favorito = !producto.favorito;
+  }
 }

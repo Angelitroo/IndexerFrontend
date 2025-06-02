@@ -14,6 +14,7 @@ import { ProductoService } from '../services/producto.service';
 export class ProductoPopoverComponent implements OnInit {
   @Input() producto: Producto = {
     id: 0,
+    favorito: false,
     title: '',
     discount: '',
     actualPrice: 0,

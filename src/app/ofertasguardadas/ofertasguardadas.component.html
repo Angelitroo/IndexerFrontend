@@ -15,13 +15,17 @@
         [navigation]="true"
         [pagination]="{ clickable: true }"
         [loop]="false"
-        [slidesPerView]="4.2"
+        [slidesPerView]="4.5"
         [slidesPerGroup]="1"
         [spaceBetween]="16"
         class="custom-swiper"
       >
         <ng-template swiperSlide *ngFor="let producto of productos">
           <ion-card class="product-card">
+            <div class="heart-icon" (click)="toggleFavorito(producto)">
+              <ion-icon [name]="producto.favorito ? 'heart' : 'heart-outline'"></ion-icon>
+            </div>
+
             <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
             <ion-card-header>
               <ion-card-title>{{ producto.title }}</ion-card-title>
