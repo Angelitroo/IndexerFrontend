@@ -1,10 +1,17 @@
 .background {
   --background: transparent;
-  background: linear-gradient(to bottom, #ffffff, #ffd38e);
   background-size: cover;
   background-position: center;
   height: 100%;
   padding: 24px 16px;
+}
+
+.backgroundclaro {
+  background: linear-gradient(to bottom, #ffffff, #ffd38e);
+}
+
+.backgroundoscuro {
+  background: linear-gradient(to bottom, #1e1e1e, #2c2c2c);
 }
 
 .layout {
@@ -12,14 +19,6 @@
   flex-direction: row;
   height: 100%;
   gap: 24px;
-}
-
-.menu-lateral {
-  width: 420px;
-  background-color: #fefefe;
-  border-right: 2px solid #ccc;
-  padding: 16px;
-  border-radius: 12px;
 }
 
 .formulario {
@@ -44,14 +43,20 @@
 
   p {
     font-size: 0.95rem;
-    color: #4d4d4d;
   }
 }
 
+.claro {
+  color: #333;
+}
+
+.oscuro {
+  color: #ddd;
+}
+
 .product-card {
-  --background: #ffffff;
   width: 100%;
-  max-width: 300px; // antes 240px
+  max-width: 300px;
   margin: 0 auto;
   border-radius: 16px;
   overflow: hidden;
@@ -83,23 +88,36 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 220px; // antes 180px
+    max-width: 220px;
   }
+}
+
+.cardclaro {
+  --background: #ffffff;
+  background: #ffffff;
+}
+
+.cardoscuro {
+  --background: #4e4e4e;
+  background: #4e4e4e;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+}
+
+.cardoscuro ion-card-title {
+  color: #ffb366;
 }
 
 .rating {
   font-size: 0.9rem;
-  color: #555;
+  color: #818181;
   margin: 8px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 220px; // antes 180px
+  max-width: 220px;
   margin-left: auto;
   margin-right: auto;
 }
-
-
 
 .login-button {
   --background: #e67e22;
@@ -110,7 +128,7 @@
   margin-top: 8px;
 }
 
-.subtitulo{
+.subtitulo {
   font-size: 1.5rem;
   font-weight: bold;
   color: #4d4d4d;
@@ -118,8 +136,6 @@
   margin-left: 20%;
 }
 
-
-//el swiper culiao
 .custom-swiper {
   --swiper-navigation-size: 40px;
   --swiper-navigation-color: #e67e22;
@@ -144,9 +160,9 @@
   top: calc(50% - 20px);
   width: 40px;
   height: 40px;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 10;
 }
 
@@ -185,4 +201,15 @@
   &:hover ion-icon {
     transform: scale(1.15);
   }
+}
+.actual-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e67e22;
+  margin-right: 10px;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: gray;
 }

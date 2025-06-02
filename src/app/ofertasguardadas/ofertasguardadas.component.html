@@ -1,14 +1,11 @@
-<ion-content class="background">
+<ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
   <div class="layout">
-
-    <div class="menu-lateral">
-      <app-menuizquierdaconfig></app-menuizquierdaconfig>
-    </div>
+    <app-menuizquierdaconfig></app-menuizquierdaconfig>
 
     <div class="formulario">
       <div class="branding">
         <h1>Ofertas Guardadas</h1>
-        <p>Ofertas que no quisiste dejar escapar</p>
+        <p [class.claro]="modo" [class.oscuro]="!modo">Ofertas que no quisiste dejar escapar</p>
       </div>
 
       <swiper
@@ -21,14 +18,14 @@
         class="custom-swiper"
       >
         <ng-template swiperSlide *ngFor="let producto of productos">
-          <ion-card class="product-card">
+          <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
             <div class="heart-icon" (click)="toggleFavorito(producto)">
               <ion-icon [name]="producto.favorito ? 'heart' : 'heart-outline'"></ion-icon>
             </div>
 
             <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
             <ion-card-header>
-              <ion-card-title>{{ producto.title }}</ion-card-title>
+              <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
               <ion-badge color="danger" *ngIf="producto.discount">
                 {{ producto.discount }} OFF
               </ion-badge>
@@ -38,8 +35,8 @@
                 <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
                 <span class="old-price">€{{ producto.oldPrice.toFixed(2) }}</span>
               </div>
-              <div class="rating">⭐ {{ producto.rating }}</div>
-              <div class="delivery">{{ producto.delivery }}</div>
+              <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ producto.rating }}</div>
+              <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ producto.delivery }}</div>
               <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">Ver más</ion-button>
             </ion-card-content>
           </ion-card>

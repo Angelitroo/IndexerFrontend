@@ -1,12 +1,10 @@
-<ion-content class="background">
+<ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
   <div class="layout">
     <!-- Menú lateral -->
-    <div class="menu-lateral">
       <app-menuizquierdaconfig></app-menuizquierdaconfig>
-    </div>
 
     <!-- Contenido de modificación -->
-    <div class="formulario">
+    <div class="formulario" [class.claro]="modo" [class.oscuro]="!modo">
       <div class="branding">
         <h1>Editar Perfil</h1>
         <p>Modifica tus datos personales</p>

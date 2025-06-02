@@ -1,10 +1,17 @@
 .background {
   --background: transparent;
-  background: linear-gradient(to bottom, #ffffff, #ffd38e);
   background-size: cover;
   background-position: center;
   height: 100%;
   padding: 24px 16px;
+}
+
+.backgroundclaro {
+  background: linear-gradient(to bottom, #ffffff, #ffd38e);
+}
+
+.backgroundoscuro {
+  background: linear-gradient(to bottom, #1e1e1e, #2c2c2c);
 }
 
 .layout {
@@ -28,24 +35,28 @@
   padding: 0 16px;
   border-radius: 12px;
   margin: 0 auto;
+  color: #333; /* default claro */
+}
+
+.formulario.claro {
+  color: #333;
+}
+
+.formulario.oscuro {
+  color: #ddd;
 }
 
 .branding {
   text-align: center;
   margin-top: 24px;
   margin-bottom: 16px;
+}
 
-  h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #e67e22;
-    margin-bottom: 4px;
-  }
-
-  p {
-    font-size: 0.95rem;
-    color: #4d4d4d;
-  }
+.branding h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #e67e22;
+  margin-bottom: 4px;
 }
 
 .foto-circular {
@@ -59,17 +70,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+.foto-circular img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-  .icono-defecto {
-    font-size: 100px;
-    color: #ccc;
-  }
+.icono-defecto {
+  font-size: 100px;
+  color: #ccc;
 }
 
 .input-item {
@@ -96,15 +107,15 @@
   display: flex;
   gap: 16px;
   z-index: 10;
+}
 
-  ion-icon {
-    font-size: 32px;
-    color: #e67e22;
-    cursor: pointer;
-  }
+.top-icons ion-icon {
+  font-size: 32px;
+  color: #e67e22;
+  cursor: pointer;
+}
 
-  button {
-    background: none;
-    border: none;
-  }
+.top-icons button {
+  background: none;
+  border: none;
 }
