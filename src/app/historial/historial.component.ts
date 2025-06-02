@@ -20,6 +20,7 @@ SwiperCore.use([Navigation, Pagination]);
   ]
 })
 export class HistorialComponent  implements OnInit {
+  modo: boolean = true;
  historial : Busqueda[] = [
     {
       id: 1,

@@ -23,6 +23,7 @@ SwiperCore.use([Navigation, Pagination]);
   ]
 })
 export class OfertasguardadasComponent implements OnInit {
+  modo: boolean = true;
   productos: Producto[] = [
     {
       id: 1,

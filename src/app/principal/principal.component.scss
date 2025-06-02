@@ -1,12 +1,18 @@
-.background {
+.backgroundclaro {
   --background: transparent;
   background: linear-gradient(to bottom, #ffffff, #ffd38e);
   background-size: cover;
   background-position: center;
   height: 100%;
   padding: 24px 16px;
-
-
+}
+.backgroundoscuro {
+  --background: transparent;
+  background: linear-gradient(to bottom, #ffffff, #000000);
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  padding: 24px 16px;
 }
 
 .branding {

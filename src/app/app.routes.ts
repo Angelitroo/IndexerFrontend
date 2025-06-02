@@ -30,9 +30,12 @@ export const routes: Routes = [
     path:"ofertasguardadas",
     loadComponent: () => import('./ofertasguardadas/ofertasguardadas.component').then((m) => m.OfertasguardadasComponent),
   },
-
   {
     path:"historial",
     loadComponent: () => import('./historial/historial.component').then((m) => m.HistorialComponent),
+  },
+  {
+    path:"ajustes",
+    loadComponent: () => import('./ajustes/ajustes.component').then((m) => m.AjustesComponent),
   },
 ];

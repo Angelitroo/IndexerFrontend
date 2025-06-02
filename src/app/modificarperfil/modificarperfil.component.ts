@@ -18,6 +18,7 @@ import {NgForOf, NgIf} from "@angular/common";
   ]
 })
 export class ModificarperfilComponent {
+  modo: boolean = true;
   imagePath: string = '';
   nombre: string = '';
   correo: string = '';

@@ -21,7 +21,7 @@ import { RouterLink } from "@angular/router";
   ]
 })
 export class MenuizquierdaconfigComponent implements OnInit {
-
+  modo: boolean = true;
   constructor() {
     addIcons({
       'home-outline': homeOutline,

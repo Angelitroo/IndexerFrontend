@@ -15,6 +15,7 @@ import {NgForOf} from "@angular/common";
   ]
 })
 export class MenuizquierdaComponent  implements OnInit {
+  modo: boolean = true;
   categorias: string[] = [
     'Electrónica',
     'Moda',

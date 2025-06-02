@@ -12,6 +12,8 @@ import { ProductoService } from '../services/producto.service';
   imports: [IonicModule, FormsModule]
 })
 export class ProductoPopoverComponent implements OnInit {
+  modo: boolean = true;
+
   @Input() producto: Producto = {
     id: 0,
     favorito: false,

@@ -23,8 +23,8 @@ SwiperCore.use([Navigation, Pagination]);
 })
 
 export class PaneladminComponent  implements OnInit {
+  modo: boolean = true;
   perfilId: number | null = null;
-
   perfil: Perfil | null = null;
   perfiles: Perfil[] = [
     {

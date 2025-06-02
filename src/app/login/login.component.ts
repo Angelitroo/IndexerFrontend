@@ -23,6 +23,7 @@ import {personCircleOutline} from "ionicons/icons";
   ]
 })
 export class LoginComponent implements OnInit {
+  modo: boolean = true;
   imagePath: string = '';
   loginForm: FormGroup;
   isLoading = false;

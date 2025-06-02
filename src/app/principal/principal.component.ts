@@ -21,7 +21,7 @@ SwiperCore.use([Navigation, Pagination]);
 export class PrincipalComponent implements OnInit{
   empresas: string[] = ['Amazon', 'eBay', 'AliExpress', 'PCComponentes', 'MediaMarkt', 'Carrefour', 'El Corte Inglés'];
   favorito: boolean = false;
-
+  modo: boolean = true;
 
   productos: Producto[] = [
     {
@@ -130,6 +130,12 @@ export class PrincipalComponent implements OnInit{
     });
   }
   ngOnInit() {
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado !== null) {
+      this.modo = JSON.parse(modoGuardado);
+    } else {
+      this.modo = true;
+    }
   }
 
   toggleFavorito(producto: any): void {
