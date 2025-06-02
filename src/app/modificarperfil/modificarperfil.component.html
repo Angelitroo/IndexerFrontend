@@ -1,2 +1,66 @@
 <ion-content class="background">
+  <div class="perfil-layout">
+    <!-- Menú lateral -->
+    <div class="menu-lateral">
+      <app-menuizquierdaperfil></app-menuizquierdaperfil>
+    </div>
+
+    <!-- Contenido de modificación -->
+    <div class="formulario-perfil">
+      <div class="branding">
+        <h1>Editar Perfil</h1>
+        <p>Modifica tus datos personales</p>
+      </div>
+
+      <div class="foto-circular">
+        <ng-container *ngIf="imagePath && imagePath.trim() !== ''; else defaultIcon">
+          <img [src]="imagePath" alt="Foto de perfil" />
+        </ng-container>
+        <ng-template #defaultIcon>
+          <ion-icon name="person-circle" class="icono-defecto"></ion-icon>
+        </ng-template>
+      </div>
+
+      <ion-item class="input-item" lines="none">
+        <ion-label position="floating">URL de foto de perfil</ion-label>
+        <ion-input [(ngModel)]="imagePath" type="url" clearInput></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item" lines="none">
+        <ion-label position="floating">Nombre de usuario</ion-label>
+        <ion-input [(ngModel)]="nombre" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item" lines="none">
+        <ion-label position="floating" style="margin-bottom: 15px">Ubicación</ion-label>
+        <ion-select [(ngModel)]="ubicacion" name="pais" placeholder="Selecciona una provincia">
+          <ion-select-option *ngFor="let pais of paises" [value]="pais">
+            {{ pais }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item" lines="none">
+        <ion-label position="floating">Correo electrónico</ion-label>
+        <ion-input [(ngModel)]="correo" type="email"></ion-input>
+      </ion-item>
+
+
+      <ion-item class="input-item" lines="none">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input [(ngModel)]="password" type="password"></ion-input>
+      </ion-item>
+
+
+      <ion-button expand="block" (click)="guardarCambios()" class="login-button">
+        Guardar Cambios
+      </ion-button>
+
+      <ion-text color="light">
+        <p class="registro-text">
+          <a (click)="volver()">Cancelar</a>
+        </p>
+      </ion-text>
+    </div>
+  </div>
 </ion-content>

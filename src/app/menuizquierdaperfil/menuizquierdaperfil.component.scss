@@ -1,0 +1,39 @@
+.layout-container {
+  display: flex;
+  height: 100vh; // que ocupe toda la pantalla vertical
+}
+
+
+ion-list {
+  width: 100%;
+  background: transparent;
+}
+
+ion-item {
+  --color: #4d4d4d;
+  --background: transparent;
+  font-weight: 500;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+ion-icon {
+  color: #e67e22;
+  font-size: 22px;
+}
+
+ion-label {
+  font-size: 1rem;
+  color: #4d4d4d;
+}
+
+
+.main-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+.espaciado{
+  margin-top: 150px;
+}

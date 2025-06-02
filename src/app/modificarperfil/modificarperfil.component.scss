@@ -6,3 +6,105 @@
   height: 100%;
   padding: 24px 16px;
 }
+
+.perfil-layout {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  gap: 24px;
+}
+
+.menu-lateral {
+  width: 420px;
+  background-color: #fefefe;
+  border-right: 2px solid #ccc;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.formulario-perfil {
+  flex: 1;
+  max-width: 1200px; /* Limita el ancho máximo del formulario */
+  padding: 0 16px;
+  border-radius: 12px;
+  margin: 0 auto; /* Centra el formulario en el espacio restante */
+}
+
+.branding {
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 16px;
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #e67e22;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: #4d4d4d;
+  }
+}
+
+.foto-circular {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 16px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .icono-defecto {
+    font-size: 100px;
+    color: #ccc;
+  }
+}
+
+.input-item {
+  --background: #ffffff;
+  --border-color: #dcdcdc;
+  --color: #4d4d4d;
+  border-radius: 12px;
+  margin: 12px 0;
+}
+
+.login-button {
+  --background: #e67e22;
+  --background-activated: #d35400;
+  --color: white;
+  font-weight: bold;
+  border-radius: 12px;
+  margin: 24px 0 8px;
+}
+
+.top-icons {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  gap: 16px;
+  z-index: 10;
+
+  ion-icon {
+    font-size: 32px;
+    color: #e67e22;
+    cursor: pointer;
+  }
+
+  button {
+    background: none;
+    border: none;
+  }
+}
