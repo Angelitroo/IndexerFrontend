@@ -1,13 +1,18 @@
-/* principal.component.scss (for Principal B) */
-
 .background {
   --background: transparent;
-  background: linear-gradient(to bottom, #ffffff, #ffb745);
   background-size: cover;
   background-position: center;
-  min-height: 100%; // Use min-height for better responsiveness
+  min-height: 100%;
   padding: 24px 16px;
-  box-sizing: border-box; // Ensure padding doesn't add to height
+  box-sizing: border-box;
+}
+
+.backgroundclaro {
+  background: linear-gradient(to bottom, #ffffff, #ffd38e); // from b
+}
+
+.backgroundoscuro {
+  background: linear-gradient(to bottom, #1e1e1e, #2c2c2c); // from b
 }
 
 .branding {
@@ -23,42 +28,64 @@
   h1 {
     font-size: 1.8rem;
     font-weight: bold;
-    color: #e67e22;
+    color: #e67e22; // Base color, theming applied via .claro/.oscuro in HTML
     margin-bottom: 4px;
   }
 
   p {
     font-size: 0.95rem;
-    color: #4d4d4d;
+    // color: #4d4d4d; // Base color, theming applied via .claro/.oscuro in HTML
   }
 }
 
 .searchbar-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px; // Reduced from 60px for better spacing with menu
+  margin-bottom: 20px; // from a (was 60px in b)
 }
 
-.input-item {
-  --background: #ffffff;
+.input-item { // Base styles from a
   --border-color: #dcdcdc;
   --color: #4d4d4d;
   --placeholder-color: #888888;
-  --icon-color: #e67e22; // Make search icon match theme
+  --icon-color: #e67e22;
   border-radius: 12px;
   height: 44px;
-  width: 60%; // Slightly wider for better usability
-  max-width: 500px; // Max width for larger screens
+  width: 60%;
+  max-width: 500px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-app-menuizquierda {
-  display: block; // Ensure it takes block space
-  margin-bottom: 20px; // Space below the menu
+.searchclaro { // from b
+  --background: #ffffff;
+  --color: #333333; // Overrides input-item --color
+  --placeholder-color: #666666; // Overrides input-item --placeholder-color
+  --border-color: #dcdcdc; // Same as input-item
 }
 
-.custom-swiper {
-  --swiper-navigation-size: 30px;
+.searchoscuro { // from b
+  --background: #4e4e4e;
+  --color: #dddddd; // Overrides input-item --color
+  --placeholder-color: #aaaaaa; // Overrides input-item --placeholder-color
+  --border-color: #666666; // Overrides input-item --border-color
+}
+
+app-menuizquierda {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.main-layout-container {
+  // If you intend app-menuizquierda and content-area to be side-by-side on larger screens,
+  // you might need display: flex here. For now, assuming block layout.
+}
+
+.content-area {
+  // Styles for the content area if needed
+}
+
+.custom-swiper { // from a, with minor adjustments from b if necessary
+  --swiper-navigation-size: 30px; // a (b was 40px)
   --swiper-navigation-color: #e67e22;
   --swiper-pagination-color: #e67e22;
   --swiper-pagination-bullet-inactive-color: #cccccc;
@@ -68,58 +95,52 @@ app-menuizquierda {
 
   position: relative;
   width: 100%;
-  max-width: calc(100% - 50px);
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px 0px 40px 0px;
+  // max-width: calc(100% - 50px); // from a, for when menu is not full width
+  // margin-left: auto; // from a
+  // margin-right: auto; // from a
+  padding: 10px 0px 40px 0px; // a (b had 10px 40px 40px 40px)
   margin-bottom: 20px;
-  margin-left: 25%; // As per original A
+  // margin-left: 25%; // from a, conditionally applied via media queries now
 }
 
-// Deeper customization for Swiper elements
-:host ::ng-deep .custom-swiper {
+:host ::ng-deep .custom-swiper { // from a
   .swiper {
-    padding-bottom: 30px; /* Space for pagination */
+    padding-bottom: 30px;
   }
 
   .swiper-button-prev,
   .swiper-button-next {
     position: absolute;
-    // Corrected vertical centering:
-    top: calc(50% - (var(--swiper-navigation-size) / 2));
+    top: calc(50% - (var(--swiper-navigation-size) / 2)); // Adjusted to use var
     width: var(--swiper-navigation-size);
     height: var(--swiper-navigation-size);
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.9); // a (b was 0.8)
     border-radius: 50%;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--swiper-navigation-color); // Ensure they use the active color by default
-    cursor: pointer; // Default to pointer
-    transition: opacity 0.3s ease; // Optional
+    color: var(--swiper-navigation-color);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
   }
 
   .swiper-button-prev {
-    left: -10px;
+    left: -10px; // a
   }
 
   .swiper-button-next {
-    right: -10px;
+    right: -10px; // a
   }
 
-  /*
-   * CSS OVERRIDE FOR DISABLED BUTTONS - CORRECTLY PLACED HERE
-   */
   .swiper-button-prev.swiper-button-disabled,
   .swiper-button-next.swiper-button-disabled {
     opacity: 1 !important;
     cursor: pointer !important;
     pointer-events: auto !important;
-    color: var(--swiper-navigation-color) !important; // Explicitly set active color
+    color: var(--swiper-navigation-color) !important;
   }
-  /* End of CSS Override */
 
   .swiper-pagination {
     position: absolute;
@@ -143,57 +164,60 @@ app-menuizquierda {
   }
 }
 
-
-.product-card {
-  --background: #ffffff;
+.product-card { // Base from a
   flex-shrink: 0;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  height: 100%;
+  height: 100%; // a (b had fixed 420px)
   display: flex;
   flex-direction: column;
+  position: relative; // For heart icon
 
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 16px rgba(0,0,0,0.15);
   }
 
-  img {
+  img { // from a
     width: 100%;
-    height: 160px;
+    height: 160px; // a (b was 180px with different margin/padding)
     object-fit: contain;
     padding: 8px;
     box-sizing: border-box;
     border-bottom: 1px solid #f0f0f0;
+    // background-color: #f5f5f5; // from b, if needed for transparent images
   }
 
-  ion-card-header {
+  ion-card-header { // from a
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    padding: 10px 12px;
+    align-items: flex-start; // a (b was center)
+    padding: 10px 12px; // a (b was 8px 12px)
     min-height: 60px;
   }
 
-  ion-card-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #333333;
+  ion-card-title { // from a
+    font-size: 0.9rem; // a (b was 1rem)
+    font-weight: 600; // a (b was bold)
+    color: #333333; // Base color
     line-height: 1.3;
     flex-grow: 1;
     margin-right: 8px;
+    // white-space: nowrap; // from b, if needed, but a's line-height suggests multi-line
+    // overflow: hidden; // from b
+    // text-overflow: ellipsis; // from b
+    // max-width: 220px; // from b
   }
 
-  ion-badge {
+  ion-badge { // from a
     font-size: 0.75rem;
     padding: 4px 6px;
     border-radius: 4px;
     white-space: nowrap;
   }
 
-  ion-card-content {
+  ion-card-content { // from a
     padding: 0px 12px 12px 12px;
     display: flex;
     flex-direction: column;
@@ -202,104 +226,172 @@ app-menuizquierda {
   }
 }
 
-.price-row {
+.cardclaro { // from b
+  --background: #ffffff;
+  // background: #ffffff; // --background should suffice
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cardoscuro { // from b
+  --background: #4e4e4e;
+  // background: #4e4e4e; // --background should suffice
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+
+  ion-card-title { // Specific override from b
+    color: #ffb366; // This will override the .claro/.oscuro on the title itself if card is dark
+  }
+}
+
+
+.price-row { // from a
   display: flex;
   gap: 8px;
-  justify-content: flex-start;
+  justify-content: flex-start; // a (b was center)
   align-items: baseline;
   margin: 8px 0;
 }
 
-.actual-price {
-  font-size: 1.1rem;
+.actual-price { // from a
+  font-size: 1.1rem; // a (b was 1.2rem)
   font-weight: bold;
   color: #e67e22;
 }
 
-.old-price {
+.old-price { // from a
   text-decoration: line-through;
-  color: #888888;
-  font-size: 0.85rem;
+  color: #888888; // a (b was gray)
+  font-size: 0.85rem; // a
 }
 
-.rating, .delivery {
-  font-size: 0.8rem;
-  color: #555555;
+.rating, .delivery { // from a
+  font-size: 0.8rem; // a (b was 0.9rem for rating, 0.85rem for delivery)
+  color: #555555; // Base color
   margin-bottom: 4px;
+  // white-space: nowrap; // from b, if needed
+  // overflow: hidden; // from b
+  // text-overflow: ellipsis; // from b
+  // max-width: 220px; // from b
 }
 
-.delivery {
-  margin-bottom: 10px;
+.delivery { // from a
+  margin-bottom: 10px; // a (b was 8px)
 }
 
-.login-button {
+.login-button { // from a
   --background: #e67e22;
   --background-activated: #d35400;
   --color: white;
-  font-weight: 500;
-  border-radius: 8px;
-  margin-top: auto;
-  font-size: 0.85rem;
-  height: 36px;
+  font-weight: 500; // a (b was bold)
+  border-radius: 8px; // a (b was 12px)
+  margin-top: auto; // a (b was 8px)
+  font-size: 0.85rem; // a
+  height: 36px; // a
 }
 
-.top-icons {
+.top-icons { // from a
   position: absolute;
   top: 16px;
   right: 16px;
   display: flex;
-  gap: 12px;
-  z-index: 1000;
+  gap: 12px; // a (b was 16px)
+  z-index: 1000; // a (b was 10)
 
-  button {
+  button { // from a
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
-    color: #e67e22;
+    // color: #e67e22; // Base color, theming via .claro/.oscuro on icon
 
     ion-icon {
-      font-size: 28px;
+      font-size: 28px; // a (b was 48px)
     }
-    &:hover {
-      color: #d35400;
+    &:hover ion-icon { // Adjusted to target icon for hover color
+      // color: #d35400; // Theming will handle hover if defined for .claro/.oscuro
     }
   }
 }
 
-.empresa-titulo {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #4d4d4d;
+.empresa-titulo { // from a, with elements from b
+  font-size: 1.6rem; // a (b was 2rem)
+  font-weight: bold; // a (b was 800)
+  // color: #4d4d4d; // Base color, theming via .claro/.oscuro
   margin-bottom: 12px;
   margin-top: 24px;
-  margin-left: 25%;
+  // margin-left: 25%; // from a, now handled by media queries
   padding-bottom: 4px;
-  border-bottom: 2px solid #e67e22;
-  display: inline-block;
+  border-bottom: 2px solid #e67e22; // a (b had border-left)
+  display: inline-block; // a
+  // font-family: 'Poppins', sans-serif; // from b, if you have this font
+  // letter-spacing: 1px; // from b
+  // border-radius: 4px; // from b (for border-left style)
 }
 
-.no-results-message {
+.claro { // from b
+  color: #333 !important; // Use !important if needed to override Ionic defaults or other specificities
+}
+
+.oscuro { // from b
+  color: #ddd !important;
+}
+
+// Specific overrides for empresa-titulo theming from b
+.empresa-titulo.claro {
+  color: #676767; // from b
+  border-bottom-color: #e67e22; // ensure border matches
+}
+
+.empresa-titulo.oscuro {
+  color: #aaaaaa; // from b
+  border-bottom-color: #e67e22; // ensure border matches
+}
+
+
+.no-results-message { // from a
   text-align: center;
   margin-top: 40px;
   margin-bottom: 40px;
-  color: var(--ion-color-medium-shade, #777);
+  // color: var(--ion-color-medium-shade, #777); // Theming via .claro/.oscuro
   font-size: 1.1rem;
   padding: 0 20px;
 }
 
-// Responsive adjustments for Swiper slides
-@media (max-width: 1200px) {
-  // .custom-swiper { } // No changes needed here for now
-  :host ::ng-deep .custom-swiper {
-    // .swiper-slide { } // No changes needed here for now
+.heart-icon { // from b
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 5;
+  cursor: pointer;
+
+  ion-icon {
+    font-size: 24px; // Adjusted from 30px to better fit card
+    color: #e67e22; // Or use theme variable
+    transition: transform 0.2s ease;
   }
+
+  &:hover ion-icon {
+    transform: scale(1.15);
+  }
+}
+
+// Responsive adjustments from a
+@media (min-width: 992px) { // Added for larger screens to apply margin-left
+  .custom-swiper {
+    margin-left: 25%;
+    max-width: calc(100% - 25% - 50px); // Adjust if menu has fixed width
+  }
+  .empresa-titulo {
+    margin-left: 25%;
+  }
+}
+
+@media (max-width: 1200px) {
   .product-card ion-card-title {
     font-size: 0.85rem;
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 991px) { // Changed from 992px to avoid overlap
   .custom-swiper {
     margin-left: 0;
     max-width: 100%;

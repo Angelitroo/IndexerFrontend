@@ -1,10 +1,7 @@
 <ion-content class="background">
   <div class="top-icons">
     <button>
-      <ion-icon name="notifications-outline"></ion-icon>
-    </button>
-    <button>
-      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-icon name="person-circle-outline" [routerLink]="'/modificarperfil'"></ion-icon>
     </button>
   </div>
 
@@ -32,6 +29,7 @@
   >
   <ng-template swiperSlide *ngFor="let producto of productos">
     <ion-card class="product-card">
+
       <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
       <ion-card-header>
         <ion-card-title>{{ producto.title }}</ion-card-title>

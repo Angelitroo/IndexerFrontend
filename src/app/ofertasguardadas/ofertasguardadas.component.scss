@@ -1,0 +1,215 @@
+.background {
+  --background: transparent;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  padding: 24px 16px;
+}
+
+.backgroundclaro {
+  background: linear-gradient(to bottom, #ffffff, #ffd38e);
+}
+
+.backgroundoscuro {
+  background: linear-gradient(to bottom, #1e1e1e, #2c2c2c);
+}
+
+.layout {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  gap: 24px;
+}
+
+.formulario {
+  flex: 1;
+  max-width: 1200px;
+  padding: 0 16px;
+  border-radius: 12px;
+  margin: 0 auto;
+}
+
+.branding {
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 16px;
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #e67e22;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 0.95rem;
+  }
+}
+
+.claro {
+  color: #333;
+}
+
+.oscuro {
+  color: #ddd;
+}
+
+.product-card {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+  height: 420px;
+
+  img {
+    height: 180px;
+    object-fit: contain;
+    margin: 30px auto 0;
+    display: block;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+  }
+
+  ion-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+  }
+
+  ion-card-title {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #e67e22;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+  }
+}
+
+.cardclaro {
+  --background: #ffffff;
+  background: #ffffff;
+}
+
+.cardoscuro {
+  --background: #4e4e4e;
+  background: #4e4e4e;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+}
+
+.cardoscuro ion-card-title {
+  color: #ffb366;
+}
+
+.rating {
+  font-size: 0.9rem;
+  color: #818181;
+  margin: 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-button {
+  --background: #e67e22;
+  --background-activated: #d35400;
+  --color: white;
+  font-weight: bold;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+.subtitulo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4d4d4d;
+  margin-bottom: 8px;
+  margin-left: 20%;
+}
+
+.custom-swiper {
+  --swiper-navigation-size: 40px;
+  --swiper-navigation-color: #e67e22;
+  position: relative;
+  padding: 10px 16px 40px 16px;
+  margin: 0 auto;
+  margin-top: 120px;
+  max-width: 1300px;
+}
+
+::ng-deep .custom-swiper .swiper {
+  padding-bottom: 30px;
+}
+
+::ng-deep .custom-swiper .swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep .custom-swiper .swiper-button-prev,
+::ng-deep .custom-swiper .swiper-button-next {
+  top: calc(50% - 20px);
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+::ng-deep .custom-swiper .swiper-pagination {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+::ng-deep .custom-swiper .swiper-pagination-bullet {
+  background: #e67e22;
+  opacity: 0.5;
+  width: 10px;
+  height: 10px;
+}
+
+::ng-deep .custom-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+.heart-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 5;
+  cursor: pointer;
+
+  ion-icon {
+    font-size: 30px;
+    color: #e67e22;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover ion-icon {
+    transform: scale(1.15);
+  }
+}
+.actual-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e67e22;
+  margin-right: 10px;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: gray;
+}

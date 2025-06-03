@@ -1,0 +1,91 @@
+.background {
+  --background: transparent;
+  background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  padding: 24px 16px;
+}
+
+.backgroundclaro {
+  --bg-start: #ffffff;
+  --bg-end: #ffd38e;
+}
+
+.backgroundoscuro {
+  --bg-start: #676767;
+  --bg-end: #222222;
+}
+
+.layout {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  gap: 24px;
+}
+
+
+.formulario {
+  flex: 1;
+  max-width: 800px;
+  padding: 0 16px;
+  border-radius: 12px;
+  margin: 0 auto;
+}
+
+.branding {
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 60px;
+}
+
+.branding h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #e67e22;
+  margin-bottom: 4px;
+}
+
+.branding p {
+  font-size: 0.95rem;
+}
+
+.claro {
+  color: #4d4d4d;
+}
+
+.oscuro {
+  color: #ffffff;
+}
+
+ion-item {
+  --background: #ffffff;
+  --border-color: #dcdcdc;
+  --color: #4d4d4d;
+  border-radius: 12px;
+  margin: 12px 0;
+}
+
+.itemclaro {
+  --background: #fefefe;
+  --border-color: #ccc;
+  --color: #4d4d4d;
+}
+
+.itemoscuro {
+  --background: #2b2b2b;
+  --border-color: #444444;
+  --color: #ffffff;
+}
+
+.contenedor-guardar {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 12px;
+}
+
+ion-button.guardar {
+  --background: #e67e22;
+  --color: white;
+}

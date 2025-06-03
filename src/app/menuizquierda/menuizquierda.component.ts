@@ -16,6 +16,7 @@ import { ProductFilters } from "../models/ProductFilters";
   ]
 })
 export class MenuizquierdaComponent implements OnInit {
+  modo: boolean = true;
   categorias: string[] = [
     'Electrónica', 'Moda', 'Hogar', 'Juguetes', 'Deportes', 'Belleza', 'Automóvil'
   ];
@@ -31,6 +32,13 @@ export class MenuizquierdaComponent implements OnInit {
 
   ngOnInit() {
     this.categorias.forEach(cat => this.selectedCategoriesMap[cat] = false);
+
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado !== null) {
+      this.modo = JSON.parse(modoGuardado);
+    } else {
+      this.modo = true;
+    }
   }
 
   applyCurrentFilters() {

@@ -1,19 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import {IonicModule} from "@ionic/angular";
+import {IonicModule, NavController} from "@ionic/angular";
+import {FormsModule} from "@angular/forms";
+import {MenuizquierdaconfigComponent} from "../menuizquierdaconfig/menuizquierdaconfig.component";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
     selector: 'app-modificarperfil',
     templateUrl: './modificarperfil.component.html',
     styleUrls: ['./modificarperfil.component.scss'],
     standalone: true,
-    imports: [
-        IonicModule
-    ]
+  imports: [
+    IonicModule,
+    FormsModule,
+    MenuizquierdaconfigComponent,
+    NgForOf,
+    NgIf
+  ]
 })
-export class ModificarperfilComponent  implements OnInit {
+export class ModificarperfilComponent implements OnInit {
+  modo: boolean = true;
+  imagePath: string = '';
+  nombre: string = '';
+  correo: string = '';
+  password: string = '';
+  ubicacion: string = '';
+  paises: string[] = [
+    'España', 'Francia', 'Alemania', 'Italia', 'Reino Unido', 'Portugal', 'Bélgica',
+    'Países Bajos', 'Suecia', 'Noruega', 'Dinamarca', 'Finlandia', 'Suiza', 'Austria',
+    'Polonia', 'República Checa', 'Hungría', 'Rumanía', 'Bulgaria'
+  ];
 
-  constructor() { }
+  constructor(private navCtrl: NavController) {}
 
-  ngOnInit() {}
+  guardarCambios() {
+    console.log('Cambios guardados:', {
+      nombre: this.nombre,
+      correo: this.correo,
+      ubicacion: this.ubicacion,
+      imagen: this.imagePath,
+    });
+  }
 
+  ngOnInit() {
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado !== null) {
+      this.modo = JSON.parse(modoGuardado);
+    } else {
+      this.modo = true;
+    }
+  }
 }

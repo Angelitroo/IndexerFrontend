@@ -1,29 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule, PopoverController} from "@ionic/angular";
-import {MenuizquierdaComponent} from "../menuizquierda/menuizquierda.component";
-import {NgForOf, NgIf} from "@angular/common";
+import {CommonModule, NgFor, NgIf} from "@angular/common";
 import {Perfil} from "../models/Perfil";
 import {AuthService} from "../services/auth.service";
 import {PerfilService} from "../services/perfil.service";
 import {Producto} from "../models/Producto";
 import {SwiperModule} from "swiper/angular";
+import SwiperCore, { Navigation, Pagination } from 'swiper';
 import {ProductoPopoverComponent} from "../crearproductopopover/crearproductopopover.component";
+import {addIcons} from "ionicons";
+import {personCircleOutline} from "ionicons/icons";
+import {RouterLink} from "@angular/router";
+import {FormsModule} from "@angular/forms";
 
+SwiperCore.use([Navigation, Pagination]);
 @Component({
     selector: 'app-paneladmin',
     templateUrl: './paneladmin.component.html',
     styleUrls: ['./paneladmin.component.scss'],
     standalone: true,
-  imports: [
-    IonicModule,
-    NgForOf,
-    SwiperModule,
-    NgIf,
-  ]
+  imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf, SwiperModule, RouterLink]
 })
-export class PaneladminComponent  implements OnInit {
-  perfilId: number | null = null;
 
+export class PaneladminComponent  implements OnInit {
+  modo: boolean = true;
+  perfilId: number | null = null;
   perfil: Perfil | null = null;
   perfiles: Perfil[] = [
     {
@@ -122,11 +123,12 @@ export class PaneladminComponent  implements OnInit {
   productos: Producto[] = [
     {
       id: 1,
+      favorito: false,
       title: 'Auriculares Bluetooth',
       discount: '20%',
       actualPrice: 29.99,
       oldPrice: 39.99,
-      image: 'https://www.energysistem.com/cdnassets/products/45839/serie_2000.webp?2/d/8/1/2d818c47d79454c36d45c0f6cdb63cd0311b1729_Silent_ANC__45839_B2B_principal.jpg',
+      image: 'https://m.media-amazon.com/images/I/61lX+a+vOFL.jpg',
       rating: '4.5',
       delivery: 'Entrega rápida',
       url: '',
@@ -134,6 +136,7 @@ export class PaneladminComponent  implements OnInit {
     },
     {
       id: 2,
+      favorito: false,
       title: 'Teclado Mecánico',
       discount: '15%',
       actualPrice: 59.99,
@@ -146,11 +149,12 @@ export class PaneladminComponent  implements OnInit {
     },
     {
       id: 3,
+      favorito: false,
       title: 'Smartwatch Deportivo',
       discount: '10%',
       actualPrice: 89.99,
       oldPrice: 99.99,
-      image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
+      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
       url: 'https://example.com/smartwatch',
@@ -159,11 +163,12 @@ export class PaneladminComponent  implements OnInit {
     ,
     {
       id: 4,
+      favorito: false,
       title: 'Smartwatch Deportivo',
       discount: '10%',
       actualPrice: 89.99,
       oldPrice: 99.99,
-      image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
+      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
       url: 'https://example.com/smartwatch',
@@ -172,11 +177,24 @@ export class PaneladminComponent  implements OnInit {
     ,
     {
       id: 5,
+      favorito: false,
       title: 'Smartwatch Deportivo',
       discount: '10%',
       actualPrice: 89.99,
       oldPrice: 99.99,
-      image: 'https://correos-marketplace.ams3.cdn.digitaloceanspaces.com/prod-new/uploads/correos-marketplace-shop/1/product/99478-keuadwa8-klack-smartwatch-reloj-inteligente-t500p-deportivo-fitness-hombre-mujer-klack-blanco-1.jpg',
+      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
+      rating: '4.6',
+      delivery: 'Entrega en 48h',
+      url: 'https://example.com/smartwatch'
+    },
+    {
+      id: 6,
+      favorito: false,
+      title: 'Smartwatch Deportivo',
+      discount: '10%',
+      actualPrice: 89.99,
+      oldPrice: 99.99,
+      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
       url: 'https://example.com/smartwatch',
@@ -190,7 +208,10 @@ export class PaneladminComponent  implements OnInit {
     private authService: AuthService,
     private perfilService: PerfilService,
     private popoverCtrl: PopoverController
-  ) {  }
+
+  ) {addIcons({
+    'person-circle-outline': personCircleOutline,
+  });  }
 
   ngOnInit(){
     this.perfilId = this.authService.getPerfilIdFromToken();
@@ -200,6 +221,12 @@ export class PaneladminComponent  implements OnInit {
         this.perfiles = data;
       },
     });
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado !== null) {
+      this.modo = JSON.parse(modoGuardado);
+    } else {
+      this.modo = true;
+    }
   }
 
   private cargarMiPerfil(perfilId?: number | null) {
@@ -220,7 +247,6 @@ export class PaneladminComponent  implements OnInit {
   async abrirCrearProducto() {
     const popover = await this.popoverCtrl.create({
       component: ProductoPopoverComponent,
-      cssClass: 'custom-popover', // Opcional, para estilos propios
       translucent: true,
       componentProps: {
         producto: null // O un objeto vacío para crear nuevo
@@ -229,11 +255,11 @@ export class PaneladminComponent  implements OnInit {
 
     popover.onDidDismiss().then((result) => {
       if (result.data) {
-        // Aquí puedes refrescar la lista de productos o hacer alguna acción al cerrar
         console.log('Producto creado/modificado');
       }
     });
 
     await popover.present();
   }
+
 }

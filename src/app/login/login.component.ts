@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule, ToastController } from "@ionic/angular";
 import { Router, RouterLink } from "@angular/router";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from "../services/auth.service";
+import { addIcons } from "ionicons";
+import { personCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,8 @@ import { AuthService } from "../services/auth.service";
     IonicModule,
     RouterLink,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ]
 })
 export class LoginComponent implements OnInit {
@@ -30,6 +33,8 @@ export class LoginComponent implements OnInit {
     'Países Bajos', 'Suecia', 'Noruega', 'Dinamarca', 'Finlandia', 'Suiza', 'Austria',
     'Polonia', 'República Checa', 'Hungría', 'Rumanía', 'Bulgaria'
   ];
+  modo: boolean = true;
+  imagePath: string = '';
 
   private loginApiUrl = 'http://localhost:8080/auth/login';
   private registroApiUrl = 'http://localhost:8080/auth/registro';
@@ -41,11 +46,14 @@ export class LoginComponent implements OnInit {
     private toastController: ToastController,
     private authService: AuthService
   ) {
+    addIcons({
+      'person-circle-outline': personCircleOutline,
+    });
+
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
-
 
     this.registroForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
@@ -55,7 +63,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado !== null) {
+      this.modo = JSON.parse(modoGuardado);
+    } else {
+      this.modo = true;
+    }
+  }
 
   cambioRegistro() {
     this.isRegistro = !this.isRegistro;
@@ -104,7 +119,6 @@ export class LoginComponent implements OnInit {
           }
 
           this.presentToast('Inicio de sesión exitoso!', 'success');
-
 
           if (this.authService.esAdmin()) {
             this.router.navigateByUrl('/paneladmin');

@@ -12,8 +12,11 @@ import { ProductoService } from '../services/producto.service';
   imports: [IonicModule, FormsModule]
 })
 export class ProductoPopoverComponent implements OnInit {
+  modo: boolean = true;
+
   @Input() producto: Producto = {
     id: 0,
+    favorito: false,
     title: '',
     discount: '',
     actualPrice: 0,
@@ -36,6 +39,12 @@ export class ProductoPopoverComponent implements OnInit {
   ngOnInit() {
     if (this.producto.image) {
       this.imagePath = this.producto.image;
+    }
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado !== null) {
+      this.modo = JSON.parse(modoGuardado);
+    } else {
+      this.modo = true;
     }
   }
 

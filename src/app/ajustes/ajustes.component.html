@@ -1,0 +1,59 @@
+<ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
+  <div class="layout">
+    <!-- Menú lateral -->
+    <app-menuizquierdaconfig></app-menuizquierdaconfig>
+
+    <!-- Contenido de configuración -->
+    <div class="formulario">
+      <div class="branding">
+        <h1>Configuración</h1>
+        <p [class.claro]="modo" [class.oscuro]="!modo">Ajusta tus preferencias</p>
+      </div>
+
+      <!-- Tema -->
+      <ion-item [class.itemclaro]="modo" [class.itemoscuro]="!modo" lines="none">
+        <ion-label [class.claro]="modo" [class.oscuro]="!modo">Modo claro</ion-label>
+        <ion-button fill="clear" slot="end" (click)="setModo(true)">
+          <ion-icon
+            [name]="modo ? 'sunny' : 'sunny-outline'"
+            [style.color]="modo ? '#f1c40f' : '#777'"
+            style="font-size: 28px;"
+          ></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <ion-item [class.itemclaro]="modo" [class.itemoscuro]="!modo" lines="none">
+        <ion-label [class.claro]="modo" [class.oscuro]="!modo">Modo oscuro</ion-label>
+        <ion-button fill="clear" slot="end" (click)="setModo(false)">
+          <ion-icon
+            [name]="!modo ? 'moon' : 'moon-outline'"
+            [style.color]="!modo ? '#34495e' : '#777'"
+            style="font-size: 28px;"
+          ></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <!-- Notificaciones -->
+      <ion-item [class.itemclaro]="modo" [class.itemoscuro]="!modo" lines="none">
+        <ion-label [class.claro]="modo" [class.oscuro]="!modo">Notificaciones por email</ion-label>
+        <ion-toggle slot="end" [(ngModel)]="notificacionesEmailActivadas"></ion-toggle>
+      </ion-item>
+
+      <ion-item *ngIf="notificacionesEmailActivadas" [class.itemclaro]="modo" [class.itemoscuro]="!modo" lines="none">
+        <ion-label position="stacked" [class.claro]="modo" [class.oscuro]="!modo">
+          ¿A qué correo le enviamos las notificaciones?
+        </ion-label>
+        <ion-input
+          type="email"
+          [(ngModel)]="emailNotificacion"
+          placeholder="ejemplo@correo.com"
+          [class.claro]="modo"
+          [class.oscuro]="!modo"
+        ></ion-input>
+        <div class="contenedor-guardar">
+          <ion-button class="guardar" (click)="guardarCambios()">Guardar cambios</ion-button>
+        </div>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>
