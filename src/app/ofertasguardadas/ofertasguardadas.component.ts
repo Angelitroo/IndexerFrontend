@@ -35,7 +35,8 @@ export class OfertasguardadasComponent implements OnInit {
       image: 'https://m.media-amazon.com/images/I/61lX+a+vOFL.jpg',
       rating: '4.5',
       delivery: 'Entrega rápida',
-      url: ''
+      url: '',
+      empresa: ''
     },
     {
       id: 2,
@@ -47,7 +48,8 @@ export class OfertasguardadasComponent implements OnInit {
       image: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
       rating: '4.8',
       delivery: 'Entrega en 24h',
-      url: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg'
+      url: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
+      empresa: ''
     },
     {
       id: 3,
@@ -59,7 +61,8 @@ export class OfertasguardadasComponent implements OnInit {
       image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch'
+      url: 'https://example.com/smartwatch',
+      empresa: ''
     }
     ,
     {
@@ -72,7 +75,8 @@ export class OfertasguardadasComponent implements OnInit {
       image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch'
+      url: 'https://example.com/smartwatch',
+      empresa: ''
     },
     {
       id: 5,
@@ -84,7 +88,8 @@ export class OfertasguardadasComponent implements OnInit {
       image: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
       rating: '4.8',
       delivery: 'Entrega en 24h',
-      url: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg'
+      url: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
+      empresa: ''
     },
     {
       id: 6,
@@ -96,7 +101,8 @@ export class OfertasguardadasComponent implements OnInit {
       image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch'
+      url: 'https://example.com/smartwatch',
+      empresa: ''
     }
     ,
   ];

@@ -1,104 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import {IonicModule} from "@ionic/angular";
-import {MenuizquierdaconfigComponent} from "../menuizquierdaconfig/menuizquierdaconfig.component";
-import {NgForOf, NgIf} from "@angular/common";
-import {Busqueda} from "../models/Busqueda";
-import { SwiperModule } from 'swiper/angular';
-import SwiperCore, { Navigation, Pagination } from 'swiper';
-SwiperCore.use([Navigation, Pagination]);
+import { IonicModule, ToastController } from "@ionic/angular";
+import { MenuizquierdaconfigComponent } from "../menuizquierdaconfig/menuizquierdaconfig.component";
+import { Busqueda } from "../models/Busqueda";
+import { CommonModule } from '@angular/common';
+import { HistorialService } from "../services/historial.service";
+
 @Component({
-    selector: 'app-historial',
-    templateUrl: './historial.component.html',
-    styleUrls: ['./historial.component.scss'],
-    standalone: true,
+  selector: 'app-historial',
+  templateUrl: './historial.component.html',
+  styleUrls: ['./historial.component.scss'],
+  standalone: true,
   imports: [
     IonicModule,
     MenuizquierdaconfigComponent,
-    NgForOf,
-    SwiperModule,
+    CommonModule,
   ]
 })
 export class HistorialComponent  implements OnInit {
   modo: boolean = true;
- historial : Busqueda[] = [
-    {
-      id: 1,
-      fecha: '2023-10-01 A las 18:34',
-      concepto: 'Como coger un bebe sin que se te caiga al suelo'
-    },
-    {
-      id: 2,
-      fecha: '2023-10-01 A las 18:34',
-      concepto: 'Que hacer si se te cae un bebe al suelo'
-    },
-    {
-      id: 3,
-      fecha: '2023-10-01 A las 18:35',
-      concepto: 'Precio de medicos pediatras en Madrid'
-    },
-    {
-      id: 4,
-      fecha: '2023-10-01 A las 18:35',
-      concepto: 'Precio de bolsas de basura en Madrid'
-    },
-    {
-      id: 5,
-      fecha: '2023-10-01 A las 18:36',
-      concepto: 'Donde esconder un cadaver en Madrid sin que te pillen'
-    },
-    {
-      id: 6,
-      fecha: '2023-10-01 A las 18:36',
-      concepto: 'Como hacer un disfraz de Halloween con bolsas de basura'
-    },
-    {
-      id: 7,
-      fecha: '2023-10-01 A las 18:37',
-      concepto: 'Como hacer una broma pesada a tu vecino'
-    },
-    {
-      id: 8,
-      fecha: '2023-10-01 A las 18:37',
-      concepto: 'Como hacer un disfraz de Halloween con bolsas de basura'
-    },
-    {
-      id: 9,
-      fecha: '2023-10-01 A las 18:38',
-      concepto: 'Como hacer un disfraz de Halloween con bolsas de basura'
-    },
-    {
-      id: 10,
-      fecha: '2023-10-01 A las 18:38',
-      concepto: 'Como hacer un disfraz de Halloween con bolsas de basura'
-    },
-    {
-      id: 11,
-      fecha: '2023-10-01 A las 18:39',
-      concepto: 'Como hacer un disfraz de Halloween con bolsas de basura'
-    },
-    {
-      id: 12,
-      fecha: '2023-10-01 A las 18:39',
-      concepto: 'Como hacer un disfraz de Halloween con bolsas de basura'
-    },
-    {
-      id: 13,
-      fecha: '2023-10-01 A las 18:40',
-      concepto: 'Como hacer un disfraz de Halloween con bolsas de basura'
-    },
-    {
-      id: 14,
-      fecha: '2023-10-01 A las 18:40',
-      concepto: 'Como hacer un disfraz de Halloween con bolsas de basura'
-    },
-    {
-      id: 15,
-      fecha: '2023-10-01 A las 18:41',
-      concepto: 'Como hacer un disfraz de Halloween con bolsas de basura'
-    }
-  ];
+  historial : Busqueda[] = [];
+  isLoading: boolean = false;
+  isDeleting: boolean = false;
+  errorMensaje: string | null = null;
+  selectedItems: Set<number> = new Set<number>();
 
-  constructor() { }
+  constructor(
+    private historialService: HistorialService,
+    private toastController: ToastController
+  ) { }
 
   ngOnInit() {
     const modoGuardado = localStorage.getItem('modo');
@@ -107,6 +36,75 @@ export class HistorialComponent  implements OnInit {
     } else {
       this.modo = true;
     }
+    this.cargarHistorial();
   }
 
+  cargarHistorial() {
+    this.isLoading = true;
+    this.errorMensaje = null;
+    this.selectedItems.clear();
+
+    this.historialService.getHistorialUsuario().subscribe({
+      next: (data: Busqueda[]) => {
+        this.historial = data;
+        this.isLoading = false;
+      },
+      error: async (err: any) => {
+        console.error('Error al eliminar items:', err);
+        const mensajeError = `Error al eliminar (${err.status || 'sin status'}): ${err.message || err.error?.message || 'Error desconocido'}`;
+        await this.mostrarToast(mensajeError, 'danger');
+        this.errorMensaje = 'Error al eliminar los items seleccionados.';
+        this.isDeleting = false;
+      }
+    });
+  }
+
+  onCheckboxChange(event: any, busquedaId: number) {
+    if (event.detail.checked) {
+      this.selectedItems.add(busquedaId);
+    } else {
+      this.selectedItems.delete(busquedaId);
+    }
+  }
+
+  hayItemsSeleccionados(): boolean {
+    return this.selectedItems.size > 0;
+  }
+
+  eliminarSeleccionados() {
+    if (this.selectedItems.size === 0 || this.isDeleting) {
+      return;
+    }
+
+    const idsParaEliminar = Array.from(this.selectedItems);
+    this.isDeleting = true;
+    this.errorMensaje = null;
+
+    this.historialService.deleteHistorialItems(idsParaEliminar).subscribe({
+      next: async () => {
+        console.log('Items eliminados con éxito del backend');
+        await this.mostrarToast('Historial eliminado correctamente.', 'success');
+        this.isDeleting = false;
+        this.cargarHistorial();
+      },
+      error: async (err: any) => {
+        console.error('Error al eliminar items:', err);
+        const mensajeError = `Error al eliminar (${err.status || 'sin status'}): ${err.message || err.error?.message || 'Error desconocido'}`;
+        await this.mostrarToast(mensajeError, 'danger');
+        this.errorMensaje = 'Error al eliminar los items seleccionados.';
+        this.isDeleting = false;
+      }
+    });
+  }
+
+  async mostrarToast(mensaje: string, color: 'success' | 'danger' | 'warning' | 'primary' | 'secondary' | 'tertiary' | 'medium' | 'light' | 'dark' = 'primary', duration: number = 3000) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: duration,
+      position: 'bottom',
+      color: color,
+      buttons: [{ text: 'Cerrar', role: 'cancel' }]
+    });
+    await toast.present();
+  }
 }

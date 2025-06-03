@@ -13,7 +13,7 @@ import { notificationsOutline, personCircleOutline, heartOutline, heart } from "
 import { finalize } from 'rxjs/operators';
 
 import { MenuizquierdaComponent } from "../menuizquierda/menuizquierda.component";
-import { Producto } from '../models/Producto'; // Ensure this model includes 'empresa' and 'favorito'
+import { Producto } from '../models/Producto';
 import { ProductFilters } from '../models/ProductFilters';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
@@ -34,7 +34,7 @@ interface BackendProduct {
 }
 
 @Component({
-  selector: 'app-principal', // Using 'a's selector
+  selector: 'app-principal',
   standalone: true,
   imports: [
     CommonModule,
@@ -230,7 +230,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
         .subscribe({
           next: (data) => {
             if (localCallId === this.currentSearchCallId) {
-              this.allProducts = data.map((p: BackendProduct, index: number): Producto => ({
+              this.allProducts = data.map((p: BackendProduct, index: number): Producto => <Producto>({
                 id: p.id || (Date.now() + index),
                 title: p.title || 'Producto sin título',
                 discount: p.discount || '',

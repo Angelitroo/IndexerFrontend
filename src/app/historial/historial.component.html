@@ -8,19 +8,76 @@
         <p [class.claro]="modo" [class.oscuro]="!modo">Búsquedas Recientes</p>
       </div>
 
-      <div class="scroll-container">
-        <ion-card class="product-card" *ngFor="let busqueda of historial" [class.cardclaro]="modo" [class.cardoscuro]="!modo"
-        >
-          <div class="card-content">
-            <ion-checkbox slot="start"></ion-checkbox>
-            <div class="text-content">
-              <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ busqueda.concepto }}</ion-card-title>
-              <div class="fecha" [class.claro]="modo" [class.oscuro]="!modo">{{ busqueda.fecha }}</div>
-            </div>
-          </div>
-        </ion-card>
+
+      <div *ngIf="isLoading" class="ion-text-center ion-padding">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p [class.claro]="modo" [class.oscuro]="!modo">Cargando historial...</p>
       </div>
-      <ion-button class="eliminar">Eliminar</ion-button>
+
+
+      <div *ngIf="errorMensaje && !isLoading" class="ion-text-center ion-padding error-message">
+        <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
+        <p [class.claro]="modo" [class.oscuro]="!modo">{{ errorMensaje }}</p>
+        <ion-button (click)="cargarHistorial()" fill="outline">Reintentar</ion-button>
+      </div>
+
+
+      <div *ngIf="!isLoading && !errorMensaje">
+        <div *ngIf="historial.length > 0; else noHistorial" class="scroll-container">
+          <ion-card class="product-card" *ngFor="let busqueda of historial"
+                    [class.cardclaro]="modo" [class.cardoscuro]="!modo">
+            <div class="card-content">
+
+              <ion-checkbox slot="start"
+                            (ionChange)="onCheckboxChange($event, busqueda.id)"
+                            [checked]="selectedItems.has(busqueda.id)"></ion-checkbox>
+              <div class="text-content">
+                <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ busqueda.concepto }}</ion-card-title>
+                <div class="fecha" [class.claro]="modo" [class.oscuro]="!modo">{{ busqueda.fecha }}</div>
+              </div>
+            </div>
+          </ion-card>
+        </div>
+
+
+        <ng-template #noHistorial>
+          <div class="ion-text-center ion-padding">
+            <p [class.claro]="modo" [class.oscuro]="!modo">No tienes búsquedas recientes.</p>
+          </div>
+        </ng-template>
+
+
+        <ion-button *ngIf="historial.length > 0 && hayItemsSeleccionados()"
+                    class="eliminar"
+                    (click)="eliminarSeleccionados()"
+                    expand="block"
+                    color="danger">
+          Eliminar Seleccionados ({{ selectedItems.size }})
+        </ion-button>
+        <ion-button *ngIf="historial.length > 0 && !hayItemsSeleccionados()"
+                    class="eliminar"
+                    expand="block"
+                    color="medium"
+                    disabled>
+          Eliminar
+        </ion-button>
+      </div>
+
     </div>
   </div>
 </ion-content>
+
+
+<style>
+  .error-message {
+    color: var(--ion-color-danger);
+    border: 1px solid var(--ion-color-danger-shade);
+    border-radius: 5px;
+    background-color: var(--ion-color-danger-tint);
+    margin: 10px;
+  }
+  .error-message ion-icon {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+  }
+</style>

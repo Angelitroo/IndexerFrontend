@@ -185,7 +185,8 @@ export class PaneladminComponent  implements OnInit {
       image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
       rating: '4.6',
       delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch'
+      url: 'https://example.com/smartwatch',
+      empresa: ''
     },
     {
       id: 6,
