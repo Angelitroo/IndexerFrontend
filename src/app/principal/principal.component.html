@@ -19,14 +19,16 @@
       placeholder="Buscar producto..."
       class="input-item"
       [class.searchclaro]="modo"
-      [class.searchoscuro]="!modo">
+      [class.searchoscuro]="!modo"
+      (ionChange)="onSearchChange($event)">
     </ion-searchbar>
   </div>
 
   <app-menuizquierda></app-menuizquierda>
+
   <!-- productos destacados -->
   <ng-container>
-    <h2 class="empresa-titulo"  [class.claro]="modo" [class.oscuro]="!modo">Productos destacados</h2>
+    <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">Productos destacados</h2>
     <swiper
       [navigation]="true"
       [pagination]="{ clickable: true }"
@@ -52,7 +54,7 @@
           <ion-card-content>
             <div class="price-row">
               <span class="actual-price">€{{ destacado.actualPrice.toFixed(2) }}</span>
-              <span class="old-price">€{{ destacado.oldPrice.toFixed(2) }}</span>
+              <span class="old-price">€{{ destacado.oldPrice?.toFixed(2) }}</span>
             </div>
             <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ destacado.rating }}</div>
             <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ destacado.delivery }}</div>
@@ -72,10 +74,9 @@
     </swiper>
   </ng-container>
 
-
   <!-- empresas -->
-  <ng-container *ngFor="let empresa of empresas">
-    <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">{{ empresa }}</h2>
+  <ng-container *ngFor="let group of groupedProducts">
+    <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">{{ group.empresa }}</h2>
 
     <swiper
       [navigation]="true"
@@ -86,7 +87,7 @@
       [spaceBetween]="2"
       class="custom-swiper"
     >
-      <ng-template swiperSlide *ngFor="let producto of productos">
+      <ng-template swiperSlide *ngFor="let producto of group.items">
         <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
           <div class="heart-icon" (click)="toggleFavorito(producto)">
             <ion-icon [name]="producto.favorito ? 'heart' : 'heart-outline'"></ion-icon>
@@ -102,7 +103,7 @@
           <ion-card-content>
             <div class="price-row">
               <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
-              <span class="old-price">€{{ producto.oldPrice.toFixed(2) }}</span>
+              <span class="old-price">€{{ producto.oldPrice?.toFixed(2) }}</span>
             </div>
             <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ producto.rating }}</div>
             <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ producto.delivery }}</div>
