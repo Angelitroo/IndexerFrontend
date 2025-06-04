@@ -33,17 +33,18 @@ export class ProductoPopoverComponent implements OnInit {
     private toastController: ToastController,
     private productoService: ProductoService,
     private popoverCtrl: PopoverController
-  ) {}
-
-  ngOnInit() {
-    if (this.producto.image) {
-      this.imagePath = this.producto.image;
-    }
+  ) {
     const modoGuardado = localStorage.getItem('modo');
     if (modoGuardado !== null) {
       this.modo = JSON.parse(modoGuardado);
     } else {
       this.modo = true;
+    }
+  }
+
+  ngOnInit() {
+    if (this.producto.image) {
+      this.imagePath = this.producto.image;
     }
   }
 
