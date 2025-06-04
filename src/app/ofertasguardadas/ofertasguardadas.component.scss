@@ -64,6 +64,7 @@
   transition: transform 0.2s ease-in-out;
   text-align: center;
   height: 420px;
+  border: 2px solid var(--border-color);
 
   img {
     height: 180px;
@@ -94,12 +95,14 @@
 
 .cardclaro {
   --background: #ffffff;
+  --border-color: #ffffff;
   background: #ffffff;
 }
 
 .cardoscuro {
   --background: #4e4e4e;
   background: #4e4e4e;
+  --border-color: #616161;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
 }
 

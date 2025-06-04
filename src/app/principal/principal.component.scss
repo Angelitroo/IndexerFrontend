@@ -1,4 +1,4 @@
-/* Estilos base (iguales para ambos modos) */
+/* Estilos base y temas */
 .background {
   --background: transparent;
   background-size: cover;
@@ -15,7 +15,27 @@
   background: linear-gradient(to bottom, #1e1e1e, #2c2c2c);
 }
 
-/* Estilos para la barra de búsqueda */
+.claro {
+  color: #333;
+}
+
+.oscuro {
+  color: #ddd;
+}
+
+/* Componentes reutilizables */
+.searchbar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.input-item {
+  border-radius: 12px;
+  height: 44px;
+  width: 50%;
+}
+
 .searchclaro {
   --background: #ffffff;
   --color: #333333;
@@ -30,13 +50,7 @@
   --border-color: #666666;
 }
 
-.input-item {
-  border-radius: 12px;
-  height: 44px;
-  width: 50%;
-}
-
-/* Estilos para las tarjetas de producto */
+/* Tarjetas de producto */
 .product-card {
   min-width: 250px;
   width: 220px;
@@ -46,6 +60,15 @@
   position: relative;
   height: 420px;
   border: 2px solid var(--border-color);
+
+  img {
+    height: 180px;
+    object-fit: contain;
+    margin: 30px auto 0;
+    display: block;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+  }
 }
 
 .cardclaro {
@@ -60,22 +83,13 @@
   background: #4e4e4e;
   --border-color: #616161;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+
+  ion-card-title {
+    color: #ffb366;
+  }
 }
 
-.cardoscuro ion-card-title {
-  color: #ffb366;
-}
-
-/* Estilos para el texto */
-.claro {
-  color: #333;
-}
-
-.oscuro {
-  color: #ddd;
-}
-
-/* Estilos específicos para elementos */
+/* Encabezados y texto */
 .branding {
   text-align: center;
   margin-bottom: 16px;
@@ -107,78 +121,17 @@
   border-left: 6px solid #e67e22;
   padding-left: 12px;
   border-radius: 4px;
+
+  &.claro {
+    color: #8c8c8c;
+  }
+
+  &.oscuro {
+    color: #aaaaaa;
+  }
 }
 
-.empresa-titulo.claro {
-  color: #8c8c8c;
-}
-
-.empresa-titulo.oscuro {
-  color: #aaaaaa;
-}
-
-/* Estilos para el swiper */
-.custom-swiper {
-  --swiper-navigation-size: 40px;
-  --swiper-navigation-color: #e67e22;
-  position: relative;
-  margin-left: 25%;
-  padding: 10px 40px 40px 40px;
-  margin-bottom: 20px;
-}
-
-::ng-deep .custom-swiper .swiper {
-  padding-bottom: 30px;
-}
-
-::ng-deep .custom-swiper .swiper-button-prev,
-::ng-deep .custom-swiper .swiper-button-next {
-  position: absolute;
-  top: calc(50% - 20px);
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  z-index: 10;
-}
-
-::ng-deep .custom-swiper .swiper-pagination {
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
-}
-
-::ng-deep .custom-swiper .swiper-pagination-bullet {
-  background: #e67e22;
-  opacity: 0.5;
-  width: 10px;
-  height: 10px;
-}
-::ng-deep .custom-swiper .swiper-pagination-bullet-active {
-  opacity: 1;
-}
-
-
-
-/* Resto de estilos (igual que antes) */
-.searchbar-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 60px;
-}
-
-.product-card img {
-  height: 180px;
-  object-fit: contain;
-  margin: 30px auto 0;
-  display: block;
-  border-radius: 8px;
-  background-color: #f5f5f5;
-}
-
+/* Componentes de tarjeta */
 ion-card-header {
   display: flex;
   justify-content: space-between;
@@ -214,7 +167,7 @@ ion-card-title {
   color: gray;
 }
 
-.rating {
+.rating, .delivery {
   font-size: 0.9rem;
   white-space: nowrap;
   overflow: hidden;
@@ -225,12 +178,9 @@ ion-card-title {
 .delivery {
   font-size: 0.85rem;
   margin-bottom: 8px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 220px;
 }
 
+/* Botones */
 .login-button {
   --background: #e67e22;
   --background-activated: #d35400;
@@ -240,6 +190,7 @@ ion-card-title {
   margin-top: 8px;
 }
 
+/* Iconos */
 .top-icons {
   position: absolute;
   top: 16px;
@@ -255,15 +206,15 @@ ion-card-title {
     color: #e67e22;
     cursor: pointer;
   }
-}
 
-.top-icons button {
-  background: none;
-  border: none;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .heart-icon {
@@ -281,5 +232,52 @@ ion-card-title {
 
   &:hover ion-icon {
     transform: scale(1.15);
+  }
+}
+
+/* Swiper */
+.custom-swiper {
+  --swiper-navigation-size: 40px;
+  --swiper-navigation-color: #e67e22;
+  position: relative;
+  margin-left: 25%;
+  padding: 10px 40px 40px 40px;
+  margin-bottom: 20px;
+}
+
+::ng-deep {
+  .custom-swiper .swiper {
+    padding-bottom: 30px;
+  }
+
+  .custom-swiper .swiper-button-prev,
+  .custom-swiper .swiper-button-next {
+    position: absolute;
+    top: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+  }
+
+  .custom-swiper .swiper-pagination {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .custom-swiper .swiper-pagination-bullet {
+    background: #e67e22;
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+  }
+
+  .custom-swiper .swiper-pagination-bullet-active {
+    opacity: 1;
   }
 }
