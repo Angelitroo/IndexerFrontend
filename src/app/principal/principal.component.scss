@@ -45,17 +45,20 @@
   transition: transform 0.2s ease-in-out;
   position: relative;
   height: 420px;
+  border: 2px solid var(--border-color);
 }
 
 .cardclaro {
   --background: #ffffff;
   background: #ffffff;
+  --border-color: #ffffff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .cardoscuro {
   --background: #4e4e4e;
   background: #4e4e4e;
+  --border-color: #616161;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
 }
 
