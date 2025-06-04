@@ -1,0 +1,46 @@
+<ion-content class="popover-content login-background">
+  <div class="contenido">
+    <ion-grid [class.gridclaro]="modo" [class.gridoscuro]="!modo">
+
+      <!-- Icono centrado -->
+      <ion-row class="ion-justify-content-center ion-margin-top">
+        <ion-col size="12" class="ion-text-center">
+          <ion-icon name="notifications-outline" class="icono-alerta"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+      <!-- Subtítulo debajo del icono -->
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" class="ion-text-center">
+          <p class="subtitulo-alerta" [class.subtituloclaro] = "modo" [class.subtitulooscuro] = "!modo">Aquí puedes crear una alerta personalizada según lo que estés buscando. Introduce un concepto y el precio deseado.</p>
+        </ion-col>
+      </ion-row>
+
+      <!-- Campos -->
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="floating">Crea una alerta</ion-label>
+            <ion-input [(ngModel)]="alerta.concepto" placeholder="Introduce una búsqueda"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="floating">¿Qué precio buscas?</ion-label>
+            <ion-input [(ngModel)]="alerta.precio" placeholder="Introduce el precio que buscas"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!-- Botón -->
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button expand="block" class="boton-guardar" (click)="crearAlerta()">Crear Alerta</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

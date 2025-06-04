@@ -7,7 +7,7 @@ import {PerfilService} from "../services/perfil.service";
 import {Producto} from "../models/Producto";
 import {SwiperModule} from "swiper/angular";
 import SwiperCore, { Navigation, Pagination } from 'swiper';
-import {ProductoPopoverComponent} from "../crearproductopopover/crearproductopopover.component";
+import {CrearproductopopoverComponent} from "../crearproductopopover/crearproductopopover.component";
 import {addIcons} from "ionicons";
 import {personCircleOutline} from "ionicons/icons";
 import {RouterLink} from "@angular/router";
@@ -241,7 +241,7 @@ export class PaneladminComponent  implements OnInit {
 
   async abrirCrearProducto() {
     const popover = await this.popoverCtrl.create({
-      component: ProductoPopoverComponent,
+      component: CrearproductopopoverComponent,
       translucent: true,
       componentProps: {
         producto: null // O un objeto vacío para crear nuevo
@@ -250,7 +250,7 @@ export class PaneladminComponent  implements OnInit {
 
     popover.onDidDismiss().then((result) => {
       if (result.data) {
-        console.log('Producto creado/modificado');
+        console.log('Producto creado/modificado:', result.data);
       }
     });
 

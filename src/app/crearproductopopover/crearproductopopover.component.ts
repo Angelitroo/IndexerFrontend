@@ -11,7 +11,7 @@ import { ProductoService } from '../services/producto.service';
   standalone: true,
   imports: [IonicModule, FormsModule]
 })
-export class ProductoPopoverComponent implements OnInit {
+export class CrearproductopopoverComponent implements OnInit {
   modo: boolean = true;
 
   @Input() producto: Producto = {

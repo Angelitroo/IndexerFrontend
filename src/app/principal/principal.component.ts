@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import {IonicModule, PopoverController} from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { Producto } from '../models/Producto';
 import {addIcons} from "ionicons";
@@ -9,6 +9,7 @@ import {MenuizquierdaComponent} from "../menuizquierda/menuizquierda.component";
 import { SwiperModule } from 'swiper/angular';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import {RouterLink} from "@angular/router";
+import {CrearalertapopoverComponent} from "../crearalertapopover/crearalertapopover.component";
 SwiperCore.use([Navigation, Pagination]);
 
 @Component({
@@ -121,7 +122,9 @@ export class PrincipalComponent implements OnInit{
       url: 'https://example.com/monitor-fullhd'
     }
   ];
-  constructor() {
+  constructor(
+    private popoverCtrl: PopoverController,
+  ) {
     addIcons({
       'person-circle-outline': personCircleOutline,
       'notifications-outline': notificationsOutline,
@@ -140,6 +143,24 @@ export class PrincipalComponent implements OnInit{
 
   toggleFavorito(producto: any): void {
     producto.favorito = !producto.favorito;
+  }
+
+  async abrirCrearAlerta() {
+    const popover = await this.popoverCtrl.create({
+      component: CrearalertapopoverComponent,
+      translucent: true,
+      componentProps: {
+        alerta: null // O un objeto vacío para crear nuevo
+      }
+    });
+
+    popover.onDidDismiss().then((result) => {
+      if (result.data) {
+        console.log('Alerta creada:', result.data);
+      }
+    });
+
+    await popover.present();
   }
 
 }
