@@ -1,13 +1,13 @@
 export interface Producto {
-  id: number;
-  favorito: boolean;
+  id: any;
   title: string;
   discount: string;
   actualPrice: number;
-  oldPrice: number;
+  oldPrice?: number;
   image: string;
-  rating: string;
-  delivery: string;
+  rating?: string;
+  delivery?: string;
   url: string;
   empresa: string;
+  favorito: boolean;
 }

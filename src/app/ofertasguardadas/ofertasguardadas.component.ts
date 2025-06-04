@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { MenuizquierdaconfigComponent } from '../menuizquierdaconfig/menuizquierdaconfig.component';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf, NgIf, CommonModule } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { Producto } from '../models/Producto';
 import SwiperCore, {Navigation, Pagination} from "swiper";
 import {addIcons} from "ionicons";
-import {heart, heartOutline, notificationsOutline, personCircleOutline} from "ionicons/icons";
+import {heart, heartOutline} from "ionicons/icons";
+import {HttpClient, HttpClientModule, HttpParams} from '@angular/common/http';
 
 SwiperCore.use([Navigation, Pagination]);
+
 @Component({
   selector: 'app-ofertasguardadas',
   templateUrl: './ofertasguardadas.component.html',
@@ -19,96 +21,20 @@ SwiperCore.use([Navigation, Pagination]);
     IonicModule,
     NgForOf,
     NgIf,
-    SwiperModule
+    CommonModule,
+    SwiperModule,
+    HttpClientModule
   ]
 })
 export class OfertasguardadasComponent implements OnInit {
   modo: boolean = true;
-  productos: Producto[] = [
-    {
-      id: 1,
-      favorito: true,
-      title: 'Auriculares Bluetooth',
-      discount: '20%',
-      actualPrice: 29.99,
-      oldPrice: 39.99,
-      image: 'https://m.media-amazon.com/images/I/61lX+a+vOFL.jpg',
-      rating: '4.5',
-      delivery: 'Entrega rápida',
-      url: '',
-      empresa: ''
-    },
-    {
-      id: 2,
-      favorito: true,
-      title: 'Teclado Mecánico',
-      discount: '15%',
-      actualPrice: 59.99,
-      oldPrice: 69.99,
-      image: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
-      rating: '4.8',
-      delivery: 'Entrega en 24h',
-      url: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
-      empresa: ''
-    },
-    {
-      id: 3,
-      favorito: true,
-      title: 'Smartwatch Deportivo',
-      discount: '10%',
-      actualPrice: 89.99,
-      oldPrice: 99.99,
-      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
-      rating: '4.6',
-      delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch',
-      empresa: ''
-    }
-    ,
-    {
-      id: 4,
-      favorito: true,
-      title: 'Smartwatch Deportivo',
-      discount: '10%',
-      actualPrice: 89.99,
-      oldPrice: 99.99,
-      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
-      rating: '4.6',
-      delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch',
-      empresa: ''
-    },
-    {
-      id: 5,
-      favorito: true,
-      title: 'Teclado Mecánico',
-      discount: '15%',
-      actualPrice: 59.99,
-      oldPrice: 69.99,
-      image: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
-      rating: '4.8',
-      delivery: 'Entrega en 24h',
-      url: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
-      empresa: ''
-    },
-    {
-      id: 6,
-      favorito: true,
-      title: 'Smartwatch Deportivo',
-      discount: '10%',
-      actualPrice: 89.99,
-      oldPrice: 99.99,
-      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
-      rating: '4.6',
-      delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch',
-      empresa: ''
-    }
-    ,
-  ];
+  productos: Producto[] = [];
+  isLoading: boolean = false;
+  errorMessage: string | null = null;
 
+  private favoritesApiBaseUrl = 'http://localhost:8080/api/products';
 
-  constructor() {
+  constructor(private http: HttpClient) {
     addIcons({
       'heart-outline': heartOutline,
       'heart': heart
@@ -122,10 +48,58 @@ export class OfertasguardadasComponent implements OnInit {
     } else {
       this.modo = true;
     }
+    this.loadFavoritos();
   }
 
+  loadFavoritos(): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+    this.http.get<Producto[]>(`${this.favoritesApiBaseUrl}/favorites`).subscribe({
+      next: (data) => {
+        this.productos = data.map(p => ({ ...p, favorito: true }));
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error loading saved offers:', err);
+        this.isLoading = false;
+        if (err.status === 401) {
+          this.errorMessage = 'Please log in to view your saved offers.';
+        } else {
+          this.errorMessage = 'Could not load saved offers. Please try again later.';
+        }
+      }
+    });
+  }
 
-  toggleFavorito(producto: any): void {
-    producto.favorito = !producto.favorito;
+  toggleFavorito(producto: Producto): void {
+    const productUrlValue = producto.url;
+    if (!productUrlValue || productUrlValue === '#') {
+      console.error('Cannot unfavorite: Product URL is missing or invalid.', producto);
+      return;
+    }
+
+    const productIndex = this.productos.findIndex(p => p.url === productUrlValue);
+    if (productIndex === -1) return;
+    const originalProduct = this.productos[productIndex];
+    this.productos.splice(productIndex, 1);
+
+    const requestUrl = `${this.favoritesApiBaseUrl}/favorite`;
+    const params = new HttpParams().set('url', productUrlValue);
+
+    this.http.delete(requestUrl, { params: params }).subscribe({
+      next: () => {
+        console.log(`Product ${productUrlValue} successfully removed from favorites.`);
+      },
+      error: (err) => {
+        console.error(`Error removing favorite ${productUrlValue} from backend:`, err);
+        this.productos.splice(productIndex, 0, originalProduct);
+
+        if (err.status === 401) {
+          alert('Your session might have expired. Please log in again.');
+        } else {
+          alert('Failed to remove favorite. Please try again.');
+        }
+      }
+    });
   }
 }

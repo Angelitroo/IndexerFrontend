@@ -33,7 +33,7 @@
             <ion-card-content>
               <div class="price-row">
                 <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
-                <span class="old-price">€{{ producto.oldPrice.toFixed(2) }}</span>
+                <span class="old-price">€{{ producto.oldPrice?.toFixed(2) }}</span>
               </div>
               <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ producto.rating }}</div>
               <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ producto.delivery }}</div>
