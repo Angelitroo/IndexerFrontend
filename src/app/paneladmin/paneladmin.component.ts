@@ -24,6 +24,8 @@ SwiperCore.use([Navigation, Pagination]);
 
 export class PaneladminComponent  implements OnInit {
   modo: boolean = true;
+  miperfil: Perfil | null = null;
+
   perfilId: number | null = null;
   perfil: Perfil | null = null;
   perfiles: Perfil[] = [
@@ -214,14 +216,27 @@ export class PaneladminComponent  implements OnInit {
     'person-circle-outline': personCircleOutline,
   });  }
 
-  ngOnInit(){
+  ngOnInit() {
     this.perfilId = this.authService.getPerfilIdFromToken();
-    this.cargarMiPerfil();
-    this.perfilService.getPerfiles().subscribe({
-      next: (data: Perfil[]) => {
-        this.perfiles = data;
-      },
-    });
+
+    if (this.perfilId !== null) {
+      this.perfilService.getPerfilById(this.perfilId).subscribe({
+        next: (data: Perfil) => {
+          console.log('📦 Perfil recibido del backend:', data);
+          if (!data) {
+            console.warn('⚠️ No se recibió ningún perfil');
+          }
+          this.miperfil = data;
+          console.log('✅ miperfil asignado:', this.miperfil);
+        },
+        error: (error) => {
+          console.error('❌ Error al obtener el perfil:', error);
+        }
+      });
+    } else {
+      console.warn('⚠️ No se pudo obtener el ID del perfil desde el token.');
+    }
+
     const modoGuardado = localStorage.getItem('modo');
     if (modoGuardado !== null) {
       this.modo = JSON.parse(modoGuardado);
@@ -230,19 +245,7 @@ export class PaneladminComponent  implements OnInit {
     }
   }
 
-  private cargarMiPerfil(perfilId?: number | null) {
-    if (!perfilId) {
-      perfilId = this.authService.getPerfilIdFromToken();
-    }
-    console.log('Perfil ID:', perfilId);
-    if (perfilId) {
-      this.perfilService.getPerfilById(perfilId).subscribe({
-        next: (data: Perfil) => {
-          this.perfil = data;
-        },
-      });
-    }
-  }
+
 
 
   async abrirCrearProducto() {
