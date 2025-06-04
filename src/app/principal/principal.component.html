@@ -24,7 +24,56 @@
   </div>
 
   <app-menuizquierda></app-menuizquierda>
+  <!-- productos destacados -->
+  <ng-container>
+    <h2 class="empresa-titulo"  [class.claro]="modo" [class.oscuro]="!modo">Productos destacados</h2>
+    <swiper
+      [navigation]="true"
+      [pagination]="{ clickable: true }"
+      [loop]="false"
+      [slidesPerView]="5"
+      [slidesPerGroup]="1"
+      [spaceBetween]="2"
+      class="custom-swiper"
+    >
+      <ng-template swiperSlide *ngFor="let destacado of destacados">
+        <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
+          <div class="heart-icon" (click)="toggleFavorito(destacado)">
+            <ion-icon [name]="destacado.favorito ? 'heart' : 'heart-outline'"></ion-icon>
+          </div>
 
+          <img [src]="destacado.image" alt="Imagen de {{ destacado.title }}" />
+          <ion-card-header>
+            <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ destacado.title }}</ion-card-title>
+            <ion-badge color="danger" *ngIf="destacado.discount">
+              {{ destacado.discount }} OFF
+            </ion-badge>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="price-row">
+              <span class="actual-price">€{{ destacado.actualPrice.toFixed(2) }}</span>
+              <span class="old-price">€{{ destacado.oldPrice.toFixed(2) }}</span>
+            </div>
+            <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ destacado.rating }}</div>
+            <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ destacado.delivery }}</div>
+            <ion-button
+              expand="block"
+              fill="outline"
+              size="small"
+              [href]="destacado.url"
+              target="_blank"
+              class="login-button"
+            >
+              Ver más
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ng-template>
+    </swiper>
+  </ng-container>
+
+
+  <!-- empresas -->
   <ng-container *ngFor="let empresa of empresas">
     <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">{{ empresa }}</h2>
 

@@ -24,6 +24,34 @@ export class PrincipalComponent implements OnInit{
   favorito: boolean = false;
   modo: boolean = true;
 
+
+  destacados: Producto[] = [
+    {
+      id: 1,
+      favorito: false,
+      title: 'Auriculares To Wapos',
+      discount: '20%',
+      actualPrice: 29.99,
+      oldPrice: 39.99,
+      image: 'https://canarias.worten.es/i/ff5b01f16dddc7df279533f12f08f5e2f96fb153',
+      rating: '4.5',
+      delivery: 'Entrega rápida o lo antes posible no se lo que me salga de los co',
+      url: 'https://amzn.eu/d/19sWE1t'
+    },
+    {
+      id: 2,
+      favorito: false,
+      title: 'Teclado De Luces',
+      discount: '15%',
+      actualPrice: 59.99,
+      oldPrice: 69.99,
+      image: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
+      rating: '4.8',
+      delivery: 'Entrega en 24h',
+      url: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg'
+    }
+  ];
+
   productos: Producto[] = [
     {
       id: 1,
