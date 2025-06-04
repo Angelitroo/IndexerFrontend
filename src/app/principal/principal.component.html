@@ -20,16 +20,23 @@
       class="input-item"
       [class.searchclaro]="modo"
       [class.searchoscuro]="!modo"
-      (ionChange)="onSearchChange($event)">
+      [(ngModel)]="searchTerm"
+    (keyup.enter)="onSearchButtonClick()"
+    (ionClear)="onSearchButtonClick()"
+    >
     </ion-searchbar>
-    <ion-button class="search-button" [class.claro]="modo" [class.oscuro]="!modo">
-      <ion-icon name="search-outline"></ion-icon>
+    <ion-button
+      class="search-button"
+      [class.claro]="modo"
+      [class.oscuro]="!modo"
+      (click)="onSearchButtonClick()"
+    >
+    <ion-icon name="search-outline"></ion-icon>
     </ion-button>
   </div>
 
   <app-menuizquierda></app-menuizquierda>
 
-  <!-- productos destacados -->
   <ng-container>
     <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">Productos destacados</h2>
     <swiper
@@ -77,7 +84,6 @@
     </swiper>
   </ng-container>
 
-  <!-- empresas -->
   <ng-container *ngFor="let group of groupedProducts">
     <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">{{ group.empresa }}</h2>
 

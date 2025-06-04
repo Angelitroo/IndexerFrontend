@@ -196,7 +196,19 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     console.log("Products defined in initializeHardcodedData:", this.initialHardcodedProductos.length);
     console.log("--- initializeHardcodedData END ---");
   }
+  private areFiltersEffectivelyEmpty(filters: ProductFilters): boolean {
+    if (!filters || Object.keys(filters).length === 0) {
+      return true;
+    }
+    if (filters.selectedEmpresas && filters.selectedEmpresas.length > 0) return false;
+    if (filters.selectedCategories && filters.selectedCategories.length > 0) return false;
+    if (filters.minPrice !== undefined && filters.minPrice !== null) return false;
+    if (filters.maxPrice !== undefined && filters.maxPrice !== null) return false;
+    if (filters.sortBy && filters.sortBy !== '') return false;
 
+
+    return true;
+  }
   private updateSwipers() {
     this.cdr.detectChanges();
     requestAnimationFrame(() => {
@@ -220,13 +232,14 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     return isNaN(numericPart) ? 0 : numericPart;
   }
 
-  onSearchChange(event: any) {
-    const query = event.target.value ? event.target.value.toLowerCase().trim() : '';
-    this.searchTerm = query;
+
+  public onSearchButtonClick(): void {
+    const query = this.searchTerm ? this.searchTerm.toLowerCase().trim() : '';
     this.currentSearchCallId++;
     const localCallId = this.currentSearchCallId;
 
-    if (!query && (!this.activeFilters || Object.keys(this.activeFilters).length === 0 || (Object.keys(this.activeFilters).length === 1 && this.activeFilters.selectedEmpresas?.length ===0))) {
+
+    if (!query && this.areFiltersEffectivelyEmpty(this.activeFilters)) {
       this.isInitialView = true;
       this.allProducts = [...this.initialHardcodedProductos];
       this.processProducts();
@@ -235,20 +248,15 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     }
 
     this.isInitialView = false;
-    this.isLoading = true;
 
-    if (!query && Object.keys(this.activeFilters).length > 0) {
-      this.allProducts = [...this.initialHardcodedProductos];
-      this.processProducts();
-      this.isLoading = false;
-      return;
-    }
-
-    if(query){
-      this.http.get<BackendProduct[]>(`${this.searchApiUrl}/${query}`) // Using searchApiUrl
+    if (query) {
+      this.isLoading = true;
+      this.http.get<BackendProduct[]>(`${this.searchApiUrl}/${query}`)
         .pipe(
           finalize(() => {
-            if (localCallId === this.currentSearchCallId) { this.isLoading = false; }
+            if (localCallId === this.currentSearchCallId) {
+              this.isLoading = false;
+            }
           })
         )
         .subscribe({
@@ -279,17 +287,23 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
           }
         });
     } else {
+
       this.isLoading = false;
+      this.allProducts = [...this.initialHardcodedProductos];
       this.processProducts();
     }
   }
 
   onFiltersChanged(filters: ProductFilters) {
     this.activeFilters = filters;
-    this.isInitialView = false;
-
-    if (!this.searchTerm) {
+    if ((!this.searchTerm || !this.searchTerm.trim()) && this.areFiltersEffectivelyEmpty(this.activeFilters)) {
+      this.isInitialView = true;
       this.allProducts = [...this.initialHardcodedProductos];
+    } else {
+      this.isInitialView = false;
+      if (!this.searchTerm || !this.searchTerm.trim()) {
+        this.allProducts = [...this.initialHardcodedProductos];
+      }
     }
     this.processProducts();
   }
@@ -403,11 +417,12 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   }
 
   async abrirCrearAlerta() {
+    // @ts-ignore
     const popover = await this.popoverCtrl.create({
       component: CrearalertapopoverComponent,
       translucent: true,
       componentProps: {
-        alerta: null // O un objeto vacío para crear nuevo
+        alerta: null
       }
     });
 

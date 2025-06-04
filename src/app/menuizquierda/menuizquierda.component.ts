@@ -27,6 +27,7 @@ export class MenuizquierdaComponent implements OnInit {
   selectedCategoriesMap: { [key: string]: boolean } = {};
 
   @Output() filtersApplied = new EventEmitter<ProductFilters>();
+  @Output() filtersChanged = new EventEmitter<ProductFilters>();
 
   constructor() { }
 
