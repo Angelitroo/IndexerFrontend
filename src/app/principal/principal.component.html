@@ -1,7 +1,7 @@
 <ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
   <div class="top-icons">
     <button>
-      <ion-icon name="notifications-outline" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
+      <ion-icon name="notifications-outline" (click)="abrirCrearAlerta()" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
     </button>
     <button>
       <ion-icon name="person-circle-outline" [routerLink]="'/modificarperfil'" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
@@ -19,121 +19,106 @@
       placeholder="Buscar producto..."
       class="input-item"
       [class.searchclaro]="modo"
-      [class.searchoscuro]="!modo"
-      (ionInput)="onSearchChange($event)"
-      [debounce]="500"
-      [(ngModel)]="searchTerm">
+      [class.searchoscuro]="!modo">
     </ion-searchbar>
   </div>
 
-  <div class="main-layout-container">
-    <app-menuizquierda (filtersApplied)="onFiltersChanged($event)"></app-menuizquierda>
-
-    <div class="content-area">
-      <div *ngIf="isLoading" style="display: flex; justify-content: center; margin-top: 20px;">
-        <ion-spinner name="crescent"></ion-spinner>
-      </div>
-
-      <ng-container *ngIf="!isLoading">
-        <ng-container *ngIf="isInitialView">
-          <ng-container *ngFor="let empresa of initialEmpresas; let i = index">
-            <ng-container *ngIf="getProductsForEmpresaInInitialView(empresa).length > 0">
-              <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">{{ empresa }}</h2>
-              <swiper class="custom-swiper" [config]="swiperConfig">
-                <ng-template swiperSlide *ngFor="let producto of getProductsForEmpresaInInitialView(empresa)">
-                  <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
-                    <div class="heart-icon" (click)="toggleFavorito(producto)">
-                      <ion-icon [name]="producto.favorito ? 'heart' : 'heart-outline'"></ion-icon>
-                    </div>
-
-                    <div class="image-wrapper">
-                      <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
-                    </div>
-
-                    <ion-card-header>
-                      <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
-                      <ion-badge color="danger" *ngIf="getDiscountValue(producto.discount) > 0">
-                        {{ producto.discount }} OFF
-                      </ion-badge>
-                    </ion-card-header>
-                    <ion-card-content>
-                      <div>
-                        <div class="price-row">
-                          <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
-                          <span class="old-price" *ngIf="producto.oldPrice && producto.oldPrice > producto.actualPrice">€{{ producto.oldPrice!.toFixed(2) }}</span>
-                        </div>
-                        <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">
-                          <span *ngIf="producto.rating && producto.rating !== 'N/A'; else noRatingContentInitial">⭐ {{ producto.rating }}</span>
-                          <ng-template #noRatingContentInitial> </ng-template>
-                        </div>
-                        <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">
-                          <span *ngIf="producto.delivery; else noDeliveryContentInitial">{{ producto.delivery }}</span>
-                          <ng-template #noDeliveryContentInitial> </ng-template>
-                        </div>
-                      </div>
-                      <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">
-                        Ver más
-                      </ion-button>
-                    </ion-card-content>
-                  </ion-card>
-                </ng-template>
-              </swiper>
-            </ng-container>
-          </ng-container>
-        </ng-container>
-
-        <ng-container *ngIf="!isInitialView">
-          <div *ngIf="!hasProductsToDisplay() && searchTerm" class="no-results-message">
-            <p [class.claro]="modo" [class.oscuro]="!modo">No se encontraron productos para "{{searchTerm}}" con los filtros aplicados.</p>
-          </div>
-          <div *ngIf="!hasProductsToDisplay() && !searchTerm && !isInitialView" class="no-results-message">
-            <p [class.claro]="modo" [class.oscuro]="!modo">No hay productos que coincidan con los filtros actuales.</p>
+  <app-menuizquierda></app-menuizquierda>
+  <!-- productos destacados -->
+  <ng-container>
+    <h2 class="empresa-titulo"  [class.claro]="modo" [class.oscuro]="!modo">Productos destacados</h2>
+    <swiper
+      [navigation]="true"
+      [pagination]="{ clickable: true }"
+      [loop]="false"
+      [slidesPerView]="5"
+      [slidesPerGroup]="1"
+      [spaceBetween]="2"
+      class="custom-swiper"
+    >
+      <ng-template swiperSlide *ngFor="let destacado of destacados">
+        <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
+          <div class="heart-icon" (click)="toggleFavorito(destacado)">
+            <ion-icon [name]="destacado.favorito ? 'heart' : 'heart-outline'"></ion-icon>
           </div>
 
-          <ng-container *ngFor="let group of groupedProducts; let j = index">
-            <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">{{ group.empresa }}</h2>
-            <swiper class="custom-swiper" [config]="swiperConfig">
-              <ng-template swiperSlide *ngFor="let producto of group.items">
-                <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
-                  <div class="heart-icon" (click)="toggleFavorito(producto)">
-                    <ion-icon [name]="producto.favorito ? 'heart' : 'heart-outline'"></ion-icon>
-                  </div>
+          <img [src]="destacado.image" alt="Imagen de {{ destacado.title }}" />
+          <ion-card-header>
+            <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ destacado.title }}</ion-card-title>
+            <ion-badge color="danger" *ngIf="destacado.discount">
+              {{ destacado.discount }} OFF
+            </ion-badge>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="price-row">
+              <span class="actual-price">€{{ destacado.actualPrice.toFixed(2) }}</span>
+              <span class="old-price">€{{ destacado.oldPrice.toFixed(2) }}</span>
+            </div>
+            <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ destacado.rating }}</div>
+            <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ destacado.delivery }}</div>
+            <ion-button
+              expand="block"
+              fill="outline"
+              size="small"
+              [href]="destacado.url"
+              target="_blank"
+              class="login-button"
+            >
+              Ver más
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ng-template>
+    </swiper>
+  </ng-container>
 
-                  <div class="image-wrapper">
-                    <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
-                  </div>
 
-                  <ion-card-header>
-                    <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
-                    <ion-badge color="danger" *ngIf="getDiscountValue(producto.discount) > 0">
-                      {{ producto.discount }} OFF
-                    </ion-badge>
-                  </ion-card-header>
-                  <ion-card-content>
-                    <div>
-                      <div class="price-row">
-                        <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
-                        <span class="old-price" *ngIf="producto.oldPrice && producto.oldPrice > producto.actualPrice">€{{ producto.oldPrice!.toFixed(2) }}</span>
-                      </div>
-                      <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">
-                        <span *ngIf="producto.rating && producto.rating !== 'N/A'; else noRatingContentFiltered">⭐ {{ producto.rating }}</span>
-                        <ng-template #noRatingContentFiltered> </ng-template>
-                      </div>
-                      <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">
-                        <span *ngIf="producto.delivery; else noDeliveryContentFiltered">{{ producto.delivery }}</span>
-                        <ng-template #noDeliveryContentFiltered> </ng-template>
-                      </div>
-                    </div>
-                    <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">
-                      Ver más
-                    </ion-button>
-                  </ion-card-content>
-                </ion-card>
-              </ng-template>
-            </swiper>
-          </ng-container>
-        </ng-container>
-      </ng-container>
-    </div>
-  </div>
+  <!-- empresas -->
+  <ng-container *ngFor="let empresa of empresas">
+    <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">{{ empresa }}</h2>
+
+    <swiper
+      [navigation]="true"
+      [pagination]="{ clickable: true }"
+      [loop]="false"
+      [slidesPerView]="5"
+      [slidesPerGroup]="1"
+      [spaceBetween]="2"
+      class="custom-swiper"
+    >
+      <ng-template swiperSlide *ngFor="let producto of productos">
+        <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
+          <div class="heart-icon" (click)="toggleFavorito(producto)">
+            <ion-icon [name]="producto.favorito ? 'heart' : 'heart-outline'"></ion-icon>
+          </div>
+
+          <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+          <ion-card-header>
+            <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
+            <ion-badge color="danger" *ngIf="producto.discount">
+              {{ producto.discount }} OFF
+            </ion-badge>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="price-row">
+              <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
+              <span class="old-price">€{{ producto.oldPrice.toFixed(2) }}</span>
+            </div>
+            <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ producto.rating }}</div>
+            <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ producto.delivery }}</div>
+            <ion-button
+              expand="block"
+              fill="outline"
+              size="small"
+              [href]="producto.url"
+              target="_blank"
+              class="login-button"
+            >
+              Ver más
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ng-template>
+    </swiper>
+  </ng-container>
 </ion-content>

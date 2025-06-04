@@ -1,4 +1,4 @@
-.filter-menu {
+.menu {
   position: absolute;
   left: 16px;
   top: 120px;
@@ -6,21 +6,40 @@
   z-index: 10;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background: #ffffff;
   font-family: inherit;
-  border: 2px solid rgba(200, 200, 200, 0.2); /* borde suave para destacar */
+  border: 2px solid var(--border-color);
   padding: 8px;
   margin-top: 20px;
 }
 
-.filter-menu ion-card-title {
+/* Modo claro y oscuro */
+.modo-claro {
+  --background: #ffffff;
+  --border-color: #ffffff;
+  background: var(--background);
+}
+.modo-oscuro {
+  --background: #2b2b2b;
+  --border-color: #616161;
+  background: var(--background);
+}
+
+/* Colores de texto según modo */
+.text-claro {
+  color: #4d4d4d;
+}
+.text-oscuro {
+  color: #ffffff;
+}
+
+.titulo ion-card-title {
   font-size: 1.2rem;
   font-weight: bold;
   color: #e67e22;
   text-align: center;
 }
 
-.filter-menu ion-item {
+.menu ion-item {
   --background: transparent;
   --color: #4d4d4d;
   margin-bottom: 8px;
@@ -28,42 +47,31 @@
   --min-height: 40px;
 }
 
-.filter-menu ion-label {
-  font-size: 0.95rem;
-  color: #4d4d4d;
+.seccion-label {
+  margin: 16px 0 8px 8px;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
-.filter-menu ion-input {
+.menu ion-input {
   --background: #fff;
   border-radius: 8px;
   border: 1px solid #ddd;
   padding: 4px;
 }
 
-.category-label {
-  margin: 16px 0 8px 8px;
-  font-weight: bold;
-  font-size: 1rem;
-  color: #4d4d4d;
-}
-
-.filter-menu ion-list {
+ion-list {
   background: transparent;
   border-radius: 8px;
   padding: 0 8px;
 }
 
-.filter-menu ion-item ion-label {
-  font-size: 0.95rem;
-  color: #4d4d4d;
-}
-
-.filter-menu ion-checkbox {
+.checkbox {
   --checkbox-background: #e67e22;
   --checkbox-border-color: #e67e22;
 }
 
-.filter-menu ion-button {
+.menu ion-button {
   --background: #e67e22;
   --color: white;
   --background-activated: #d35400;
@@ -93,7 +101,7 @@
 .compact-input ion-input {
   --padding-start: 0;
   --padding-end: 0;
-  --highlight-color-focused: #e67e22; /* color de enfoque visible */
+  --highlight-color-focused: #e67e22;
   --highlight-color: #e67e22;
   --background: transparent;
   --box-shadow: none;
@@ -102,6 +110,6 @@
   border: none !important;
 }
 
-.titulo{
+.titulo {
   justify-content: start;
 }

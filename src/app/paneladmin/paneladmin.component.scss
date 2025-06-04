@@ -1,10 +1,25 @@
 .background {
   --background: transparent;
-  background: linear-gradient(to bottom, #ffffff, #ffd38e);
   background-size: cover;
   background-position: center;
   height: 100%;
   padding: 24px 16px;
+}
+
+.backgroundclaro {
+  background: linear-gradient(to bottom, #ffffff, #ffd38e);
+}
+
+.backgroundoscuro {
+  background: linear-gradient(to bottom, #1e1e1e, #2c2c2c);
+}
+
+.claro {
+  color: #333;
+}
+
+.oscuro {
+  color: #ddd;
 }
 
 .branding {
@@ -26,25 +41,36 @@
 
   p {
     font-size: 0.95rem;
-    color: #4d4d4d;
   }
+}
+
+.input-item {
+  border-radius: 12px;
+  height: 44px;
+  width: 50%;
 }
 
 .searchbar-container {
   display: flex;
-  justify-content: center; /* Centra la barra de búsqueda */
-  margin-bottom: 60px; /* Espacio debajo de la barra */
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 60px;
 }
 
-.input-item {
+.searchclaro {
   --background: #ffffff;
+  --color: #333333;
+  --placeholder-color: #666666;
   --border-color: #dcdcdc;
-  --color: #4d4d4d; /* Color del texto y de la lupa */
-  border-radius: 12px;
-  height: 44px;
-  width: 40%;
 }
 
+.searchoscuro {
+  --background: #4e4e4e;
+  --color: #dddddd;
+  --placeholder-color: #aaaaaa;
+  --border-color: #666666;
+}
 
 .top-icons {
   position: absolute;
@@ -61,15 +87,17 @@
     color: #e67e22;
     cursor: pointer;
   }
+
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
-.top-icons button {
-  background: none;
-  border: none;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 ion-button {
   --background: #e67e22;
   --color: white;
@@ -78,7 +106,6 @@ ion-button {
   font-weight: bold;
 }
 
-
 .perfil-grid {
   display: flex;
   justify-content: center;
@@ -86,98 +113,94 @@ ion-button {
   max-width: 1300px;
 }
 
+.product-card,
 .perfil-card {
-  --background: #ffffff;
-  width: 100%;
-  max-width: 240px;
-  margin: 0 auto;
+  min-width: 250px;
+  width: 220px;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
-  text-align: center;
-  height: 400px; /* MÁS ALTA */
+  position: relative;
+  height: auto;
+  border: 2px solid var(--border-color);
 
   img {
-    height: 180px; /* MÁS ALTA TAMBIÉN */
-    object-fit: contain; /* que se vea entera la imagen */
-    margin: 25px auto 0;
+    height: 180px;
+    object-fit: contain;
+    margin: 30px auto 0;
     display: block;
     border-radius: 8px;
-    background-color: #f5f5f5; /* opcional para mejor contraste */
+    background-color: #f5f5f5;
   }
+}
 
-  ion-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-  }
+.cardclaro {
+  --background: #ffffff;
+  background: #ffffff;
+  --border-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cardoscuro {
+  --background: #4e4e4e;
+  background: #4e4e4e;
+  --border-color: #616161;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
 
   ion-card-title {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #e67e22;
-    white-space: nowrap; /* ❗ evita saltos de línea */
-    overflow: hidden; /* ❗ oculta el exceso */
-    text-overflow: ellipsis; /* ❗ añade "..." al final */
-    max-width: 180px; /* ✅ puedes ajustar este ancho según tus tarjetas */
+    color: #ffb366;
   }
 }
 
+ion-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+}
 
-.product-card {
-    --background: #ffffff;
-    width: 100%;
-    max-width: 240px;
-    margin: 0 auto;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-    text-align: center;
-    height: 460px; /* MÁS ALTA */
+ion-card-title {
+  font-size: 1rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
 
-    img {
-      height: 180px; /* MÁS ALTA TAMBIÉN */
-      object-fit: contain; /* que se vea entera la imagen */
-      margin: 25px auto 0;
-      display: block;
-      border-radius: 8px;
-      background-color: #f5f5f5; /* opcional para mejor contraste */
-    }
-
-    ion-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 12px;
-    }
-
-    ion-card-title {
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: #e67e22;
-      white-space: nowrap; /* ❗ evita saltos de línea */
-      overflow: hidden; /* ❗ oculta el exceso */
-      text-overflow: ellipsis; /* ❗ añade "..." al final */
-      max-width: 180px; /* ✅ puedes ajustar este ancho según tus tarjetas */
-    }
-  }
-
-
-.rating {
-  font-size: 0.9rem;
-  color: #555;
+.price-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: baseline;
   margin: 8px 0;
-  white-space: nowrap;        /* No saltar de línea */
-  overflow: hidden;           /* Ocultar lo que sobre */
-  text-overflow: ellipsis;    /* Mostrar "..." si se desborda */
-  max-width: 180px;           /* Ajusta si lo necesitas */
-  margin-left: auto;
-  margin-right: auto;
 }
 
+.actual-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e67e22;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.rating,
+.delivery {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  text-align: center;
+}
+
+.delivery {
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
 
 .login-button {
   --background: #e67e22;
@@ -188,16 +211,24 @@ ion-button {
   margin-top: 8px;
 }
 
-.subtitulo{
-  font-size: 1.5rem;
-  font-weight: bold;
+.subtitulo {
+  font-size: 2rem;
+  font-weight: 800;
   color: #4d4d4d;
-  margin-bottom: 8px;
-  margin-left: 20%;
+  margin: 40px 0 16px 5%;
+  font-family: 'Poppins', sans-serif;
+  border-left: 6px solid #e67e22;
+  margin-left: 15%;
+
+  &.claro {
+    color: #8c8c8c;
+  }
+
+  &.oscuro {
+    color: #aaaaaa;
+  }
 }
 
-
-//el swiper culiao
 .custom-swiper {
   --swiper-navigation-size: 40px;
   --swiper-navigation-color: #e67e22;
@@ -208,42 +239,43 @@ ion-button {
   max-width: 1300px;
 }
 
-::ng-deep .custom-swiper .swiper {
-  padding-bottom: 30px;
-}
+::ng-deep {
+  .custom-swiper .swiper {
+    padding-bottom: 30px;
+  }
 
-::ng-deep .custom-swiper .swiper-slide {
-  display: flex;
-  justify-content: center;
-}
+  .custom-swiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+  }
 
-::ng-deep .custom-swiper .swiper-button-prev,
-::ng-deep .custom-swiper .swiper-button-next {
-  top: calc(50% - 20px);
-  width: 40px;
-  height: 40px;
-  background: rgba(255,255,255,0.8);
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  z-index: 10;
-}
+  .custom-swiper .swiper-button-prev,
+  .custom-swiper .swiper-button-next {
+    top: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 10;
+  }
 
-::ng-deep .custom-swiper .swiper-pagination {
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
-}
+  .custom-swiper .swiper-pagination {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
 
-::ng-deep .custom-swiper .swiper-pagination-bullet {
-  background: #e67e22;
-  opacity: 0.5;
-  width: 10px;
-  height: 10px;
-}
+  .custom-swiper .swiper-pagination-bullet {
+    background: #e67e22;
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+  }
 
-::ng-deep .custom-swiper .swiper-pagination-bullet-active {
-  opacity: 1;
+  .custom-swiper .swiper-pagination-bullet-active {
+    opacity: 1;
+  }
 }
-

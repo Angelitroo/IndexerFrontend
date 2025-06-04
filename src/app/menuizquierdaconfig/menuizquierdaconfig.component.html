@@ -13,6 +13,10 @@
           <ion-icon name="heart-outline" slot="start"></ion-icon>
           <ion-label>Ofertas guardadas</ion-label>
         </ion-item>
+        <ion-item button [routerLink]="['/alertas']" lines="none" [class.itemclaro]="modo" [class.itemoscuro]="!modo">
+          <ion-icon name="notifications-outline" slot="start"></ion-icon>
+          <ion-label>Mis Alertas</ion-label>
+        </ion-item>
         <ion-item button [routerLink]="['/historial']" lines="none" [class.itemclaro]="modo" [class.itemoscuro]="!modo">
           <ion-icon name="time-outline" slot="start"></ion-icon>
           <ion-label>Historial</ion-label>

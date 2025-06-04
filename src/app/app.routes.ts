@@ -38,4 +38,9 @@ export const routes: Routes = [
     path:"ajustes",
     loadComponent: () => import('./ajustes/ajustes.component').then((m) => m.AjustesComponent),
   },
+
+  {
+    path:"alertas",
+    loadComponent: () => import('./alertas/alertas.component').then((m) => m.AlertasComponent),
+  },
 ];
