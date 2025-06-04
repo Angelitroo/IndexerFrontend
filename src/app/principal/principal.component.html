@@ -35,7 +35,6 @@
       </div>
 
       <ng-container *ngIf="!isLoading">
-        <!-- Initial View -->
         <ng-container *ngIf="isInitialView">
           <ng-container *ngFor="let empresa of initialEmpresas; let i = index">
             <ng-container *ngIf="getProductsForEmpresaInInitialView(empresa).length > 0">
@@ -46,7 +45,11 @@
                     <div class="heart-icon" (click)="toggleFavorito(producto)">
                       <ion-icon [name]="producto.favorito ? 'heart' : 'heart-outline'"></ion-icon>
                     </div>
-                    <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+
+                    <div class="image-wrapper">
+                      <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+                    </div>
+
                     <ion-card-header>
                       <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
                       <ion-badge color="danger" *ngIf="getDiscountValue(producto.discount) > 0">
@@ -54,12 +57,20 @@
                       </ion-badge>
                     </ion-card-header>
                     <ion-card-content>
-                      <div class="price-row">
-                        <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
-                        <span class="old-price" *ngIf="producto.oldPrice && producto.oldPrice > producto.actualPrice">€{{ producto.oldPrice!.toFixed(2) }}</span>
+                      <div>
+                        <div class="price-row">
+                          <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
+                          <span class="old-price" *ngIf="producto.oldPrice && producto.oldPrice > producto.actualPrice">€{{ producto.oldPrice!.toFixed(2) }}</span>
+                        </div>
+                        <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">
+                          <span *ngIf="producto.rating && producto.rating !== 'N/A'; else noRatingContentInitial">⭐ {{ producto.rating }}</span>
+                          <ng-template #noRatingContentInitial> </ng-template>
+                        </div>
+                        <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">
+                          <span *ngIf="producto.delivery; else noDeliveryContentInitial">{{ producto.delivery }}</span>
+                          <ng-template #noDeliveryContentInitial> </ng-template>
+                        </div>
                       </div>
-                      <div class="rating" *ngIf="producto.rating && producto.rating !== 'N/A'" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ producto.rating }}</div>
-                      <div class="delivery" *ngIf="producto.delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ producto.delivery }}</div>
                       <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">
                         Ver más
                       </ion-button>
@@ -71,7 +82,6 @@
           </ng-container>
         </ng-container>
 
-        <!-- Search/Filtered View -->
         <ng-container *ngIf="!isInitialView">
           <div *ngIf="!hasProductsToDisplay() && searchTerm" class="no-results-message">
             <p [class.claro]="modo" [class.oscuro]="!modo">No se encontraron productos para "{{searchTerm}}" con los filtros aplicados.</p>
@@ -88,7 +98,11 @@
                   <div class="heart-icon" (click)="toggleFavorito(producto)">
                     <ion-icon [name]="producto.favorito ? 'heart' : 'heart-outline'"></ion-icon>
                   </div>
-                  <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+
+                  <div class="image-wrapper">
+                    <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+                  </div>
+
                   <ion-card-header>
                     <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
                     <ion-badge color="danger" *ngIf="getDiscountValue(producto.discount) > 0">
@@ -96,12 +110,20 @@
                     </ion-badge>
                   </ion-card-header>
                   <ion-card-content>
-                    <div class="price-row">
-                      <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
-                      <span class="old-price" *ngIf="producto.oldPrice && producto.oldPrice > producto.actualPrice">€{{ producto.oldPrice!.toFixed(2) }}</span>
+                    <div>
+                      <div class="price-row">
+                        <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
+                        <span class="old-price" *ngIf="producto.oldPrice && producto.oldPrice > producto.actualPrice">€{{ producto.oldPrice!.toFixed(2) }}</span>
+                      </div>
+                      <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">
+                        <span *ngIf="producto.rating && producto.rating !== 'N/A'; else noRatingContentFiltered">⭐ {{ producto.rating }}</span>
+                        <ng-template #noRatingContentFiltered> </ng-template>
+                      </div>
+                      <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">
+                        <span *ngIf="producto.delivery; else noDeliveryContentFiltered">{{ producto.delivery }}</span>
+                        <ng-template #noDeliveryContentFiltered> </ng-template>
+                      </div>
                     </div>
-                    <div class="rating" *ngIf="producto.rating && producto.rating !== 'N/A'" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ producto.rating }}</div>
-                    <div class="delivery" *ngIf="producto.delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ producto.delivery }}</div>
                     <ion-button expand="block" fill="outline" size="small" [href]="producto.url" target="_blank" class="login-button">
                       Ver más
                     </ion-button>
