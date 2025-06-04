@@ -3,7 +3,7 @@ import { IonicModule } from "@ionic/angular";
 import { addIcons } from "ionicons";
 import {
   arrowBackOutline, heartOutline,
-  homeOutline,
+  homeOutline, notificationsOutline,
   personOutline,
   settingsOutline,
   timeOutline // Asegúrate de importar timeOutline para el historial
@@ -30,6 +30,7 @@ export class MenuizquierdaconfigComponent implements OnInit {
       'arrow-back-outline': arrowBackOutline,
       'time-outline': timeOutline,
       'heart-outline': heartOutline,
+      'notifications-outline': notificationsOutline,
     });
   }
 

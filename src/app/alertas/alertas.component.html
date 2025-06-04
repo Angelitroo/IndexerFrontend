@@ -1,0 +1,29 @@
+<ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
+  <div class="layout">
+    <app-menuizquierdaconfig></app-menuizquierdaconfig>
+
+    <div class="formulario">
+      <div class="branding">
+        <h1>Alertas</h1>
+        <p [class.claro]="modo" [class.oscuro]="!modo">Gestione sus alertas personalizadas</p>
+      </div>
+
+      <div class="scroll-container">
+        <ion-card class="product-card" *ngFor="let alerta of alertas" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
+          <div class="card-content">
+            <div class="icono-alerta">
+              <ion-icon name="notifications-outline"></ion-icon>
+            </div>
+            <div class="text-content">
+              <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ alerta.concepto }}</ion-card-title>
+              <div class="fecha" [class.claro]="modo" [class.oscuro]="!modo">Precio objetivo: €{{ alerta.precio }}</div>
+            </div>
+            <ion-button fill="clear" size="small" class="delete-button" (click)="eliminarAlerta(alerta)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+</ion-content>
