@@ -42,19 +42,31 @@ export class HistorialComponent  implements OnInit {
   cargarHistorial() {
     this.isLoading = true;
     this.errorMensaje = null;
-    this.selectedItems.clear();
+    this.selectedItems.clear(); // Correcto
 
     this.historialService.getHistorialUsuario().subscribe({
       next: (data: Busqueda[]) => {
         this.historial = data;
         this.isLoading = false;
       },
+
       error: async (err: any) => {
-        console.error('Error al eliminar items:', err);
-        const mensajeError = `Error al eliminar (${err.status || 'sin status'}): ${err.message || err.error?.message || 'Error desconocido'}`;
-        await this.mostrarToast(mensajeError, 'danger');
-        this.errorMensaje = 'Error al eliminar los items seleccionados.';
-        this.isDeleting = false;
+        console.error('Error al cargar el historial:', err);
+        let detalleError = `(${err.status || 'sin status'})`;
+        if (err.message) {
+          detalleError += `: ${err.message}`;
+        } else if (err.error && err.error.message) {
+          detalleError += `: ${err.error.message}`;
+        } else if (typeof err.error === 'string') {
+          detalleError += `: ${err.error}`;
+        } else {
+          detalleError += ': Error desconocido al cargar.';
+        }
+
+        const mensajeFinal = `Ocurrió un error al cargar el historial ${detalleError} Inténtalo más tarde.`;
+        await this.mostrarToast(mensajeFinal, 'danger');
+        this.errorMensaje = mensajeFinal;
+        this.isLoading = false;
       }
     });
   }

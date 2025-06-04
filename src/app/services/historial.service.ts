@@ -25,7 +25,7 @@ interface SearchHistoryRaw {
   providedIn: 'root'
 })
 export class HistorialService {
-  private apiUrl = '/api/scrap/search/history';
+  private apiUrl = 'http://localhost:8080/scrap/search/history';
 
   constructor(private http: HttpClient) { }
 
