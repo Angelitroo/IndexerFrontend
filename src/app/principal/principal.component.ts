@@ -9,7 +9,7 @@ import { SwiperModule, SwiperComponent } from 'swiper/angular';
 import SwiperCore, { Navigation, Pagination, SwiperOptions, Autoplay } from 'swiper';
 
 import { addIcons } from "ionicons";
-import { notificationsOutline, personCircleOutline, heartOutline, heart } from "ionicons/icons";
+import {notificationsOutline, personCircleOutline, heartOutline, heart, searchOutline} from "ionicons/icons";
 import { finalize } from 'rxjs/operators';
 
 import { PopoverController } from '@ionic/angular';
@@ -128,7 +128,8 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       'person-circle-outline': personCircleOutline,
       'notifications-outline': notificationsOutline,
       'heart-outline': heartOutline,
-      'heart': heart
+      'heart': heart,
+      'search-outline': searchOutline,
     });
   }
 

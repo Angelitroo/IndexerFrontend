@@ -22,6 +22,9 @@
       [class.searchoscuro]="!modo"
       (ionChange)="onSearchChange($event)">
     </ion-searchbar>
+    <ion-button class="search-button" [class.claro]="modo" [class.oscuro]="!modo">
+      <ion-icon name="search-outline"></ion-icon>
+    </ion-button>
   </div>
 
   <app-menuizquierda></app-menuizquierda>
