@@ -14,19 +14,7 @@ import { ProductoService } from '../services/producto.service';
 export class CrearproductopopoverComponent implements OnInit {
   modo: boolean = true;
 
-  @Input() producto: Producto = {
-    id: 0,
-    favorito: false,
-    title: '',
-    discount: '',
-    actualPrice: 0,
-    oldPrice: 0,
-    image: '',
-    rating: '',
-    delivery: '',
-    url: '',
-    empresa: ''
-  };
+  @Input() producto: Producto = this.getDefaultProduct();
 
   imagePath: string = '';
 
@@ -44,9 +32,30 @@ export class CrearproductopopoverComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Ensure producto is initialized
+    if (!this.producto) {
+      this.producto = this.getDefaultProduct();
+    }
+
     if (this.producto.image) {
       this.imagePath = this.producto.image;
     }
+  }
+
+  private getDefaultProduct(): Producto {
+    return {
+      id: 0,
+      favorito: false,
+      title: '',
+      discount: '',
+      actualPrice: 0,
+      oldPrice: 0,
+      image: '',
+      rating: '',
+      delivery: '',
+      url: '',
+      empresa: ''
+    };
   }
 
   async mostrarToast(mensaje: string, color: 'success' | 'danger') {
@@ -60,20 +69,22 @@ export class CrearproductopopoverComponent implements OnInit {
   }
 
   crearProducto(): void {
-    this.popoverCtrl.dismiss(true); // Cierra el popover inmediatamente
     const nuevoProducto: Partial<Producto> = {
       title: this.producto.title,
-      discount: this.producto.discount,
       actualPrice: this.producto.actualPrice,
       oldPrice: this.producto.oldPrice,
       image: this.imagePath,
       rating: this.producto.rating,
       delivery: this.producto.delivery,
-      url: this.producto.url
+      url: this.producto.url,
+      empresa: this.producto.empresa
     };
-    this.productoService.guardarProducto(nuevoProducto).subscribe({
-      next: () => {
+
+    this.productoService.addProduct(nuevoProducto).subscribe({
+      next: (productoCreado: Producto) => {
         this.mostrarToast('Producto creado con éxito', 'success');
+        console.log('Producto creado/modificado:', productoCreado);
+        this.popoverCtrl.dismiss(productoCreado); // Cierra el popover pasando el producto creado
       },
       error: (err: any) => {
         console.error(err);
