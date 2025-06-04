@@ -140,6 +140,26 @@
   z-index: 10;
 }
 
+::ng-deep .custom-swiper .swiper-pagination {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+::ng-deep .custom-swiper .swiper-pagination-bullet {
+  background: #e67e22;
+  opacity: 0.5;
+  width: 10px;
+  height: 10px;
+}
+::ng-deep .custom-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+
+
 /* Resto de estilos (igual que antes) */
 .searchbar-container {
   display: flex;
