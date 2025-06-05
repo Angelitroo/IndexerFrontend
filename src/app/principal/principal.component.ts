@@ -9,7 +9,7 @@ import { SwiperModule, SwiperComponent } from 'swiper/angular';
 import SwiperCore, { Navigation, Pagination, SwiperOptions, Autoplay } from 'swiper';
 
 import { addIcons } from "ionicons";
-import {notificationsOutline, personCircleOutline, heartOutline, heart, searchOutline} from "ionicons/icons";
+import {notificationsOutline, personCircleOutline, heartOutline, heart, searchOutline, filterCircleOutline} from "ionicons/icons";
 import { finalize } from 'rxjs/operators';
 
 import { PopoverController } from '@ionic/angular';
@@ -87,6 +87,12 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     1200: { slidesPerView: 5 }  // Pantalla grande
   };
 
+  mostrarMenu: boolean = true;
+
+  toggleMenu() {
+    this.mostrarMenu = !this.mostrarMenu;
+  }
+
   constructor(
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
@@ -100,6 +106,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       'heart-outline': heartOutline,
       'heart': heart,
       'search-outline': searchOutline,
+      'filter-circle-outline': filterCircleOutline,
     });
   }
 
