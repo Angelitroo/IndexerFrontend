@@ -71,7 +71,6 @@
   background: #e67e22;
   border-radius: 6px;
 }
-
 .product-card {
   display: flex;
   padding: 0;
@@ -102,9 +101,10 @@
 .card-content {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 16px;
-  gap: 16px;
   width: 100%;
+  gap: 16px;
 }
 
 .icono-alerta {
@@ -140,8 +140,23 @@ ion-card-title {
   opacity: 0.75;
 }
 
+.acciones-laterales {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.empresas {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 500px; /* ajustable */
+}
+
 .delete-button {
   --color: #e67e22;
-  margin-left: auto;
   font-size: 1.3rem;
 }

@@ -14,15 +14,25 @@
             <div class="icono-alerta">
               <ion-icon name="notifications-outline"></ion-icon>
             </div>
+
             <div class="text-content">
               <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ alerta.concepto }}</ion-card-title>
-              <div class="fecha" [class.claro]="modo" [class.oscuro]="!modo">Precio objetivo: €{{ alerta.precio }}</div>
+              <div class="fecha" [class.claro]="modo" [class.oscuro]="!modo">
+                Precio objetivo: €{{ alerta.precio }}
+              </div>
             </div>
-            <ion-button fill="clear" size="small" class="delete-button" (click)="eliminarAlerta(alerta)">
-              <ion-icon name="trash-outline"></ion-icon>
-            </ion-button>
+
+            <div class="acciones-laterales">
+              <div class="empresas" [class.claro]="modo" [class.oscuro]="!modo">
+                <b>Empresas:</b> {{ alerta.empresas.join(', ') }}
+              </div>
+              <ion-button fill="clear" size="small" class="delete-button" (click)="eliminarAlerta(alerta)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
           </div>
         </ion-card>
+
       </div>
     </div>
   </div>
