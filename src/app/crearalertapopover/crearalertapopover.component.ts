@@ -1,10 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {IonicModule, PopoverController, ToastController} from "@ionic/angular";
-import {FormsModule} from "@angular/forms";
-import {Producto} from "../models/Producto";
-import {Alerta} from "../models/Alerta";
-import {AlertaService} from "../services/alerta.service";
-import {NgForOf} from "@angular/common";
+import { Component, Input, OnInit } from '@angular/core';
+import { IonicModule, PopoverController, ToastController } from "@ionic/angular";
+import { FormsModule } from "@angular/forms";
+import { Alerta } from "../models/Alerta";
+import { AlertaService } from "../services/alerta.service";
 
 @Component({
   selector: 'app-crearalertapopover',
@@ -16,14 +14,13 @@ import {NgForOf} from "@angular/common";
     FormsModule,
   ]
 })
-export class CrearalertapopoverComponent  implements OnInit {
+export class CrearalertapopoverComponent implements OnInit {
   modo: boolean = true;
 
-  @Input() alerta: Alerta = {
-    id: 0,
+  @Input() alerta: Partial<Alerta> = {
     concepto: '',
-    precio: 0,
-    empresas: [] as string[]
+    precioObjetivo: undefined,
+    empresas: []
   };
 
   constructor(
@@ -34,10 +31,14 @@ export class CrearalertapopoverComponent  implements OnInit {
 
   ngOnInit() {
     const modoGuardado = localStorage.getItem('modo');
-    if (modoGuardado !== null) {
-      this.modo = JSON.parse(modoGuardado);
-    } else {
-      this.modo = true;
+    this.modo = modoGuardado ? JSON.parse(modoGuardado) : true;
+
+    if (!this.alerta) {
+      this.alerta = {
+        concepto: '',
+        precioObjetivo: undefined,
+        empresas: []
+      };
     }
   }
 
@@ -52,25 +53,20 @@ export class CrearalertapopoverComponent  implements OnInit {
   }
 
   crearAlerta(): void {
-    if (this.alerta.empresas.length === 0) {
-      this.mostrarToast('Selecciona al menos una empresa', 'danger');
+    if (!this.alerta.concepto || !this.alerta.precioObjetivo || !this.alerta.empresas || this.alerta.empresas.length === 0) {
+      this.mostrarToast('Todos los campos son obligatorios.', 'danger');
       return;
     }
 
-    this.popoverCtrl.dismiss(true);
-    const nuevaAlerta: Partial<Alerta> = {
-      concepto: this.alerta.concepto,
-      precio: this.alerta.precio,
-      empresas: this.alerta.empresas
-    };
-
-    this.alertaService.crearAlerta(nuevaAlerta).subscribe({
-      next: () => {
+    this.alertaService.crearAlerta(this.alerta).subscribe({
+      next: (response) => {
         this.mostrarToast('Alerta creada con éxito', 'success');
+        this.popoverCtrl.dismiss(response);
       },
       error: (err: any) => {
         console.error(err);
-        this.mostrarToast('Error al crear Alerta', 'danger');
+        this.mostrarToast('Error al crear la alerta', 'danger');
+        this.popoverCtrl.dismiss();
       }
     });
   }

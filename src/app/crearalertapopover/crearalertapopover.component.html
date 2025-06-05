@@ -2,21 +2,18 @@
   <div class="contenido">
     <ion-grid [class.gridclaro]="modo" [class.gridoscuro]="!modo">
 
-      <!-- Icono centrado -->
       <ion-row class="ion-justify-content-center ion-margin-top">
         <ion-col size="12" class="ion-text-center">
           <ion-icon name="notifications-outline" class="icono-alerta"></ion-icon>
         </ion-col>
       </ion-row>
 
-      <!-- Subtítulo debajo del icono -->
       <ion-row class="ion-justify-content-center">
         <ion-col size="12" class="ion-text-center">
-          <p class="subtitulo-alerta" [class.subtituloclaro] = "modo" [class.subtitulooscuro] = "!modo">Aquí puedes crear una alerta personalizada según lo que estés buscando. Introduce un concepto y el precio deseado.</p>
+          <p class="subtitulo-alerta" [class.subtituloclaro]="modo" [class.subtitulooscuro]="!modo">Aquí puedes crear una alerta personalizada según lo que estés buscando. Introduce un concepto y el precio deseado.</p>
         </ion-col>
       </ion-row>
 
-      <!-- Campos -->
       <ion-row>
         <ion-col>
           <ion-item lines="none">
@@ -30,7 +27,7 @@
         <ion-col>
           <ion-item lines="none">
             <ion-label position="floating">¿Qué precio buscas?</ion-label>
-            <ion-input [(ngModel)]="alerta.precio" placeholder="Introduce el precio que buscas"></ion-input>
+            <ion-input type="number" [(ngModel)]="alerta.precioObjetivo" placeholder="Introduce el precio que buscas"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -40,7 +37,6 @@
           <ion-item lines="none" class="select-item">
             <ion-label position="floating">Selecciona empresa(s)</ion-label>
             <ion-select [(ngModel)]="alerta.empresas" multiple="true" interface="popover" placeholder="Elige una o varias" class="custom-select">
-
               <ion-select-option value="Amazon">Amazon</ion-select-option>
               <ion-select-option value="eBay">eBay</ion-select-option>
               <ion-select-option value="Aliexpress">Aliexpress</ion-select-option>
@@ -48,16 +44,11 @@
               <ion-select-option value="MediaMarkt">MediaMarkt</ion-select-option>
               <ion-select-option value="Carrefour">Carrefour</ion-select-option>
               <ion-select-option value="El Corte Inglés">El Corte Inglés</ion-select-option>
-
             </ion-select>
           </ion-item>
         </ion-col>
       </ion-row>
 
-
-
-
-      <!-- Botón -->
       <ion-row>
         <ion-col class="ion-text-center">
           <ion-button expand="block" class="boton-guardar" (click)="crearAlerta()">Crear Alerta</ion-button>

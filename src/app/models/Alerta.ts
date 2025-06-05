@@ -1,6 +1,6 @@
 export interface Alerta {
-  id:number;
+  id: number;
   concepto: string;
-  precio: number;
+  precioObjetivo: number;
   empresas: string[];
 }

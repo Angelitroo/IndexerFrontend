@@ -1,7 +1,7 @@
 <ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
   <div class="top-icons">
-    <button>
-      <ion-icon name="notifications-outline" (click)="abrirCrearAlerta()" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
+    <button (click)="abrirCrearAlerta()">
+      <ion-icon name="notifications-outline" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
     </button>
     <button>
       <ion-icon name="person-circle-outline" [routerLink]="'/modificarperfil'" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
@@ -33,7 +33,6 @@
 
   <app-menuizquierda *ngIf="mostrarMenu"></app-menuizquierda>
 
-  <!-- productos destacados -->
   <ng-container>
     <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">Productos destacados</h2>
     <swiper
@@ -82,7 +81,6 @@
     </swiper>
   </ng-container>
 
-  <!-- empresas -->
   <ng-container *ngFor="let group of groupedProducts">
     <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">{{ group.empresa }}</h2>
 

@@ -48,7 +48,8 @@ interface BackendProduct {
     HttpClientModule,
     RouterLink,
     SwiperModule,
-    MenuizquierdaComponent
+    MenuizquierdaComponent,
+    CrearalertapopoverComponent
   ],
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.scss']
