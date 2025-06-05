@@ -3,6 +3,7 @@ import { IonicModule, ToastController, PopoverController } from '@ionic/angular'
 import { FormsModule } from '@angular/forms';
 import { Producto } from '../models/Producto';
 import { ProductoService } from '../services/producto.service';
+import {ProductAdmin} from "../models/ProductAdmin";
 
 @Component({
   selector: 'app-crearproductopopover',
@@ -13,9 +14,7 @@ import { ProductoService } from '../services/producto.service';
 })
 export class CrearproductopopoverComponent implements OnInit {
   modo: boolean = true;
-
-  @Input() producto: Producto = this.getDefaultProduct();
-
+  @Input() productadmin: ProductAdmin = this.getDefaultProduct();
   imagePath: string = '';
 
   constructor(
@@ -24,25 +23,16 @@ export class CrearproductopopoverComponent implements OnInit {
     private popoverCtrl: PopoverController
   ) {
     const modoGuardado = localStorage.getItem('modo');
-    if (modoGuardado !== null) {
-      this.modo = JSON.parse(modoGuardado);
-    } else {
-      this.modo = true;
-    }
+    this.modo = modoGuardado !== null ? JSON.parse(modoGuardado) : true;
   }
 
   ngOnInit() {
-    // Ensure producto is initialized
-    if (!this.producto) {
-      this.producto = this.getDefaultProduct();
-    }
-
-    if (this.producto.image) {
-      this.imagePath = this.producto.image;
+    if (this.productadmin.image) {
+      this.imagePath = this.productadmin.image;
     }
   }
 
-  private getDefaultProduct(): Producto {
+  private getDefaultProduct(): ProductAdmin {
     return {
       id: 0,
       favorito: false,
@@ -68,28 +58,23 @@ export class CrearproductopopoverComponent implements OnInit {
     await toast.present();
   }
 
-  crearProducto(): void {
-    const nuevoProducto: Partial<Producto> = {
-      title: this.producto.title,
-      actualPrice: this.producto.actualPrice,
-      oldPrice: this.producto.oldPrice,
-      image: this.imagePath,
-      rating: this.producto.rating,
-      delivery: this.producto.delivery,
-      url: this.producto.url,
-      empresa: this.producto.empresa
-    };
+  guardar() {
+    if (!this.productadmin) return;
 
-    this.productoService.addProduct(nuevoProducto).subscribe({
-      next: (productoCreado: Producto) => {
-        this.mostrarToast('Producto creado con éxito', 'success');
-        console.log('Producto creado/modificado:', productoCreado);
-        this.popoverCtrl.dismiss(productoCreado); // Cierra el popover pasando el producto creado
-      },
-      error: (err: any) => {
-        console.error(err);
-        this.mostrarToast('Error al crear el producto', 'danger');
-      }
-    });
+    this.productadmin.image = this.imagePath;
+
+    if (this.productadmin.id && this.productadmin.id !== 0) {
+      // Modo edición
+      this.productoService.updateProduct(this.productadmin).subscribe(() => {
+        this.mostrarToast('Producto actualizado correctamente', 'success');
+        this.popoverCtrl.dismiss('editado');
+      });
+    } else {
+      // Modo creación
+      this.productoService.addProduct(this.productadmin).subscribe(() => {
+        this.mostrarToast('Producto creado correctamente', 'success');
+        this.popoverCtrl.dismiss('creado');
+      });
+    }
   }
 }

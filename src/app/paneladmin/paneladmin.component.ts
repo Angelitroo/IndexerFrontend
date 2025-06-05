@@ -1,28 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import {IonicModule, PopoverController} from "@ionic/angular";
-import {CommonModule, NgFor, NgIf} from "@angular/common";
-import {Perfil} from "../models/Perfil";
-import {AuthService} from "../services/auth.service";
-import {PerfilService} from "../services/perfil.service";
-import {Producto} from "../models/Producto";
-import {SwiperModule} from "swiper/angular";
+import { IonicModule, PopoverController } from "@ionic/angular";
+import { CommonModule, NgFor, NgIf } from "@angular/common";
+import { Perfil } from "../models/Perfil";
+import { AuthService } from "../services/auth.service";
+import { PerfilService } from "../services/perfil.service";
+import { ProductoService } from "../services/producto.service";
+import { ProductAdmin } from "../models/ProductAdmin";
+import { SwiperModule } from "swiper/angular";
 import SwiperCore, { Navigation, Pagination } from 'swiper';
-import {CrearproductopopoverComponent} from "../crearproductopopover/crearproductopopover.component";
-import {addIcons} from "ionicons";
-import {personCircleOutline} from "ionicons/icons";
-import {RouterLink} from "@angular/router";
-import {FormsModule} from "@angular/forms";
+import { CrearproductopopoverComponent } from "../crearproductopopover/crearproductopopover.component";
+import { addIcons } from "ionicons";
+import { personCircleOutline } from "ionicons/icons";
+import { RouterLink } from "@angular/router";
+import { FormsModule } from "@angular/forms";
 
 SwiperCore.use([Navigation, Pagination]);
+
 @Component({
-    selector: 'app-paneladmin',
-    templateUrl: './paneladmin.component.html',
-    styleUrls: ['./paneladmin.component.scss'],
-    standalone: true,
+  selector: 'app-paneladmin',
+  templateUrl: './paneladmin.component.html',
+  styleUrls: ['./paneladmin.component.scss'],
+  standalone: true,
   imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf, SwiperModule, RouterLink]
 })
-
-export class PaneladminComponent  implements OnInit {
+export class PaneladminComponent implements OnInit {
   modo: boolean = true;
   miperfil: Perfil | null = null;
 
@@ -121,102 +122,21 @@ export class PaneladminComponent  implements OnInit {
     },
   ];
 
-
-  productos: Producto[] = [
-    {
-      id: 1,
-      favorito: false,
-      title: 'Auriculares Bluetooth',
-      discount: '20%',
-      actualPrice: 29.99,
-      oldPrice: 39.99,
-      image: 'https://m.media-amazon.com/images/I/61lX+a+vOFL.jpg',
-      rating: '4.5',
-      delivery: 'Entrega rápida',
-      url: '',
-      empresa: ''
-    },
-    {
-      id: 2,
-      favorito: false,
-      title: 'Teclado Mecánico',
-      discount: '15%',
-      actualPrice: 59.99,
-      oldPrice: 69.99,
-      image: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
-      rating: '4.8',
-      delivery: 'Entrega en 24h',
-      url: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
-      empresa: ''
-    },
-    {
-      id: 3,
-      favorito: false,
-      title: 'Smartwatch Deportivo',
-      discount: '10%',
-      actualPrice: 89.99,
-      oldPrice: 99.99,
-      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
-      rating: '4.6',
-      delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch',
-      empresa: ''
-    }
-    ,
-    {
-      id: 4,
-      favorito: false,
-      title: 'Smartwatch Deportivo',
-      discount: '10%',
-      actualPrice: 89.99,
-      oldPrice: 99.99,
-      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
-      rating: '4.6',
-      delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch',
-      empresa: ''
-    }
-    ,
-    {
-      id: 5,
-      favorito: false,
-      title: 'Smartwatch Deportivo',
-      discount: '10%',
-      actualPrice: 89.99,
-      oldPrice: 99.99,
-      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
-      rating: '4.6',
-      delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch',
-      empresa: ''
-    },
-    {
-      id: 6,
-      favorito: false,
-      title: 'Smartwatch Deportivo',
-      discount: '10%',
-      actualPrice: 89.99,
-      oldPrice: 99.99,
-      image: 'https://www.mrcpower.es/834-large_default/smartwatch-sw-01.jpg',
-      rating: '4.6',
-      delivery: 'Entrega en 48h',
-      url: 'https://example.com/smartwatch',
-      empresa: ''
-    }
-  ];
-
-
+  productos: ProductAdmin[] = [];
 
   constructor(
     private authService: AuthService,
     private perfilService: PerfilService,
-    private popoverCtrl: PopoverController
-
-  ) {addIcons({
-    'person-circle-outline': personCircleOutline,
-  });  }
+    private popoverCtrl: PopoverController,
+    private productoService: ProductoService,
+  ) {
+    addIcons({
+      'person-circle-outline': personCircleOutline,
+    });
+  }
 
   ngOnInit() {
+    this.cargarProductos();
     this.perfilId = this.authService.getPerfilIdFromToken();
 
     if (this.perfilId !== null) {
@@ -230,7 +150,7 @@ export class PaneladminComponent  implements OnInit {
           console.log('✅ miperfil asignado:', this.miperfil);
         },
         error: (error) => {
-          console.error('❌ Error al obtener el perfil:', error);
+          console.error('Error al obtener el perfil:', error);
         }
       });
     } else {
@@ -245,25 +165,41 @@ export class PaneladminComponent  implements OnInit {
     }
   }
 
-
-
-
-  async abrirCrearProducto() {
-    const popover = await this.popoverCtrl.create({
-      component: CrearproductopopoverComponent,
-      translucent: true,
-      componentProps: {
-        producto: null // O un objeto vacío para crear nuevo
+  cargarProductos() {
+    this.productoService.getAllProductsAdmin().subscribe({
+      next: (productos: ProductAdmin[]) => {
+        console.log('📦 Productos recibidos del backend:', productos);
+        this.productos = productos;
+      },
+      error: (error) => {
+        console.error('Error al obtener los productos:', error);
       }
     });
-
-    popover.onDidDismiss().then((result) => {
-      if (result.data) {
-        console.log('Producto creado/modificado:', result.data);
-      }
-    });
-
-    await popover.present();
   }
 
+  deleteProduct(product: ProductAdmin) {
+    this.productoService.deleteProduct(product.url).subscribe({
+      next: () => {
+        console.log('✅ Producto eliminado correctamente:', product);
+        this.cargarProductos();
+      },
+      error: (error) => {
+        console.error('Error al eliminar el producto:', error);
+      }
+    });
+  }
+
+  abrirCrearProducto(productadmin?: ProductAdmin) {
+    this.popoverCtrl.create({
+      component: CrearproductopopoverComponent,
+      componentProps: { productadmin }
+    }).then(popover => {
+      popover.present();
+      popover.onDidDismiss().then(({ data }) => {
+        if (data === 'editado' || data === 'creado') {
+          this.cargarProductos();
+        }
+      });
+    });
+  }
 }

@@ -19,7 +19,7 @@
         <ion-col>
           <ion-item lines="none">
             <ion-label position="floating">Nombre del Producto</ion-label>
-            <ion-input [(ngModel)]="producto.title"></ion-input>
+            <ion-input [(ngModel)]="productadmin.title"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -28,7 +28,7 @@
         <ion-col>
           <ion-item lines="none">
             <ion-label position="floating">Precio actual</ion-label>
-            <ion-input [(ngModel)]="producto.actualPrice"></ion-input>
+            <ion-input [(ngModel)]="productadmin.actualPrice"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -37,7 +37,7 @@
         <ion-col>
           <ion-item lines="none">
             <ion-label position="floating">Precio antiguo</ion-label>
-            <ion-input [(ngModel)]="producto.oldPrice"></ion-input>
+            <ion-input [(ngModel)]="productadmin.oldPrice"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -46,7 +46,7 @@
         <ion-col>
           <ion-item lines="none">
             <ion-label position="floating">Empresa</ion-label>
-            <ion-input [(ngModel)]="producto.empresa"></ion-input>
+            <ion-input [(ngModel)]="productadmin.empresa"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -55,7 +55,13 @@
         <ion-col>
           <ion-item lines="none">
             <ion-label position="floating">Valoración</ion-label>
-            <ion-input [(ngModel)]="producto.rating"></ion-input>
+            <ion-input [(ngModel)]="productadmin.rating"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="floating">Envio</ion-label>
+            <ion-input [(ngModel)]="productadmin.delivery"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -65,14 +71,14 @@
         <ion-col>
           <ion-item lines="none">
             <ion-label position="floating">Url del Producto</ion-label>
-            <ion-input [(ngModel)]="producto.url"></ion-input>
+            <ion-input [(ngModel)]="productadmin.url"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col class="ion-text-center">
-          <ion-button expand="block" class="boton-guardar" (click)="crearProducto()">Crear Producto</ion-button>
+          <ion-button expand="block" class="boton-guardar" (click)="guardar()">Crear Producto</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

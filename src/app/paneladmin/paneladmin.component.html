@@ -46,8 +46,8 @@
           <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ producto.rating }}</div>
           <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ producto.delivery }}</div>
           <ion-button expand="block" fill="outline" size="small" class="login-button" [href]="producto.url" target="_blank">Ver más</ion-button>
-          <ion-button expand="block" fill="outline" size="small" class="login-button">Modificar</ion-button>
-          <ion-button expand="block" fill="outline" size="small" color="danger" class="login-button">Eliminar</ion-button>
+          <ion-button (click)="abrirCrearProducto(producto)" expand="block" fill="outline" size="small" class="login-button">Modificar</ion-button>
+          <ion-button (click)="deleteProduct(producto)" expand="block" fill="outline" size="small" color="danger" class="login-button">Eliminar</ion-button>
         </ion-card-content>
       </ion-card>
     </ng-template>

@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Producto} from "../models/Producto";
 import {Observable} from "rxjs";
+import {ProductAdmin} from "../models/ProductAdmin";
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,23 @@ export class ProductoService {
 
   constructor(private httpClient: HttpClient, private authService: AuthService) {}
 
-  addProduct(producto: Partial<Producto>): Observable<Producto> {
+  addProduct(productadmin: Partial<ProductAdmin>): Observable<ProductAdmin> {
     const options = this.authService.getAuthHeaders();
-    return this.httpClient.post<Producto>(`${this.apiUrl}/api/products/create`, producto, options);
+    return this.httpClient.post<ProductAdmin>(`${this.apiUrl}/api/products/create`, productadmin, options);
+  }
+
+  updateProduct(productadmin: Partial<ProductAdmin>): Observable<ProductAdmin> {
+    const options = this.authService.getAuthHeaders();
+    return this.httpClient.put<ProductAdmin>(`${this.apiUrl}/api/products/${productadmin.url}`, productadmin, options);
+  }
+
+  deleteProduct(productUrl: string): Observable<void> {
+    const options = this.authService.getAuthHeaders();
+    return this.httpClient.delete<void>(`${this.apiUrl}/api/products/url?value=${encodeURIComponent(productUrl)}`, options);
+  }
+
+  getAllProductsAdmin(): Observable<ProductAdmin[]> {
+    const options = this.authService.getAuthHeaders();
+    return this.httpClient.get<ProductAdmin[]>(`${this.apiUrl}/api/products/admin`, options);
   }
 }
