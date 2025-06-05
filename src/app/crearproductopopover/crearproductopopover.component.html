@@ -46,7 +46,17 @@
         <ion-col>
           <ion-item lines="none">
             <ion-label position="floating">Empresa</ion-label>
-            <ion-input [(ngModel)]="productadmin.empresa"></ion-input>
+            <ion-select [(ngModel)]="productadmin.empresa" multiple="false" interface="popover" placeholder="Elige una empresa">
+
+              <ion-select-option value="Amazon">Amazon</ion-select-option>
+              <ion-select-option value="eBay">eBay</ion-select-option>
+              <ion-select-option value="Aliexpress">Aliexpress</ion-select-option>
+              <ion-select-option value="PcComponentes">PcComponentes</ion-select-option>
+              <ion-select-option value="MediaMarkt">MediaMarkt</ion-select-option>
+              <ion-select-option value="Carrefour">Carrefour</ion-select-option>
+              <ion-select-option value="El Corte Inglés">El Corte Inglés</ion-select-option>
+
+            </ion-select>
           </ion-item>
         </ion-col>
       </ion-row>
