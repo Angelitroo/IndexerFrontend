@@ -4,6 +4,7 @@ import {FormsModule} from "@angular/forms";
 import {Producto} from "../models/Producto";
 import {Alerta} from "../models/Alerta";
 import {AlertaService} from "../services/alerta.service";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-crearalertapopover',
@@ -12,7 +13,7 @@ import {AlertaService} from "../services/alerta.service";
   standalone: true,
   imports: [
     IonicModule,
-    FormsModule
+    FormsModule,
   ]
 })
 export class CrearalertapopoverComponent  implements OnInit {
@@ -21,9 +22,9 @@ export class CrearalertapopoverComponent  implements OnInit {
   @Input() alerta: Alerta = {
     id: 0,
     concepto: '',
-    precio: 0
+    precio: 0,
+    empresas: [] as string[]
   };
-
 
   constructor(
     private alertaService: AlertaService,
@@ -51,11 +52,18 @@ export class CrearalertapopoverComponent  implements OnInit {
   }
 
   crearAlerta(): void {
-    this.popoverCtrl.dismiss(true); // Cierra el popover inmediatamente
+    if (this.alerta.empresas.length === 0) {
+      this.mostrarToast('Selecciona al menos una empresa', 'danger');
+      return;
+    }
+
+    this.popoverCtrl.dismiss(true);
     const nuevaAlerta: Partial<Alerta> = {
-      concepto : this.alerta.concepto,
-      precio: this.alerta.precio
+      concepto: this.alerta.concepto,
+      precio: this.alerta.precio,
+      empresas: this.alerta.empresas
     };
+
     this.alertaService.crearAlerta(nuevaAlerta).subscribe({
       next: () => {
         this.mostrarToast('Alerta creada con éxito', 'success');
@@ -66,5 +74,4 @@ export class CrearalertapopoverComponent  implements OnInit {
       }
     });
   }
-
 }

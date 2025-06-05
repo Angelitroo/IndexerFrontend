@@ -25,42 +25,26 @@ export class AlertasComponent  implements OnInit {
       id:1,
       concepto: 'Play Station 5',
       precio:460,
+      empresas: ['Amazon', 'eBay', 'PcComponentes']
     },
     {
       id:2,
       concepto: 'Xiaomi Redmi Note 12',
       precio:180,
+      empresas: ['Amazon', 'Aliexpress', 'MediaMarkt']
     },
     {
       id:3,
       concepto: 'Samsung Galaxy S23',
       precio:800,
+      empresas: ['Amazon', 'eBay', 'El Corte Inglés']
     },
     {
       id:4,
       concepto: 'iPhone 14 Pro Max',
       precio:1200,
+      empresas: ['Carrefour']
     },
-    {
-      id:5,
-      concepto: 'Televisor LG OLED 55"',
-      precio:1500,
-    },
-    {
-      id:6,
-      concepto: 'Portátil Dell XPS 13',
-      precio:1300,
-    },
-    {
-      id:7,
-      concepto: 'Auriculares Sony WH-1000XM4',
-      precio:350,
-    },
-    {
-      id:8,
-      concepto: 'Reloj inteligente Apple Watch Series 8',
-      precio:400,
-    }
   ];
 
   constructor() {
