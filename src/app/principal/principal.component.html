@@ -41,31 +41,31 @@
       [spaceBetween]="2"
       class="custom-swiper"
     >
-      <ng-template swiperSlide *ngFor="let destacado of destacados">
+      <ng-template swiperSlide *ngFor="let productadmin of productsadmin">
         <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
-          <div class="heart-icon" (click)="toggleFavorito(destacado)">
-            <ion-icon [name]="destacado.favorito ? 'heart' : 'heart-outline'"></ion-icon>
+          <div class="heart-icon" (click)="toggleFavorito(productadmin)">
+            <ion-icon [name]="productadmin.favorito ? 'heart' : 'heart-outline'"></ion-icon>
           </div>
 
-          <img [src]="destacado.image" alt="Imagen de {{ destacado.title }}" />
+          <img [src]="productadmin.image" alt="Imagen de {{ productadmin.title }}" />
           <ion-card-header>
-            <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ destacado.title }}</ion-card-title>
-            <ion-badge color="danger" *ngIf="destacado.discount">
-              {{ destacado.discount }} OFF
+            <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ productadmin.title }}</ion-card-title>
+            <ion-badge color="danger" *ngIf="productadmin.discount">
+              {{ productadmin.discount }} OFF
             </ion-badge>
           </ion-card-header>
           <ion-card-content>
             <div class="price-row">
-              <span class="actual-price">€{{ destacado.actualPrice.toFixed(2) }}</span>
-              <span class="old-price">€{{ destacado.oldPrice?.toFixed(2) }}</span>
+              <span class="actual-price">€{{ productadmin.actualPrice.toFixed(2) }}</span>
+              <span class="old-price">€{{ productadmin.oldPrice?.toFixed(2) }}</span>
             </div>
-            <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ destacado.rating }}</div>
-            <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ destacado.delivery }}</div>
+            <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ productadmin.rating }}</div>
+            <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ productadmin.delivery }}</div>
             <ion-button
               expand="block"
               fill="outline"
               size="small"
-              [href]="destacado.url"
+              [href]="productadmin.url"
               target="_blank"
               class="login-button"
             >

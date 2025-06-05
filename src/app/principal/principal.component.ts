@@ -17,6 +17,8 @@ import { MenuizquierdaComponent } from "../menuizquierda/menuizquierda.component
 import { CrearalertapopoverComponent } from "../crearalertapopover/crearalertapopover.component";
 import { Producto } from '../models/Producto';
 import { ProductFilters } from '../models/ProductFilters';
+import { ProductoService } from '../services/producto.service';
+import {ProductAdmin} from "../models/ProductAdmin";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -69,6 +71,8 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   private searchApiUrl = 'http://localhost:8080/scrap/search';
   private favoriteApiBaseUrl = 'http://localhost:8080/api/products/favorite';
 
+  productsadmin: ProductAdmin[] = [];
+
   @ViewChildren('scrollArea') scrollAreas!: QueryList<ElementRef<HTMLElement>>;
   @ViewChildren(SwiperComponent) swiperInstances!: QueryList<SwiperComponent>;
 
@@ -89,39 +93,11 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     observeSlideChildren: true,
   };
 
-  destacados: Producto[] = [
-    {
-      id: 1,
-      favorito: false,
-      title: 'Auriculares To Wapos',
-      discount: '20%',
-      actualPrice: 29.99,
-      oldPrice: 39.99,
-      image: 'https://canarias.worten.es/i/ff5b01f16dddc7df279533f12f08f5e2f96fb153',
-      rating: '4.5',
-      delivery: 'Entrega rápida o lo antes posible no se lo que me salga de los co',
-      url: 'https://amzn.eu/d/19sWE1t',
-      empresa: 'Amazon'
-    },
-    {
-      id: 2,
-      favorito: false,
-      title: 'Teclado De Luces',
-      discount: '15%',
-      actualPrice: 59.99,
-      oldPrice: 69.99,
-      image: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
-      rating: '4.8',
-      delivery: 'Entrega en 24h',
-      url: 'https://m.media-amazon.com/images/I/61Q56A7UfNL.jpg',
-      empresa: 'PCComponentes'
-    }
-  ];
-
   constructor(
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    private productoService: ProductoService,
 
   ) {
     addIcons({
@@ -134,6 +110,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.cargarProductos()
     console.log("--- ngOnInit START ---");
     this.isInitialView = true;
     this.initializeHardcodedData();
@@ -178,6 +155,19 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  cargarProductos() {
+    this.productoService.getAllProductsAdmin().subscribe({
+      next: (productsadmin: ProductAdmin[]) => {
+        console.log('📦 Productos recibidos del backend:', productsadmin);
+        this.productsadmin = productsadmin;
+      },
+      error: (error) => {
+        console.error('Error al obtener los productosadmin:', error);
+      }
+    });
+  }
+
 
   private initializeHardcodedData() {
     console.log("--- initializeHardcodedData START ---");
