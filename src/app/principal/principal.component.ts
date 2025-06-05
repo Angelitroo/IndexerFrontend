@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ElementRef, QueryList, ViewChildren, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import {HttpClient, HttpClientModule, HttpParams} from '@angular/common/http';
 import { RouterLink } from "@angular/router";
@@ -34,6 +34,11 @@ interface BackendProduct {
   empresa: string;
   source?: string;
   favorito?: boolean;
+}
+
+interface SearchResponse {
+  products: BackendProduct[];
+  fromCache: boolean;
 }
 
 @Component({
@@ -121,8 +126,8 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   constructor(
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
-    private popoverCtrl: PopoverController
-
+    private popoverCtrl: PopoverController,
+    private toastController: ToastController
   ) {
     addIcons({
       'person-circle-outline': personCircleOutline,
@@ -251,7 +256,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
 
     if (query) {
       this.isLoading = true;
-      this.http.get<BackendProduct[]>(`${this.searchApiUrl}/${query}`)
+      this.http.get<SearchResponse>(`${this.searchApiUrl}/${query}`)
         .pipe(
           finalize(() => {
             if (localCallId === this.currentSearchCallId) {
@@ -260,10 +265,10 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
           })
         )
         .subscribe({
-          next: (data) => {
+          next: (response) => {
             if (localCallId === this.currentSearchCallId) {
-              this.allProducts = data.map((p: BackendProduct, index: number): Producto => ({
-                id: p.id || p.url || (Date.now() + index),
+              this.allProducts = response.products.map((p: BackendProduct, index: number): Producto => ({
+                id: p.url || p.id || (Date.now() + index),
                 title: p.title || 'Producto sin título',
                 discount: p.discount || '',
                 actualPrice: p.actualPrice || 0,
@@ -276,6 +281,13 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
                 favorito: p.favorito || false
               }));
               this.processProducts();
+
+              if (response.fromCache) {
+                console.log("Displaying cached results. A background update is in progress for:", query);
+                this.showToast(`Mostrando resultados recientes para '${this.searchTerm}'. Actualizando en segundo plano...`);
+              } else {
+                console.log("Displaying live results for:", query);
+              }
             }
           },
           error: (err) => {
@@ -283,15 +295,24 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
               console.error(`Error al buscar productos para "${query}":`, err);
               this.allProducts = [];
               this.processProducts();
+              this.showToast(`Error al buscar: ${err.message || 'Error desconocido'}`);
             }
           }
         });
     } else {
-
       this.isLoading = false;
       this.allProducts = [...this.initialHardcodedProductos];
       this.processProducts();
     }
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
   onFiltersChanged(filters: ProductFilters) {
@@ -304,6 +325,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       if (!this.searchTerm || !this.searchTerm.trim()) {
         this.allProducts = [...this.initialHardcodedProductos];
       }
+
     }
     this.processProducts();
   }
@@ -375,6 +397,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
 
     if (typeof producto.url !== 'string' || !producto.url || producto.url === '#') {
       console.error('CRITICAL: Product URL is invalid or not a string.', producto.url, producto);
+      this.showToast('Error: No se pudo (des)marcar como favorito. URL inválida.');
       return;
     }
     const productUrlValue = producto.url;
@@ -405,11 +428,13 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     apiCall.subscribe({
       next: (response) => {
         console.log(`Favorite action successful for ${productUrlValue}`, response);
+        this.showToast(originalFavoritoState ? 'Producto eliminado de favoritos.' : 'Producto añadido a favoritos.');
       },
       error: (err) => {
         console.error(`Favorite action failed for ${productUrlValue}:`, err);
         producto.favorito = originalFavoritoState;
         this.cdr.detectChanges();
+        this.showToast(`Error al ${originalFavoritoState ? 'eliminar de' : 'añadir a'} favoritos.`);
       }
     });
 
