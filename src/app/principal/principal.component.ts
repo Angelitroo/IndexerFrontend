@@ -76,21 +76,15 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   @ViewChildren('scrollArea') scrollAreas!: QueryList<ElementRef<HTMLElement>>;
   @ViewChildren(SwiperComponent) swiperInstances!: QueryList<SwiperComponent>;
 
-  swiperConfig: SwiperOptions = {
-    navigation: true,
-    pagination: { clickable: true },
-    loop: false,
-    slidesPerGroup: 1,
-    breakpoints: {
-      '320': { slidesPerView: 1, spaceBetween: 10 },
-      '480': { slidesPerView: 2, spaceBetween: 10 },
-      '768': { slidesPerView: 3, spaceBetween: 5 },
-      '992': { slidesPerView: 4, spaceBetween: 5 },
-      '1200': { slidesPerView: 5, spaceBetween: 2 }
-    },
-    observer: true,
-    observeParents: true,
-    observeSlideChildren: true,
+
+  slidesPerView = 5; // Valor por defecto (pantallas grandes)
+  swiperBreakpoints = {
+    // Ajusta el número de slides según el ancho de la pantalla
+    320: { slidesPerView: 1 },  // Móvil pequeño
+    576: { slidesPerView: 2 },  // Móvil grande
+    768: { slidesPerView: 3 },  // Tablet
+    992: { slidesPerView: 4 },  // Pantalla mediana
+    1200: { slidesPerView: 5 }  // Pantalla grande
   };
 
   constructor(

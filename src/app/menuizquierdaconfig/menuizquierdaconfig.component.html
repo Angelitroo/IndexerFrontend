@@ -1,7 +1,7 @@
 <div class="menu" [class.menuclaro]="modo" [class.menuoscuro]="!modo">
 <div class="espaciado">
       <ion-list>
-        <ion-item button routerDirection="root" [routerLink]="['/principal']" lines="none" [class.itemclaro]="modo" [class.itemoscuro]="!modo" detail="false">
+        <ion-item button routerDirection="root" (click)="inicio()" lines="none" [class.itemclaro]="modo" [class.itemoscuro]="!modo" detail="false">
           <ion-icon name="home-outline" slot="start"></ion-icon>
           <ion-label>Inicio</ion-label>
         </ion-item>

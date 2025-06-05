@@ -8,7 +8,8 @@ import {
   settingsOutline,
   timeOutline // Asegúrate de importar timeOutline para el historial
 } from "ionicons/icons";
-import { RouterLink } from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-menuizquierdaconfig',
@@ -22,7 +23,10 @@ import { RouterLink } from "@angular/router";
 })
 export class MenuizquierdaconfigComponent implements OnInit {
   modo: boolean = true;
-  constructor() {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {
     addIcons({
       'home-outline': homeOutline,
       'person-outline': personOutline,
@@ -40,6 +44,14 @@ export class MenuizquierdaconfigComponent implements OnInit {
       this.modo = JSON.parse(modoGuardado);
     } else {
       this.modo = true;
+    }
+  }
+
+  inicio(){
+    if (this.authService.esAdmin()) {
+      this.router.navigateByUrl('/paneladmin');
+    } else {
+      this.router.navigateByUrl('/principal');
     }
   }
 }

@@ -122,6 +122,17 @@ export class PaneladminComponent implements OnInit {
     },
   ];
 
+  slidesPerView = 5; // Valor por defecto (pantallas grandes)
+  swiperBreakpoints = {
+    // Ajusta el número de slides según el ancho de la pantalla
+    320: { slidesPerView: 1 },  // Móvil pequeño
+    576: { slidesPerView: 2 },  // Móvil grande
+    768: { slidesPerView: 3 },  // Tablet
+    992: { slidesPerView: 4 },  // Pantalla mediana
+    1200: { slidesPerView: 5 }  // Pantalla grande
+  };
+
+
   productos: ProductAdmin[] = [];
 
   constructor(

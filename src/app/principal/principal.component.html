@@ -36,11 +36,12 @@
       [navigation]="true"
       [pagination]="{ clickable: true }"
       [loop]="false"
-      [slidesPerView]="5"
+      [slidesPerView]="slidesPerView"
       [slidesPerGroup]="1"
-      [spaceBetween]="2"
-      class="custom-swiper"
-    >
+      [spaceBetween]="1"
+      [breakpoints]="swiperBreakpoints"
+      class="custom-swiper">
+      <!-- Contenido del swiper -->
       <ng-template swiperSlide *ngFor="let productadmin of productsadmin">
         <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
           <div class="heart-icon" (click)="toggleFavorito(productadmin)">
@@ -85,11 +86,12 @@
       [navigation]="true"
       [pagination]="{ clickable: true }"
       [loop]="false"
-      [slidesPerView]="5"
+      [slidesPerView]="slidesPerView"
       [slidesPerGroup]="1"
-      [spaceBetween]="2"
-      class="custom-swiper"
-    >
+      [spaceBetween]="1"
+      [breakpoints]="swiperBreakpoints"
+      class="custom-swiper">
+
       <ng-template swiperSlide *ngFor="let producto of group.items">
         <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
           <div class="heart-icon" (click)="toggleFavorito(producto)">

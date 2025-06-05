@@ -27,9 +27,10 @@
     [navigation]="true"
     [pagination]="{ clickable: true }"
     [loop]="false"
-    [slidesPerView]="5"
+    [slidesPerView]="slidesPerView"
     [slidesPerGroup]="1"
     [spaceBetween]="16"
+    [breakpoints]="swiperBreakpoints"
     class="custom-swiper">
     <ng-template swiperSlide *ngFor="let producto of productos">
       <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">

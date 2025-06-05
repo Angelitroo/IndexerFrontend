@@ -252,14 +252,11 @@ ion-card-title {
 .custom-swiper {
   --swiper-navigation-size: 40px;
   --swiper-navigation-color: #e67e22;
-  position: relative;
   margin-left: 25%;
-  padding: 10px 40px 40px 40px;
+  position: relative;
+  padding: 10px 16px 40px 16px;
   margin-bottom: 20px;
-}
-
-::ng-deep .swiper-slide {
-  width: auto !important;
+  max-width: 1300px;
 }
 
 ::ng-deep {
@@ -267,15 +264,19 @@ ion-card-title {
     padding-bottom: 30px;
   }
 
+  .custom-swiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+  }
+
   .custom-swiper .swiper-button-prev,
   .custom-swiper .swiper-button-next {
-    position: absolute;
     top: calc(50% - 20px);
     width: 40px;
     height: 40px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255,255,255,0.8);
     border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     z-index: 10;
   }
 
@@ -298,6 +299,7 @@ ion-card-title {
     opacity: 1;
   }
 }
+
 
 /* ------------------ MEDIA QUERIES RESPONSIVE ------------------ */
 @media (max-width: 1024px) {
@@ -324,7 +326,7 @@ ion-card-title {
   }
 
   .top-icons ion-icon {
-    font-size: 36px;
+    font-size: 48px;
   }
 
   .product-card {
@@ -345,7 +347,7 @@ ion-card-title {
   }
 
   .top-icons ion-icon {
-    font-size: 28px;
+    font-size: 42px;
   }
 
   .branding img {
