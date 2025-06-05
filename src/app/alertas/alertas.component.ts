@@ -17,7 +17,6 @@ import { FormsModule } from "@angular/forms";
     IonicModule,
     MenuizquierdaconfigComponent,
     NgForOf,
-    NgClass,
     FormsModule
   ]
 })
