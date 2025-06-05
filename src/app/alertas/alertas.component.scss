@@ -3,7 +3,7 @@
   background-size: cover;
   background-position: center;
   height: 100%;
-  padding: 24px 16px;
+  padding: 12px 0; /* Reducido de 24px */
 }
 
 .backgroundclaro {
@@ -18,32 +18,42 @@
   display: flex;
   flex-direction: row;
   height: 100%;
-  gap: 24px;
+  gap: 0;
+  justify-content: center;
+  width: 100%;
+}
+
+app-menuizquierdaconfig {
+  margin-right: 24px;
 }
 
 .formulario {
   flex: 1;
-  max-width: 1200px;
+  max-width: 1400px; /* Aumentado de 1200px */
   padding: 0 16px;
   border-radius: 12px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .branding {
   text-align: center;
-  margin-top: 24px;
-  margin-bottom: 40px;
+  margin-top: 16px; /* Reducido de 24px */
+  margin-bottom: 24px; /* Reducido de 40px */
+  width: 100%;
+}
 
-  h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #e67e22;
-    margin-bottom: 4px;
-  }
+.branding h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #e67e22;
+  margin-bottom: 4px;
+}
 
-  p {
-    font-size: 0.95rem;
-  }
+.branding p {
+  font-size: 0.95rem;
 }
 
 .claro {
@@ -61,6 +71,9 @@
   padding-right: 16px;
   display: flex;
   flex-direction: column;
+  gap: 12px; /* Reducido de 16px */
+  width: 100%;
+  align-items: center;
 }
 
 .scroll-container::-webkit-scrollbar {
@@ -71,19 +84,21 @@
   background: #e67e22;
   border-radius: 6px;
 }
+
 .product-card {
   display: flex;
   padding: 0;
   border-radius: 16px;
-  margin-bottom: 16px;
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  max-width: 1000px; /* Aumentado de 800px */
+}
 
-  &:hover {
-    transform: scale(1.01);
-  }
+.product-card:hover {
+  transform: scale(1.01);
 }
 
 .cardclaro {
@@ -101,10 +116,9 @@
 .card-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px;
+  padding: 14px; /* Reducido de 16px */
   width: 100%;
-  gap: 16px;
+  gap: 24px;
 }
 
 .icono-alerta {
@@ -113,6 +127,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .text-content {
@@ -120,6 +135,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  min-width: 150px;
 }
 
 ion-card-title {
@@ -153,10 +169,244 @@ ion-card-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 500px; /* ajustable */
+  min-width: 100px;
 }
 
 .delete-button {
   --color: #e67e22;
   font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+/* Media Queries para responsive */
+@media (max-width: 1600px) {
+  .product-card {
+    max-width: 950px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .card-content {
+    gap: 18px;
+    padding: 12px; /* Reducido de 14px */
+  }
+
+  ion-card-title {
+    font-size: 1rem;
+  }
+
+  .fecha, .empresas {
+    font-size: 0.8rem;
+  }
+
+  .icono-alerta {
+    font-size: 1.6rem;
+  }
+
+  .delete-button {
+    font-size: 1.2rem;
+  }
+
+  .product-card {
+    max-width: 900px; /* Aumentado de 750px */
+  }
+}
+
+@media (max-width: 1200px) {
+  .card-content {
+    gap: 16px;
+    padding: 10px; /* Reducido de 12px */
+  }
+
+  ion-card-title {
+    font-size: 0.95rem;
+  }
+
+  .fecha, .empresas {
+    font-size: 0.78rem;
+  }
+
+  .icono-alerta {
+    font-size: 1.5rem;
+  }
+
+  .delete-button {
+    font-size: 1.1rem;
+  }
+
+  .product-card {
+    max-width: 800px; /* Aumentado de 700px */
+  }
+}
+
+@media (max-width: 992px) {
+  .formulario {
+    padding: 0 12px;
+  }
+
+  .card-content {
+    gap: 14px;
+    padding: 8px; /* Reducido de 10px */
+  }
+
+  ion-card-title {
+    font-size: 0.9rem;
+  }
+
+  .fecha, .empresas {
+    font-size: 0.75rem;
+  }
+
+  .icono-alerta {
+    font-size: 1.4rem;
+  }
+
+  .delete-button {
+    font-size: 1rem;
+  }
+
+  .product-card {
+    max-width: 700px; /* Aumentado de 650px */
+  }
+}
+
+@media (max-width: 768px) {
+  .formulario {
+    padding: 0 10px;
+  }
+
+  .card-content {
+    gap: 12px;
+    padding: 6px; /* Reducido de 8px */
+  }
+
+  ion-card-title {
+    font-size: 0.85rem;
+  }
+
+  .fecha, .empresas {
+    font-size: 0.72rem;
+  }
+
+  .icono-alerta {
+    font-size: 1.3rem;
+  }
+
+  .delete-button {
+    font-size: 0.9rem;
+  }
+
+  .product-card {
+    max-width: 600px; /* Aumentado de 550px */
+  }
+}
+
+@media (max-width: 576px) {
+  .formulario {
+    padding: 0 8px;
+  }
+
+  .card-content {
+    gap: 10px;
+    padding: 5px; /* Reducido de 6px */
+  }
+
+  ion-card-title {
+    font-size: 0.8rem;
+  }
+
+  .fecha, .empresas {
+    font-size: 0.7rem;
+  }
+
+  .icono-alerta {
+    font-size: 1.2rem;
+  }
+
+  .delete-button {
+    font-size: 0.8rem;
+  }
+
+  .product-card {
+    max-width: 500px; /* Aumentado de 450px */
+  }
+}
+
+@media (max-width: 480px) {
+  .formulario {
+    padding: 0 6px;
+  }
+
+  .card-content {
+    gap: 8px;
+    padding: 4px; /* Reducido de 5px */
+  }
+
+  ion-card-title {
+    font-size: 0.75rem;
+  }
+
+  .fecha, .empresas {
+    font-size: 0.68rem;
+  }
+
+  .icono-alerta {
+    font-size: 1.1rem;
+  }
+
+  .delete-button {
+    font-size: 0.75rem;
+  }
+
+  .layout {
+    flex-direction: row;
+  }
+
+  app-menuizquierdaconfig {
+    margin-right: 16px;
+    margin-bottom: 0;
+  }
+
+  .text-content {
+    min-width: 120px;
+  }
+
+  .empresas {
+    max-width: 100px;
+  }
+
+  .product-card {
+    max-width: 400px; /* Aumentado de 380px */
+  }
+}
+
+@media (max-width: 400px) {
+  .card-content {
+    gap: 6px;
+    padding: 3px; /* Reducido de 4px */
+  }
+
+  ion-card-title {
+    font-size: 0.7rem;
+  }
+
+  .fecha, .empresas {
+    font-size: 0.65rem;
+  }
+
+  .icono-alerta {
+    font-size: 1rem;
+  }
+
+  .delete-button {
+    font-size: 0.7rem;
+  }
+
+  .empresas {
+    max-width: 80px;
+  }
+
+  .product-card {
+    max-width: 350px; /* Aumentado de 320px */
+  }
 }

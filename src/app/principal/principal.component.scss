@@ -1,4 +1,4 @@
-/* Estilos base y temas */
+/* ------------------ BASE Y TEMAS ------------------ */
 .background {
   --background: transparent;
   background-size: cover;
@@ -23,10 +23,60 @@
   color: #ddd;
 }
 
-/* Componentes reutilizables */
+/* ------------------ TOP ICONOS ------------------ */
+.top-icons {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 16px;
+  z-index: 10;
+
+  ion-icon {
+    font-size: 48px;
+    color: #e67e22;
+    cursor: pointer;
+  }
+
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* ------------------ BRANDING ------------------ */
+.branding {
+  text-align: center;
+  margin-bottom: 16px;
+
+  img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #e67e22;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 0.95rem;
+  }
+}
+
+/* ------------------ SEARCHBAR ------------------ */
 .searchbar-container {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 60px;
 }
 
@@ -34,6 +84,7 @@
   border-radius: 12px;
   height: 44px;
   width: 45%;
+  min-width: 240px;
 }
 
 .searchclaro {
@@ -50,15 +101,47 @@
   --border-color: #666666;
 }
 
-/* Tarjetas de producto */
+.search-button {
+  --background: #e67e22;
+
+  ion-icon {
+    font-size: 20px;
+    color: #ffffff;
+    transition: transform 0.2s ease;
+  }
+}
+
+/* ------------------ TITULOS ------------------ */
+.empresa-titulo {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 40px 0 16px 27%;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1px;
+  border-left: 6px solid #e67e22;
+  padding-left: 12px;
+  border-radius: 4px;
+}
+
+.empresa-titulo.claro {
+  color: #8c8c8c;
+}
+
+.empresa-titulo.oscuro {
+  color: #aaaaaa;
+}
+
+/* ------------------ PRODUCTOS ------------------ */
 .product-card {
-  min-width: 250px;
+  flex: 0 0 auto;
   width: 220px;
+  max-width: 90vw;
+  min-width: 180px;
+  height: auto;
   border-radius: 16px;
   overflow: hidden;
   transition: transform 0.2s ease-in-out;
   position: relative;
-  height: 420px;
   border: 2px solid var(--border-color);
 
   img {
@@ -83,55 +166,30 @@
   background: #4e4e4e;
   --border-color: #616161;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
-
-  ion-card-title {
-    color: #ffb366;
-  }
 }
 
-/* Encabezados y texto */
-.branding {
-  text-align: center;
-  margin-bottom: 16px;
+.cardoscuro ion-card-title {
+  color: #ffb366;
+}
 
-  img {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 10px;
-  }
+.heart-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 5;
+  cursor: pointer;
 
-  h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
+  ion-icon {
+    font-size: 30px;
     color: #e67e22;
-    margin-bottom: 4px;
+    transition: transform 0.2s ease;
   }
 
-  p {
-    font-size: 0.95rem;
-  }
-}
-
-.empresa-titulo {
-  font-size: 2rem;
-  font-weight: 800;
-  margin: 40px 0 16px 27%;
-  font-family: 'Poppins', sans-serif;
-  letter-spacing: 1px;
-  border-left: 6px solid #e67e22;
-  padding-left: 12px;
-  border-radius: 4px;
-
-  &.claro {
-    color: #8c8c8c;
-  }
-
-  &.oscuro {
-    color: #aaaaaa;
+  &:hover ion-icon {
+    transform: scale(1.15);
   }
 }
 
-/* Componentes de tarjeta */
 ion-card-header {
   display: flex;
   justify-content: space-between;
@@ -167,7 +225,8 @@ ion-card-title {
   color: gray;
 }
 
-.rating, .delivery {
+.rating,
+.delivery {
   font-size: 0.9rem;
   white-space: nowrap;
   overflow: hidden;
@@ -180,7 +239,6 @@ ion-card-title {
   margin-bottom: 8px;
 }
 
-/* Botones */
 .login-button {
   --background: #e67e22;
   --background-activated: #d35400;
@@ -190,52 +248,7 @@ ion-card-title {
   margin-top: 8px;
 }
 
-/* Iconos */
-.top-icons {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  display: flex;
-  gap: 16px;
-  z-index: 10;
-  background: none;
-  border: none;
-
-  ion-icon {
-    font-size: 48px;
-    color: #e67e22;
-    cursor: pointer;
-  }
-
-  button {
-    background: none;
-    border: none;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.heart-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 5;
-  cursor: pointer;
-
-  ion-icon {
-    font-size: 30px;
-    color: #e67e22;
-    transition: transform 0.2s ease;
-  }
-
-  &:hover ion-icon {
-    transform: scale(1.15);
-  }
-}
-
-/* Swiper */
+/* ------------------ SWIPER ------------------ */
 .custom-swiper {
   --swiper-navigation-size: 40px;
   --swiper-navigation-color: #e67e22;
@@ -243,6 +256,10 @@ ion-card-title {
   margin-left: 25%;
   padding: 10px 40px 40px 40px;
   margin-bottom: 20px;
+}
+
+::ng-deep .swiper-slide {
+  width: auto !important;
 }
 
 ::ng-deep {
@@ -282,11 +299,87 @@ ion-card-title {
   }
 }
 
-.search-button{
-  --background: #e67e22;
-  ion-icon {
-    font-size: 20px;
-    color: #ffffff;
-    transition: transform 0.2s ease;
+/* ------------------ MEDIA QUERIES RESPONSIVE ------------------ */
+@media (max-width: 1024px) {
+  .custom-swiper {
+    margin-left: 10%;
+    padding: 10px;
+  }
+
+  .empresa-titulo {
+    margin-left: 10%;
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-swiper {
+    margin-left: 0;
+    padding: 0 16px;
+  }
+
+  .empresa-titulo {
+    margin-left: 16px;
+    font-size: 1.5rem;
+  }
+
+  .top-icons ion-icon {
+    font-size: 36px;
+  }
+
+  .product-card {
+    width: 180px;
+    height: 380px;
+  }
+
+  .input-item {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-icons {
+    top: 8px;
+    right: 8px;
+    gap: 8px;
+  }
+
+  .top-icons ion-icon {
+    font-size: 28px;
+  }
+
+  .branding img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .branding h1 {
+    font-size: 1.4rem;
+  }
+
+  .branding p {
+    font-size: 0.85rem;
+  }
+
+  .product-card {
+    width: 160px;
+    height: 360px;
+  }
+
+  ion-card-title {
+    font-size: 0.9rem;
+  }
+
+  .actual-price {
+    font-size: 1rem;
+  }
+
+  .custom-swiper {
+    padding: 0 12px;
+  }
+
+  .empresa-titulo {
+    font-size: 1.3rem;
+    margin-left: 12px;
   }
 }
