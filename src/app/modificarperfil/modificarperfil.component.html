@@ -31,7 +31,7 @@
 
 
       <ion-item class="input-item" lines="none">
-        <ion-label position="floating" style="margin-bottom: 15px">Ubicación</ion-label>
+        <ion-label position="stacked">Ubicación</ion-label>
         <ion-select [(ngModel)]="ubicacion" name="pais" placeholder="Selecciona una provincia">
           <ion-select-option *ngFor="let pais of paises" [value]="pais">
             {{ pais }}
