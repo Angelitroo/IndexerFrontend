@@ -94,20 +94,6 @@
   --padding-end: 16px;
   --inner-padding-end: 0;
 }
-/* Asegura que todos los labels tengan el mismo comportamiento */
-.input-item ion-label[position="stacked"] {
-  transform-origin: top left;
-  transform: translateY(0) scale(0.75);
-  margin-bottom: 0;
-  transition: transform 150ms ease-in-out;
-  will-change: transform;
-}
-
-/* Estilo para cuando el select tiene valor (similar a los inputs) */
-.input-item.item-has-value ion-label[position="stacked"],
-.input-item.item-has-focus ion-label[position="stacked"] {
-  transform: translateY(0) scale(0.75);
-}
 
 /* Ajuste adicional para el select */
 .input-item ion-select {
