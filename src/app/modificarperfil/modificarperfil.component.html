@@ -1,7 +1,7 @@
 <ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
   <div class="layout">
     <!-- Menú lateral -->
-      <app-menuizquierdaconfig></app-menuizquierdaconfig>
+    <app-menuizquierdaconfig></app-menuizquierdaconfig>
 
     <!-- Contenido de modificación -->
     <div class="formulario" [class.claro]="modo" [class.oscuro]="!modo">
@@ -29,7 +29,6 @@
         <ion-input [(ngModel)]="nombre" type="text"></ion-input>
       </ion-item>
 
-
       <ion-item class="input-item" lines="none">
         <ion-select [(ngModel)]="ubicacion" name="pais" placeholder="Selecciona una provincia">
           <ion-select-option *ngFor="let pais of paises" [value]="pais">
@@ -40,27 +39,23 @@
 
       <ion-item class="input-item" lines="none">
         <ion-label position="floating">Nombre de usuario</ion-label>
-        <ion-input [(ngModel)]="nombre" type="text"></ion-input>
+        <ion-input [(ngModel)]="username" type="text"></ion-input>
       </ion-item>
-
-
 
       <ion-item class="input-item" lines="none">
         <ion-label position="floating">Correo electrónico</ion-label>
         <ion-input [(ngModel)]="correo" type="email"></ion-input>
       </ion-item>
 
-
       <ion-item class="input-item" lines="none">
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input [(ngModel)]="password" type="password"></ion-input>
       </ion-item>
 
-
       <ion-button expand="block" (click)="guardarCambios()" class="login-button">
         Guardar Cambios
       </ion-button>
-      <ion-button class="login-button" style="float: right">Restablecer</ion-button>
+      <ion-button class="login-button" style="float: right" (click)="restablecerCampos()">Restablecer</ion-button>
     </div>
   </div>
 </ion-content>

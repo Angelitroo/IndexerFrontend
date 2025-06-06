@@ -28,6 +28,10 @@ export class PerfilService {
     const options = this.authService.getAuthHeaders();
     return this.httpClient.get<Perfil>(`${this.apiUrl}/perfiles/${id}`, options);
   }
+  getActualizadoById(id: number): Observable<PerfilActualizar> {
+    const options = this.authService.getAuthHeaders();
+    return this.httpClient.get<PerfilActualizar>(`${this.apiUrl}/perfiles/actualizado/${id}`, options);
+  }
 
   buscarPorNombre(nombre: string): Observable<Perfil[]> {
     const options = this.authService.getAuthHeaders();
