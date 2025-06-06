@@ -25,10 +25,10 @@ SwiperCore.use([Navigation, Pagination]);
 })
 export class PaneladminComponent implements OnInit {
   modo: boolean = true;
-  miperfil: Perfil | null = null;
 
+  miperfil: Perfil | null = null;
   perfilId: number | null = null;
-  perfil: Perfil | null = null;
+
   perfiles: Perfil[] = [
     {
       id: 1,
@@ -157,8 +157,6 @@ export class PaneladminComponent implements OnInit {
           if (!data) {
             console.warn('⚠️ No se recibió ningún perfil');
           }
-          this.miperfil = data;
-          console.log('✅ miperfil asignado:', this.miperfil);
         },
         error: (error) => {
           console.error('Error al obtener el perfil:', error);

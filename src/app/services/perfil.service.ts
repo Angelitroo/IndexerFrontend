@@ -14,6 +14,12 @@ export class PerfilService {
 
   constructor(private httpClient: HttpClient, private authService:AuthService) {}
 
+  actualizarPerfil(perfil: Perfil): Observable<Perfil> {
+    const options = this.authService.getAuthHeaders();
+    return this.httpClient.put<Perfil>(`${this.apiUrl}/perfiles/actualizar/${perfil.id}`, perfil, options);
+  }
+
+
   getPerfiles(): Observable<Perfil[]> {
     const options = this.authService.getAuthHeaders();
     return this.httpClient.get<Perfil[]>(`${this.apiUrl}/perfiles/`, options);

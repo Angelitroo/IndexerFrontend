@@ -16,7 +16,6 @@ import {flagOutline, lockClosedOutline, mailOutline, personCircleOutline, person
   standalone: true,
   imports: [
     IonicModule,
-    RouterLink,
     ReactiveFormsModule,
     CommonModule,
     FormsModule

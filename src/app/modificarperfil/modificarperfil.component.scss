@@ -86,6 +86,47 @@
   --color: #4d4d4d;
   border-radius: 12px;
   margin: 12px 0;
+  --min-height: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --inner-padding-end: 0;
+}
+
+/* Ajustes específicos para el label */
+.input-item ion-label[position="floating"] {
+  margin-top: 0;
+  margin-bottom: 0;
+  transform-origin: center;
+}
+
+/* Ajustes para el input/select */
+.input-item .native-input,
+.input-item .select-icon,
+.input-item .select-text {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Ajuste especial para el select */
+.input-item ion-select {
+  max-width: 100%;
+  width: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.input-item:has(ion-select) {
+  --min-height: 60px; /* Un poco más alto por el select */
+  height: 60px;
+}
+
+.input-item:has(ion-select) ion-label {
+  margin-bottom: 0 !important; /* Anula el estilo inline */
 }
 
 .login-button {
@@ -133,3 +174,53 @@
     margin-bottom: 100px;
   }
 }
+@media (max-width: 768px) {
+  .branding h1 {
+    font-size: 1.4rem;
+  }
+
+  .branding p {
+    font-size: 0.9rem;
+  }
+
+  .foto-circular {
+    width: 90px;
+    height: 90px;
+  }
+
+  .icono-defecto {
+    font-size: 70px;
+  }
+
+  .input-item {
+    font-size: 0.9rem;
+    margin: 8px 0;
+  }
+
+  ion-label,
+  ion-input,
+  ion-select {
+    font-size: 0.9rem;
+  }
+
+  .login-button {
+    font-size: 0.95rem;
+    padding: 4px;
+    margin: 16px 0 4px;
+  }
+
+  .formulario {
+    padding: 8px;
+    margin-bottom: 80px;
+  }
+}
+@media (max-width: 768px) {
+  .login-button:first-of-type {
+    margin: 0 0 4px;
+  }
+
+  .login-button:last-of-type {
+    margin-top: 4px;
+  }
+}
+
