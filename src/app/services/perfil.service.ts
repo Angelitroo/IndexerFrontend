@@ -1,24 +1,23 @@
 import { Injectable } from '@angular/core';
-import {AuthService} from "./auth.service";
-import {HttpClient} from "@angular/common/http";
-import {Perfil} from "../models/Perfil";
-import {Observable} from "rxjs";
-import {environment} from "../../environments/environment";
+import { AuthService } from "./auth.service";
+import { HttpClient } from "@angular/common/http";
+import { Perfil } from "../models/Perfil";
+import { Observable } from "rxjs";
+import { environment } from "../../environments/environment";
+import { PerfilActualizar } from "../models/PerfilActualizar";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PerfilService {
-
   private apiUrl = environment.apiUrl;
 
-  constructor(private httpClient: HttpClient, private authService:AuthService) {}
+  constructor(private httpClient: HttpClient, private authService: AuthService) {}
 
-  actualizarPerfil(perfil: Perfil): Observable<Perfil> {
+  actualizarPerfil(perfil: PerfilActualizar): Observable<Perfil> {
     const options = this.authService.getAuthHeaders();
     return this.httpClient.put<Perfil>(`${this.apiUrl}/perfiles/actualizar/${perfil.id}`, perfil, options);
   }
-
 
   getPerfiles(): Observable<Perfil[]> {
     const options = this.authService.getAuthHeaders();
@@ -34,6 +33,4 @@ export class PerfilService {
     const options = this.authService.getAuthHeaders();
     return this.httpClient.get<Perfil[]>(`${this.apiUrl}/perfiles/buscar/${nombre}`, options);
   }
-
 }
-
