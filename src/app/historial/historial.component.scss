@@ -18,7 +18,11 @@
   display: flex;
   flex-direction: row;
   height: 100%;
-  gap: 24px;
+  gap: 0;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .formulario {
@@ -118,9 +122,9 @@
   max-height: 650px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-right: 36px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .scroll-container::-webkit-scrollbar {
