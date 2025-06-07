@@ -163,6 +163,7 @@ export class PaneladminComponent implements OnInit {
     if (this.perfilId !== null) {
       this.perfilService.getPerfilById(this.perfilId).subscribe({
         next: (data: Perfil) => {
+          this.miperfil = data;
           console.log('📦 Perfil recibido del backend:', data);
           if (!data) {
             console.warn('⚠️ No se recibió ningún perfil');
