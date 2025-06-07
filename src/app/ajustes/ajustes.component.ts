@@ -112,6 +112,40 @@ export class AjustesComponent implements OnInit {
     });
   }
 
+  actualizarNotificacionesEmail() {
+    if (!this.notificacionesEmailActivadas) {
+      this.correonotificaciones = '';
+
+      if (this.perfilId === null) {
+        console.error('No se puede actualizar el perfil sin ID');
+        return;
+      }
+
+      const perfilActualizado: PerfilActualizar = {
+        id: this.perfilId,
+        imagen: this.imagePath,
+        nombre: this.nombre,
+        pais: this.ubicacion,
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        correonotificaciones: ''
+      };
+
+      this.perfilService.actualizarPerfil(perfilActualizado).subscribe({
+        next: () => {
+          this.presentToast('Notificaciones por correo desactivadas', 'success');
+        },
+        error: (error) => {
+          console.error('Error al actualizar notificaciones:', error);
+          this.presentToast('Hubo un error al actualizar', 'danger');
+        }
+      });
+    }
+  }
+
+
+
   cargarDatosPerfil() {
     if (this.perfilId !== null) {
       this.perfilService.getActualizadoById(this.perfilId).subscribe({
