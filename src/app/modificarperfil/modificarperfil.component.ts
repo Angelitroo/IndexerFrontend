@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule, NavController } from "@ionic/angular";
+import {IonicModule, NavController, ToastController} from "@ionic/angular";
 import { FormsModule } from "@angular/forms";
 import { MenuizquierdaconfigComponent } from "../menuizquierdaconfig/menuizquierdaconfig.component";
 import { NgForOf, NgIf } from "@angular/common";
@@ -41,7 +41,8 @@ export class ModificarperfilComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private perfilService: PerfilService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -56,11 +57,22 @@ export class ModificarperfilComponent implements OnInit {
     }
   }
 
+  async presentToast(message: string, color: 'success' | 'danger' = 'danger') {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      position: 'bottom',
+      color: color
+    });
+    toast.present();
+  }
+
+
   cargarDatosPerfil() {
     if (this.perfilId !== null) {
       this.perfilService.getActualizadoById(this.perfilId).subscribe({
         next: (data: any) => {  // Usamos 'any' temporalmente para debug
-          console.log('📦 Perfil recibido del backend:', data);
+          console.log('📦 Perfil recibido del backend:', data.id);
 
           if (data) {
             this.imagePath = data.imagen || '';
@@ -108,8 +120,9 @@ export class ModificarperfilComponent implements OnInit {
 
     this.perfilService.actualizarPerfil(perfilActualizado).subscribe({
       next: (response) => {
+        this.presentToast('Perfil actualizado con éxito', 'success');
         console.log('Perfil actualizado con éxito:', response);
-        this.navCtrl.navigateRoot('/perfil');
+        this.navCtrl.navigateRoot('/modificarperfil');
       },
       error: (error) => {
         console.error('Error al actualizar el perfil:', error);
