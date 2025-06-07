@@ -29,7 +29,7 @@ export class ModificarperfilComponent implements OnInit {
   imagePath: string = '';
   nombre: string = '';
   username: string = '';
-  correo: string = '';
+  email: string = '';
   password: string = '';
   ubicacion: string = '';
   paises: string[] = [
@@ -37,6 +37,7 @@ export class ModificarperfilComponent implements OnInit {
     'Países Bajos', 'Suecia', 'Noruega', 'Dinamarca', 'Finlandia', 'Suiza', 'Austria',
     'Polonia', 'República Checa', 'Hungría', 'Rumanía', 'Bulgaria'
   ];
+  correonotificaciones: string = '';
 
   constructor(
     private authService: AuthService,
@@ -79,9 +80,11 @@ export class ModificarperfilComponent implements OnInit {
             this.nombre = data.nombre || '';
             this.ubicacion = data.pais || '';
             this.username = data.username || '';
+            this.email = data.email || '';
+            this.correonotificaciones = data.correonotificaciones || '';
 
             // Manejo especial para el email (prioridad: correo > email > correonotificaciones)
-            this.correo = data.correo || data.email || data.correonotificaciones || '';
+            this.email = data.email || data.email || data.correonotificaciones || '';
 
             this.password = ''; // No cargamos la contraseña por seguridad
 
@@ -90,7 +93,8 @@ export class ModificarperfilComponent implements OnInit {
               nombre: this.nombre,
               ubicacion: this.ubicacion,
               username: this.username,
-              correo: this.correo
+              email: this.email,
+              correonotificaciones: this.correonotificaciones
             });
           }
         },
@@ -113,8 +117,9 @@ export class ModificarperfilComponent implements OnInit {
       nombre: this.nombre,
       pais: this.ubicacion,
       username: this.username,
-      correo: this.correo,
-      password: this.password
+      email: this.email,
+      password: this.password,
+      correonotificaciones: this.correonotificaciones
     };
     console.log('Enviando al backend:', perfilActualizado)
 
@@ -126,7 +131,6 @@ export class ModificarperfilComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al actualizar el perfil:', error);
-        // Aquí podrías mostrar un toast o alerta al usuario
       }
     });
   }

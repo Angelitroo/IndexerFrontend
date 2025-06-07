@@ -43,13 +43,7 @@
         <ion-label position="stacked" [class.claro]="modo" [class.oscuro]="!modo">
           ¿A qué correo le enviamos las notificaciones?
         </ion-label>
-        <ion-input
-          type="email"
-          [(ngModel)]="emailNotificacion"
-          placeholder="ejemplo@correo.com"
-          [class.claro]="modo"
-          [class.oscuro]="!modo"
-        ></ion-input>
+        <ion-input type="email" [(ngModel)]="correonotificaciones" [class.claro]="modo" [class.oscuro]="!modo"></ion-input>
         <div class="contenedor-guardar">
           <ion-button class="guardar" (click)="guardarCambios()">Guardar cambios</ion-button>
         </div>

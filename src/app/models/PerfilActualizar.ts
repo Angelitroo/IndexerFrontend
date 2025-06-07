@@ -4,7 +4,7 @@ export interface PerfilActualizar{
   nombre: string;
   pais: string;
   username: string;
-  correo: string;
+  email: string;
   password: string;
   correonotificaciones?: string;
 }
