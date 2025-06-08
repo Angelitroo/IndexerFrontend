@@ -208,6 +208,7 @@ ion-card-header {
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
+  min-height: 60px;
 }
 
 ion-card-title {
@@ -218,6 +219,16 @@ ion-card-title {
   text-overflow: ellipsis;
   max-width: 220px;
 }
+ion-badge {
+  visibility: hidden;
+  width: 60px;
+  height: 24px;
+}
+
+ion-badge[color="danger"] {
+  visibility: visible;
+}
+
 
 .price-row {
   display: flex;

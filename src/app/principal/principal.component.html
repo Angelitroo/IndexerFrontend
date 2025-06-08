@@ -54,14 +54,18 @@
           <img [src]="productadmin.image" alt="Imagen de {{ productadmin.title }}" />
           <ion-card-header>
             <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ productadmin.title }}</ion-card-title>
-            <ion-badge color="danger" *ngIf="productadmin.discount">
+            <ion-badge
+              color="danger"
+              [style.visibility]="productadmin.discount && productadmin.oldPrice && productadmin.oldPrice !== 0 && productadmin.oldPrice !== productadmin.actualPrice ? 'visible' : 'hidden'">
               {{ productadmin.discount }} OFF
             </ion-badge>
           </ion-card-header>
           <ion-card-content>
             <div class="price-row">
               <span class="actual-price">€{{ productadmin.actualPrice.toFixed(2) }}</span>
-              <span class="old-price">€{{ productadmin.oldPrice?.toFixed(2) }}</span>
+              <span class="old-price" *ngIf="productadmin.oldPrice && productadmin.oldPrice !== 0 && productadmin.oldPrice !== productadmin.actualPrice">
+                €{{ productadmin.oldPrice.toFixed(2) }}
+              </span>
             </div>
             <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ productadmin.rating }}</div>
             <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ productadmin.delivery }}</div>
@@ -103,14 +107,18 @@
           <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
           <ion-card-header>
             <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
-            <ion-badge color="danger" *ngIf="producto.discount">
+            <ion-badge
+              color="danger"
+              [style.visibility]="producto.discount && producto.oldPrice && producto.oldPrice !== 0 && producto.oldPrice !== producto.actualPrice ? 'visible' : 'hidden'">
               {{ producto.discount }} OFF
             </ion-badge>
           </ion-card-header>
           <ion-card-content>
             <div class="price-row">
               <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
-              <span class="old-price">€{{ producto.oldPrice?.toFixed(2) }}</span>
+              <span class="old-price" *ngIf="producto.oldPrice && producto.oldPrice !== 0 && producto.oldPrice !== producto.actualPrice">
+                €{{ producto.oldPrice.toFixed(2) }}
+              </span>
             </div>
             <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ producto.rating }}</div>
             <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ producto.delivery }}</div>
