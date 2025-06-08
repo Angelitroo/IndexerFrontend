@@ -57,7 +57,7 @@
             <ion-badge
               color="danger"
               [style.visibility]="productadmin.discount && productadmin.oldPrice && productadmin.oldPrice !== 0 && productadmin.oldPrice !== productadmin.actualPrice ? 'visible' : 'hidden'">
-              {{ productadmin.discount }} OFF
+              {{ productadmin.discount }}
             </ion-badge>
           </ion-card-header>
           <ion-card-content>
@@ -68,7 +68,6 @@
               </span>
             </div>
             <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ productadmin.rating }}</div>
-            <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ productadmin.delivery }}</div>
             <ion-button
               expand="block"
               fill="outline"
@@ -110,7 +109,7 @@
             <ion-badge
               color="danger"
               [style.visibility]="producto.discount && producto.oldPrice && producto.oldPrice !== 0 && producto.oldPrice !== producto.actualPrice ? 'visible' : 'hidden'">
-              {{ producto.discount }} OFF
+              {{ producto.discount }} Off
             </ion-badge>
           </ion-card-header>
           <ion-card-content>
@@ -121,7 +120,6 @@
               </span>
             </div>
             <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ producto.rating }}</div>
-            <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ producto.delivery }}</div>
             <ion-button
               expand="block"
               fill="outline"
