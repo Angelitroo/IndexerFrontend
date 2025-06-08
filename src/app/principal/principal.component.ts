@@ -37,7 +37,10 @@ interface BackendProduct {
   source?: string;
   favorito?: boolean;
 }
-
+interface SearchResponseWrapper {
+  products: BackendProduct[];
+  fromCache: boolean;
+}
 @Component({
   selector: 'app-principal',
   standalone: true,
@@ -237,16 +240,18 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     }
 
     if(query){
-      this.http.get<BackendProduct[]>(`${this.searchApiUrl}/${query}`) // Using searchApiUrl
+      this.http.get<SearchResponseWrapper>(`${this.searchApiUrl}/${query}`)
         .pipe(
           finalize(() => {
             if (localCallId === this.currentSearchCallId) { this.isLoading = false; }
           })
         )
         .subscribe({
-          next: (data) => {
+          next: (response) => {
             if (localCallId === this.currentSearchCallId) {
-              this.allProducts = data.map((p: BackendProduct, index: number): Producto => ({
+              const productsFromServer = response.products || [];
+
+              this.allProducts = productsFromServer.map((p: BackendProduct, index: number): Producto => ({
                 id: p.id || p.url || (Date.now() + index),
                 title: p.title || 'Producto sin título',
                 discount: p.discount || '',
