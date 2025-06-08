@@ -33,8 +33,7 @@ export class PaneladminComponent implements OnInit {
     {
       id: 1,
       nombre: 'Juan',
-      apellido: 'Pérez',
-      ubicacion: 'Madrid, España',
+      pais: 'Madrid, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbGgko7AggykEsN6k1_Ddj4_U_PPzeIeENUA&s',
       baneado: false,
       correonotificaciones: '',
@@ -43,8 +42,7 @@ export class PaneladminComponent implements OnInit {
     {
       id: 2,
       nombre: 'María',
-      apellido: 'Gómez',
-      ubicacion: 'Barcelona, España',
+      pais: 'Barcelona, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6BkDNK7JcwMkGJWKpV3lR4Wqp_UOuj-IEHw&s',
       baneado: true,
       correonotificaciones: '',
@@ -53,8 +51,7 @@ export class PaneladminComponent implements OnInit {
     {
       id: 3,
       nombre: 'Carlos',
-      apellido: 'López',
-      ubicacion: 'Valencia, España',
+      pais: 'Valencia, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfNdlbCFhb0ctP_AWbNurXGhv55OGg2k0rcg&s',
       baneado: false,
       correonotificaciones: '',
@@ -63,8 +60,7 @@ export class PaneladminComponent implements OnInit {
     {
       id: 4,
       nombre: 'Ana',
-      apellido: 'Martínez',
-      ubicacion: 'Sevilla, España',
+      pais: 'Sevilla, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB2Mvs7EKFjH0K0g8Pm6nJ-Qi1PJnsTSdyww&s',
       baneado: false,
       correonotificaciones: '',
@@ -73,8 +69,7 @@ export class PaneladminComponent implements OnInit {
     {
       id: 5,
       nombre: 'Gonzalo',
-      apellido: 'Gomez Monasterio',
-      ubicacion: 'Panchitolandia, Venezuela',
+      pais: 'Panchitolandia, Venezuela',
       imagen: 'https://i.imgflip.com/4151ec.jpg?a485064',
       baneado: true,
       correonotificaciones: '',
@@ -83,8 +78,7 @@ export class PaneladminComponent implements OnInit {
     {
       id: 6,
       nombre: 'Sofía',
-      apellido: 'Ramírez',
-      ubicacion: 'Granada, España',
+      pais: 'Granada, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6sPxq4Um5j7M2ATQhcU3RqSFjQWbp9aLDew&s',
       baneado: false,
       correonotificaciones: '',
@@ -93,8 +87,7 @@ export class PaneladminComponent implements OnInit {
     {
       id: 7,
       nombre: 'Diego',
-      apellido: 'Fernández',
-      ubicacion: 'Zaragoza, España',
+      pais: 'Zaragoza, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA3u8HgIoupxD26I7FCGvwTTh9nhd5ViqFaQ&s',
       baneado: false,
       correonotificaciones: '',
@@ -103,8 +96,7 @@ export class PaneladminComponent implements OnInit {
     {
       id: 8,
       nombre: 'Lucía',
-      apellido: 'García',
-      ubicacion: 'Málaga, España',
+      pais: 'Málaga, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuw4XWNiOLg6qbNBIlqUuQPJrDRse9Kt8cxA&s',
       baneado: true,
       correonotificaciones: '',
@@ -113,8 +105,7 @@ export class PaneladminComponent implements OnInit {
     {
       id: 9,
       nombre: 'Javier',
-      apellido: 'Sánchez',
-      ubicacion: 'Alicante, España',
+      pais: 'Alicante, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgrgziWJTmWQijYB_Egtf3aFP9TY4Ac3fL2A&s',
       baneado: false,
       correonotificaciones: '',
@@ -123,8 +114,7 @@ export class PaneladminComponent implements OnInit {
     {
       id: 10,
       nombre: 'Elena',
-      apellido: 'Torres',
-      ubicacion: 'Córdoba, España',
+      pais: 'Córdoba, España',
       imagen: 'https://i.redd.it/n3tcn9mdij151.jpg',
       baneado: false,
       correonotificaciones: '',

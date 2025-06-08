@@ -62,13 +62,13 @@
         <ion-card class="perfil-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
           <img [src]="perfil.imagen" alt="Imagen de {{ perfil.nombre }}" />
           <ion-card-header>
-            <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ perfil.nombre }} {{ perfil.apellido }}</ion-card-title>
+            <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ perfil.nombre }}</ion-card-title>
             <ion-badge [color]="perfil.baneado ? 'danger' : 'success'">
               {{ perfil.baneado ? 'Baneado' : 'Activo' }}
             </ion-badge>
           </ion-card-header>
           <ion-card-content>
-            <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">{{ perfil.ubicacion }}</div>
+            <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">{{ perfil.pais }}</div>
             <ion-button expand="block" fill="outline" size="small" class="login-button">Modificar</ion-button>
             <ion-button expand="block" fill="outline" size="small" color="danger" class="login-button">Banear</ion-button>
             <ion-button expand="block" fill="outline" size="small" color="danger" class="login-button">Eliminar</ion-button>

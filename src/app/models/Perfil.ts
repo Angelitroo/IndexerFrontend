@@ -1,8 +1,7 @@
 export interface Perfil {
   id: number;
   nombre: string;
-  apellido: string;
-  ubicacion: string;
+  pais: string;
   imagen: string;
   baneado: boolean;
   correonotificaciones: string;
