@@ -3,7 +3,6 @@
   background-size: cover;
   background-position: center;
   height: 100%;
-  padding: 12px 0; /* Reducido de 24px */
 }
 
 .backgroundclaro {
@@ -21,39 +20,39 @@
   gap: 0;
   justify-content: center;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-app-menuizquierdaconfig {
-  margin-right: 24px;
-}
 
 .formulario {
   flex: 1;
-  max-width: 1400px; /* Aumentado de 1200px */
+  max-width: 1400px;
   padding: 0 16px;
   border-radius: 12px;
   margin: 0 auto;
-  display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
+
 
 .branding {
   text-align: center;
-  margin-top: 16px; /* Reducido de 24px */
-  margin-bottom: 24px; /* Reducido de 40px */
-  width: 100%;
-}
+  margin-top: 24px;
+  margin-bottom: 60px;
 
-.branding h1 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #e67e22;
-  margin-bottom: 4px;
-}
+  h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #e67e22;
+    margin-bottom: 4px;
+  }
 
-.branding p {
-  font-size: 0.95rem;
+  p {
+    font-size: 0.95rem;
+  }
 }
 
 .claro {
@@ -68,12 +67,12 @@ app-menuizquierdaconfig {
   max-height: 650px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-right: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Reducido de 16px */
+  gap: 12px;
   width: 100%;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .scroll-container::-webkit-scrollbar {
@@ -94,7 +93,7 @@ app-menuizquierdaconfig {
   position: relative;
   overflow: hidden;
   width: 100%;
-  max-width: 1000px; /* Aumentado de 800px */
+  max-width: 1000px;
   margin-bottom: 10px;
   margin-top: 10px;
 }
@@ -118,9 +117,10 @@ app-menuizquierdaconfig {
 .card-content {
   display: flex;
   align-items: center;
-  padding: 14px; /* Reducido de 16px */
+  padding: 14px;
   width: 100%;
   gap: 24px;
+  box-sizing: border-box;
 }
 
 .icono-alerta {
@@ -190,7 +190,7 @@ ion-card-title {
 @media (max-width: 1400px) {
   .card-content {
     gap: 18px;
-    padding: 12px; /* Reducido de 14px */
+    padding: 12px;
   }
 
   ion-card-title {
@@ -210,14 +210,18 @@ ion-card-title {
   }
 
   .product-card {
-    max-width: 900px; /* Aumentado de 750px */
+    max-width: 900px;
   }
 }
 
 @media (max-width: 1200px) {
+  .layout {
+    padding: 0 12px;
+  }
+
   .card-content {
     gap: 16px;
-    padding: 10px; /* Reducido de 12px */
+    padding: 10px;
   }
 
   ion-card-title {
@@ -237,18 +241,26 @@ ion-card-title {
   }
 
   .product-card {
-    max-width: 800px; /* Aumentado de 700px */
+    max-width: 800px;
   }
 }
 
 @media (max-width: 992px) {
+  .layout {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 12px;
+  }
+
+
   .formulario {
     padding: 0 12px;
+    width: 100%;
   }
 
   .card-content {
     gap: 14px;
-    padding: 8px; /* Reducido de 10px */
+    padding: 8px;
   }
 
   ion-card-title {
@@ -268,18 +280,22 @@ ion-card-title {
   }
 
   .product-card {
-    max-width: 700px; /* Aumentado de 650px */
+    max-width: 700px;
   }
 }
 
 @media (max-width: 768px) {
+  .layout {
+    padding: 0 10px;
+  }
+
   .formulario {
     padding: 0 10px;
   }
 
   .card-content {
     gap: 12px;
-    padding: 6px; /* Reducido de 8px */
+    padding: 6px;
   }
 
   ion-card-title {
@@ -299,18 +315,23 @@ ion-card-title {
   }
 
   .product-card {
-    max-width: 600px; /* Aumentado de 550px */
+    max-width: 600px;
   }
 }
 
 @media (max-width: 576px) {
+  .layout {
+    padding: 0 8px;
+  }
+
+
   .formulario {
     padding: 0 8px;
   }
 
   .card-content {
     gap: 10px;
-    padding: 5px; /* Reducido de 6px */
+    padding: 5px;
   }
 
   ion-card-title {
@@ -330,18 +351,23 @@ ion-card-title {
   }
 
   .product-card {
-    max-width: 500px; /* Aumentado de 450px */
+    max-width: 500px;
   }
 }
 
 @media (max-width: 480px) {
+  .layout {
+    padding: 0 6px;
+  }
+
+
   .formulario {
     padding: 0 6px;
   }
 
   .card-content {
     gap: 8px;
-    padding: 4px; /* Reducido de 5px */
+    padding: 4px;
   }
 
   ion-card-title {
@@ -360,15 +386,6 @@ ion-card-title {
     font-size: 0.75rem;
   }
 
-  .layout {
-    flex-direction: row;
-  }
-
-  app-menuizquierdaconfig {
-    margin-right: 16px;
-    margin-bottom: 0;
-  }
-
   .text-content {
     min-width: 120px;
   }
@@ -378,14 +395,14 @@ ion-card-title {
   }
 
   .product-card {
-    max-width: 400px; /* Aumentado de 380px */
+    max-width: 400px;
   }
 }
 
 @media (max-width: 400px) {
   .card-content {
     gap: 6px;
-    padding: 3px; /* Reducido de 4px */
+    padding: 3px;
   }
 
   ion-card-title {
@@ -409,6 +426,6 @@ ion-card-title {
   }
 
   .product-card {
-    max-width: 350px; /* Aumentado de 320px */
+    max-width: 350px;
   }
 }

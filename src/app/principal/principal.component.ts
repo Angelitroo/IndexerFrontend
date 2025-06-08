@@ -51,8 +51,7 @@ interface SearchResponseWrapper {
     HttpClientModule,
     RouterLink,
     SwiperModule,
-    MenuizquierdaComponent,
-    CrearalertapopoverComponent
+    MenuizquierdaComponent
   ],
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.scss']

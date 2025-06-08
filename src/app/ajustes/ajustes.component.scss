@@ -16,39 +16,46 @@
   --bg-start: #676767;
   --bg-end: #222222;
 }
-
 .layout {
   display: flex;
   flex-direction: row;
   height: 100%;
-  gap: 24px;
+  gap: 0;
   justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 
 .formulario {
-  flex: 0 1 800px;
-  min-width: 300px;
+  flex: 1;
+  max-width: 1400px;
   padding: 0 16px;
   border-radius: 12px;
   margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
+
 
 .branding {
   text-align: center;
   margin-top: 24px;
   margin-bottom: 60px;
-}
 
-.branding h1 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #e67e22;
-  margin-bottom: 4px;
-}
+  h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #e67e22;
+    margin-bottom: 4px;
+  }
 
-.branding p {
-  font-size: 0.95rem;
+  p {
+    font-size: 0.95rem;
+  }
 }
 
 .claro {
@@ -92,37 +99,4 @@ ion-button.guardar {
 }
 
 
-@media (max-width: 500px) {
-  .layout {
-    flex-direction: column;
-    align-items: center; /* Centra horizontalmente los elementos */
-  }
 
-  app-menuizquierdaconfig {
-    width: 100%;
-    max-width: 800px; /* Mismo ancho máximo que el formulario */
-    margin-bottom: 20px;
-  }
-
-  .formulario {
-    width: 100%;
-    max-width: 800px;
-    padding: 16px;
-  }
-}
-
-/* Para pantallas muy pequeñas (móviles) */
-@media (max-width: 576px) {
-  .formulario {
-    max-width: 100%;
-    padding: 16px 8px;
-  }
-
-  .branding {
-    margin-bottom: 40px; /* Reducir espacio en móviles */
-  }
-
-  ion-item {
-    margin: 8px 0; /* Espaciado más compacto */
-  }
-}

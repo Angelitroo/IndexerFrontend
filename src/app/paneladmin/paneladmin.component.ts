@@ -25,10 +25,10 @@ SwiperCore.use([Navigation, Pagination]);
 })
 export class PaneladminComponent implements OnInit {
   modo: boolean = true;
-  miperfil: Perfil | null = null;
 
+  miperfil: Perfil | null = null;
   perfilId: number | null = null;
-  perfil: Perfil | null = null;
+
   perfiles: Perfil[] = [
     {
       id: 1,
@@ -37,6 +37,7 @@ export class PaneladminComponent implements OnInit {
       ubicacion: 'Madrid, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbGgko7AggykEsN6k1_Ddj4_U_PPzeIeENUA&s',
       baneado: false,
+      correonotificaciones: '',
       perfil: 1,
     },
     {
@@ -46,6 +47,7 @@ export class PaneladminComponent implements OnInit {
       ubicacion: 'Barcelona, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6BkDNK7JcwMkGJWKpV3lR4Wqp_UOuj-IEHw&s',
       baneado: true,
+      correonotificaciones: '',
       perfil: 2,
     },
     {
@@ -55,6 +57,7 @@ export class PaneladminComponent implements OnInit {
       ubicacion: 'Valencia, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfNdlbCFhb0ctP_AWbNurXGhv55OGg2k0rcg&s',
       baneado: false,
+      correonotificaciones: '',
       perfil: 3,
     },
     {
@@ -64,6 +67,7 @@ export class PaneladminComponent implements OnInit {
       ubicacion: 'Sevilla, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB2Mvs7EKFjH0K0g8Pm6nJ-Qi1PJnsTSdyww&s',
       baneado: false,
+      correonotificaciones: '',
       perfil: 4,
     },
     {
@@ -73,6 +77,7 @@ export class PaneladminComponent implements OnInit {
       ubicacion: 'Panchitolandia, Venezuela',
       imagen: 'https://i.imgflip.com/4151ec.jpg?a485064',
       baneado: true,
+      correonotificaciones: '',
       perfil: 5,
     },
     {
@@ -82,6 +87,7 @@ export class PaneladminComponent implements OnInit {
       ubicacion: 'Granada, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6sPxq4Um5j7M2ATQhcU3RqSFjQWbp9aLDew&s',
       baneado: false,
+      correonotificaciones: '',
       perfil: 6,
     },
     {
@@ -91,6 +97,7 @@ export class PaneladminComponent implements OnInit {
       ubicacion: 'Zaragoza, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA3u8HgIoupxD26I7FCGvwTTh9nhd5ViqFaQ&s',
       baneado: false,
+      correonotificaciones: '',
       perfil: 7,
     },
     {
@@ -100,6 +107,7 @@ export class PaneladminComponent implements OnInit {
       ubicacion: 'Málaga, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuw4XWNiOLg6qbNBIlqUuQPJrDRse9Kt8cxA&s',
       baneado: true,
+      correonotificaciones: '',
       perfil: 8,
     },
     {
@@ -109,6 +117,7 @@ export class PaneladminComponent implements OnInit {
       ubicacion: 'Alicante, España',
       imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgrgziWJTmWQijYB_Egtf3aFP9TY4Ac3fL2A&s',
       baneado: false,
+      correonotificaciones: '',
       perfil: 9,
     },
     {
@@ -118,6 +127,7 @@ export class PaneladminComponent implements OnInit {
       ubicacion: 'Córdoba, España',
       imagen: 'https://i.redd.it/n3tcn9mdij151.jpg',
       baneado: false,
+      correonotificaciones: '',
       perfil: 10,
     },
   ];
@@ -153,12 +163,11 @@ export class PaneladminComponent implements OnInit {
     if (this.perfilId !== null) {
       this.perfilService.getPerfilById(this.perfilId).subscribe({
         next: (data: Perfil) => {
+          this.miperfil = data;
           console.log('📦 Perfil recibido del backend:', data);
           if (!data) {
             console.warn('⚠️ No se recibió ningún perfil');
           }
-          this.miperfil = data;
-          console.log('✅ miperfil asignado:', this.miperfil);
         },
         error: (error) => {
           console.error('Error al obtener el perfil:', error);

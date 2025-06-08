@@ -36,20 +36,15 @@
       <!-- Notificaciones -->
       <ion-item [class.itemclaro]="modo" [class.itemoscuro]="!modo" lines="none">
         <ion-label [class.claro]="modo" [class.oscuro]="!modo">Notificaciones por email</ion-label>
-        <ion-toggle slot="end" [(ngModel)]="notificacionesEmailActivadas"></ion-toggle>
+        <ion-toggle
+          slot="end" [(ngModel)]="notificacionesEmailActivadas" (ionChange)="actualizarNotificacionesEmail()"></ion-toggle>
       </ion-item>
 
       <ion-item *ngIf="notificacionesEmailActivadas" [class.itemclaro]="modo" [class.itemoscuro]="!modo" lines="none">
         <ion-label position="stacked" [class.claro]="modo" [class.oscuro]="!modo">
           ¿A qué correo le enviamos las notificaciones?
         </ion-label>
-        <ion-input
-          type="email"
-          [(ngModel)]="emailNotificacion"
-          placeholder="ejemplo@correo.com"
-          [class.claro]="modo"
-          [class.oscuro]="!modo"
-        ></ion-input>
+        <ion-input type="email" [(ngModel)]="correonotificaciones" [class.claro]="modo" [class.oscuro]="!modo" placeholder="Introduzca un correo electrónico"></ion-input>
         <div class="contenedor-guardar">
           <ion-button class="guardar" (click)="guardarCambios()">Guardar cambios</ion-button>
         </div>

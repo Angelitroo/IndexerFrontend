@@ -7,10 +7,9 @@
         <p>Las mejores ofertas en un solo lugar</p>
       </div>
 
-
       <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
-        <ion-item class="input-item">
-
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="person-outline" slot="start" class="input-icon"></ion-icon>
           <ion-input
             type="text"
             placeholder="Usuario"
@@ -18,114 +17,157 @@
             inputmode="text"
             required>
           </ion-input>
-
         </ion-item>
 
-        <ion-item class="input-item">
-
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
           <ion-input
             type="password"
             placeholder="Contraseña"
             formControlName="password"
             required>
           </ion-input>
-
         </ion-item>
-
 
         <ion-button
           type="submit"
           expand="block"
-          class="login-button">
-        <!--[disabled]="loginForm.invalid || isLoading">-->
-        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-        <span *ngIf="!isLoading">Iniciar sesión</span>
-      </ion-button>
+          class="login-button"
+          [disabled]="loginForm.invalid || isLoading">
+          <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+          <span *ngIf="!isLoading">Iniciar sesión</span>
+        </ion-button>
 
-      <ion-text color="light">
-        <p class="registro-text">
-          ¿No tienes cuenta? <a (click)="cambioRegistro()">Regístrate</a>
-        </p>
-      </ion-text>
-    </form>
+        <ion-text color="light">
+          <p class="registro-text">
+            ¿No tienes cuenta? <a (click)="cambioRegistro()">Regístrate</a>
+          </p>
+        </ion-text>
+      </form>
+    </div>
   </div>
-</div>
 </ion-content>
 
 <ion-content class="background" *ngIf="isRegistro">
-<div class="content-wrapper">
-  <div class="login-card">
-    <div class="branding">
-      <img src="assets/indexer.png" alt="Logo de la app" />
-      <h1>Indexer</h1>
-      <p>Las mejores ofertas en un solo lugar</p>
-    </div>
+  <div class="content-wrapper">
+    <div class="login-card">
+      <div class="branding">
+        <img src="assets/indexer.png" alt="Logo de la app" />
+        <h1>Indexer</h1>
+        <p>Crea tu cuenta para empezar</p>
+      </div>
 
+      <form [formGroup]="registroForm" (ngSubmit)="registro()" class="login-form">
 
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col class="ion-text-center">
-        <div class="foto-circular">
-          <ng-container *ngIf="imagePath && imagePath.trim() !== ''; else defaultIcon">
-            <img [src]="imagePath" alt="Vista previa" />
-          </ng-container>
-          <ng-template #defaultIcon>
-            <ion-icon name="person-circle-outline" class="icono-defecto"></ion-icon>
-          </ng-template>
-        </div>
-      </ion-col>
-
-    </ion-row>
-        <ion-item class="input-item">
+        <ion-row class="ion-justify-content-center ion-align-items-center" style="margin-bottom: 10px;">
+          <ion-col class="ion-text-center">
+            <div class="foto-circular">
+              <ng-container *ngIf="registroForm.get('imagen')?.value && registroForm.get('imagen')?.value.trim() !== ''; else defaultIcon">
+                <img [src]="registroForm.get('imagen')?.value" alt="Vista previa" />
+              </ng-container>
+              <ng-template #defaultIcon>
+                <ion-icon name="person-circle-outline" class="icono-defecto"></ion-icon>
+              </ng-template>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="image-outline" slot="start" class="input-icon"></ion-icon>
           <ion-input
-            [(ngModel)]="imagePath"
-            placeholder="Foto de perfil"
             type="url"
-            clearInput
-          ></ion-input>
+            placeholder="URL de Foto de perfil (opcional)"
+            formControlName="imagen"
+            clearInput>
+          </ion-input>
         </ion-item>
 
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="person-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input
+            type="text"
+            placeholder="Nombre Completo"
+            formControlName="nombre"
+            required>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="registroForm.get('nombre')?.invalid && (registroForm.get('nombre')?.dirty || registroForm.get('nombre')?.touched)" class="error-message">
+          <div *ngIf="registroForm.get('nombre')?.errors?.['required']">El nombre completo es requerido.</div>
+          <div *ngIf="registroForm.get('nombre')?.errors?.['minlength']">Debe tener al menos 2 caracteres.</div>
+        </div>
 
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="at-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input
+            type="text"
+            placeholder="Nombre de Usuario"
+            formControlName="username"
+            required>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="registroForm.get('username')?.invalid && (registroForm.get('username')?.dirty || registroForm.get('username')?.touched)" class="error-message">
+          <div *ngIf="registroForm.get('username')?.errors?.['required']">El nombre de usuario es requerido.</div>
+          <div *ngIf="registroForm.get('username')?.errors?.['minlength']">Debe tener al menos 3 caracteres.</div>
+        </div>
 
-    <ion-item class="input-item">
-      <ion-input
-        type="name"
-        placeholder="Nombre de usuario"
-      ></ion-input>
-    </ion-item>
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="mail-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input
+            type="email"
+            placeholder="Correo Electrónico"
+            formControlName="email"
+            inputmode="email"
+            required>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="registroForm.get('email')?.invalid && (registroForm.get('email')?.dirty || registroForm.get('email')?.touched)" class="error-message">
+          <div *ngIf="registroForm.get('email')?.errors?.['required']">El email es requerido.</div>
+          <div *ngIf="registroForm.get('email')?.errors?.['email']">Ingresa un email válido.</div>
+        </div>
 
-    <ion-item class="input-ubi">
-      <ion-select name="pais" placeholder="Selecciona una provincia">
-        <ion-select-option *ngFor="let pais of paises" [value]="pais">
-          {{ pais }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input
+            type="password"
+            placeholder="Contraseña"
+            formControlName="password"
+            required>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="registroForm.get('password')?.invalid && (registroForm.get('password')?.dirty || registroForm.get('password')?.touched)" class="error-message">
+          <div *ngIf="registroForm.get('password')?.errors?.['required']">La contraseña es requerida.</div>
+          <div *ngIf="registroForm.get('password')?.errors?.['minlength']">Debe tener al menos 6 caracteres.</div>
+        </div>
 
-    <form class="login-form">
-      <ion-item class="input-item">
-        <ion-input
-          type="email"
-          placeholder="Correo electrónico"
-        ></ion-input>
-      </ion-item>
+        <ion-item class="input-item input-ubi" lines="none">
+          <ion-icon name="flag-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-select
+            placeholder="Selecciona País"
+            formControlName="pais"
+            interface="popover"
+            required>
+            <ion-select-option *ngFor="let pais of paises" [value]="pais">
+              {{ pais }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div *ngIf="registroForm.get('pais')?.invalid && (registroForm.get('pais')?.dirty || registroForm.get('pais')?.touched)" class="error-message">
+          <div *ngIf="registroForm.get('pais')?.errors?.['required']">El país es requerido.</div>
+        </div>
+        <ion-button
+          type="submit"
+          expand="block"
+          class="login-button"
+          [disabled]="registroForm.invalid || isLoading">
+          <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+          <span *ngIf="!isLoading">Registrarse</span>
+        </ion-button>
 
-      <ion-item class="input-item">
-        <ion-input
-          type="password"
-          placeholder="Contraseña"
-        ></ion-input>
-      </ion-item>
-
-      <ion-button expand="block" [routerLink]="'/principal'" class="login-button">
-        Registrarse
-      </ion-button>
-
-      <ion-text color="light">
-        <p class="registro-text">
-          ¿Ya tiene una cuenta? <a (click)="cambioRegistro()">Inicie sesión</a>
-        </p>
-      </ion-text>
-    </form>
+        <ion-text color="light">
+          <p class="registro-text">
+            ¿Ya tienes cuenta? <a (click)="cambioRegistro()">Inicia Sesión</a>
+          </p>
+        </ion-text>
+      </form>
+    </div>
   </div>
-</div>
 </ion-content>

@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from "../services/auth.service";
 import { addIcons } from "ionicons";
-import { personCircleOutline } from "ionicons/icons";
+import {flagOutline, lockClosedOutline, mailOutline, personCircleOutline, personOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,6 @@ import { personCircleOutline } from "ionicons/icons";
   standalone: true,
   imports: [
     IonicModule,
-    RouterLink,
     ReactiveFormsModule,
     CommonModule,
     FormsModule
@@ -48,6 +47,10 @@ export class LoginComponent implements OnInit {
   ) {
     addIcons({
       'person-circle-outline': personCircleOutline,
+      'flag-outline': flagOutline,
+      'mail-outline': mailOutline,
+      'lock-closed-outline': lockClosedOutline,
+      'person-outline': personOutline
     });
 
     this.loginForm = this.fb.group({
@@ -56,10 +59,12 @@ export class LoginComponent implements OnInit {
     });
 
     this.registroForm = this.fb.group({
+      nombre: ['', [Validators.required, Validators.minLength(2)]],
       username: ['', [Validators.required, Validators.minLength(3)]],
       pais: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      imagen: ['']
     });
   }
 

@@ -14,7 +14,14 @@ import {ProductAdmin} from "../models/ProductAdmin";
 })
 export class CrearproductopopoverComponent implements OnInit {
   modo: boolean = true;
-  @Input() productadmin: ProductAdmin = this.getDefaultProduct();
+  @Input() set productadmin(value: ProductAdmin | undefined) {
+    this._productadmin = value ?? this.getDefaultProduct();
+  }
+  get productadmin(): ProductAdmin {
+    return this._productadmin;
+  }
+  private _productadmin!: ProductAdmin;
+
   imagePath: string = '';
 
   constructor(
