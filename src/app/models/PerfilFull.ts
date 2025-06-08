@@ -6,6 +6,7 @@ export interface PerfilFull {
   email: string;
   username: string;
   password: string;
+  activado: boolean;
   baneado: boolean;
   rol: string;
   correonotificaciones: string;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule, PopoverController } from "@ionic/angular";
 import { CommonModule, NgFor, NgIf } from "@angular/common";
 import { Perfil } from "../models/Perfil";
+import { PerfilFull } from "../models/PerfilFull";
 import { AuthService } from "../services/auth.service";
 import { PerfilService } from "../services/perfil.service";
 import { ProductoService } from "../services/producto.service";
@@ -29,98 +30,7 @@ export class PaneladminComponent implements OnInit {
   miperfil: Perfil | null = null;
   perfilId: number | null = null;
 
-  perfiles: Perfil[] = [
-    {
-      id: 1,
-      nombre: 'Juan',
-      pais: 'Madrid, España',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbGgko7AggykEsN6k1_Ddj4_U_PPzeIeENUA&s',
-      baneado: false,
-      correonotificaciones: '',
-      perfil: 1,
-    },
-    {
-      id: 2,
-      nombre: 'María',
-      pais: 'Barcelona, España',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6BkDNK7JcwMkGJWKpV3lR4Wqp_UOuj-IEHw&s',
-      baneado: true,
-      correonotificaciones: '',
-      perfil: 2,
-    },
-    {
-      id: 3,
-      nombre: 'Carlos',
-      pais: 'Valencia, España',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfNdlbCFhb0ctP_AWbNurXGhv55OGg2k0rcg&s',
-      baneado: false,
-      correonotificaciones: '',
-      perfil: 3,
-    },
-    {
-      id: 4,
-      nombre: 'Ana',
-      pais: 'Sevilla, España',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB2Mvs7EKFjH0K0g8Pm6nJ-Qi1PJnsTSdyww&s',
-      baneado: false,
-      correonotificaciones: '',
-      perfil: 4,
-    },
-    {
-      id: 5,
-      nombre: 'Gonzalo',
-      pais: 'Panchitolandia, Venezuela',
-      imagen: 'https://i.imgflip.com/4151ec.jpg?a485064',
-      baneado: true,
-      correonotificaciones: '',
-      perfil: 5,
-    },
-    {
-      id: 6,
-      nombre: 'Sofía',
-      pais: 'Granada, España',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6sPxq4Um5j7M2ATQhcU3RqSFjQWbp9aLDew&s',
-      baneado: false,
-      correonotificaciones: '',
-      perfil: 6,
-    },
-    {
-      id: 7,
-      nombre: 'Diego',
-      pais: 'Zaragoza, España',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA3u8HgIoupxD26I7FCGvwTTh9nhd5ViqFaQ&s',
-      baneado: false,
-      correonotificaciones: '',
-      perfil: 7,
-    },
-    {
-      id: 8,
-      nombre: 'Lucía',
-      pais: 'Málaga, España',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuw4XWNiOLg6qbNBIlqUuQPJrDRse9Kt8cxA&s',
-      baneado: true,
-      correonotificaciones: '',
-      perfil: 8,
-    },
-    {
-      id: 9,
-      nombre: 'Javier',
-      pais: 'Alicante, España',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgrgziWJTmWQijYB_Egtf3aFP9TY4Ac3fL2A&s',
-      baneado: false,
-      correonotificaciones: '',
-      perfil: 9,
-    },
-    {
-      id: 10,
-      nombre: 'Elena',
-      pais: 'Córdoba, España',
-      imagen: 'https://i.redd.it/n3tcn9mdij151.jpg',
-      baneado: false,
-      correonotificaciones: '',
-      perfil: 10,
-    },
-  ];
+  perfiles: PerfilFull[] = [  ];
 
   slidesPerView = 5; // Valor por defecto (pantallas grandes)
   swiperBreakpoints = {
@@ -148,6 +58,7 @@ export class PaneladminComponent implements OnInit {
 
   ngOnInit() {
     this.cargarProductos();
+    this.cargarPerfiles();
     this.perfilId = this.authService.getPerfilIdFromToken();
 
     if (this.perfilId !== null) {
@@ -186,6 +97,20 @@ export class PaneladminComponent implements OnInit {
       }
     });
   }
+
+  cargarPerfiles() {
+    this.perfilService.getPerfiles().subscribe({
+      next: (perfiles: PerfilFull[]) => {
+        console.log('📦 Perfiles recibidos del backend:', perfiles);
+        this.perfiles = perfiles;
+      },
+      error: (error) => {
+        console.error('Error al obtener los perfiles:', error);
+      }
+    });
+  }
+
+
 
   deleteProduct(product: ProductAdmin) {
     this.productoService.deleteProduct(product.url).subscribe({

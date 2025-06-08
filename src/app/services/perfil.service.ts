@@ -5,6 +5,7 @@ import { Perfil } from "../models/Perfil";
 import { Observable } from "rxjs";
 import { environment } from "../../environments/environment";
 import { PerfilActualizar } from "../models/PerfilActualizar";
+import {PerfilFull} from "../models/PerfilFull";
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,9 @@ export class PerfilService {
     return this.httpClient.put<Perfil>(`${this.apiUrl}/perfiles/actualizar/${perfil.id}`, perfil, options);
   }
 
-  getPerfiles(): Observable<Perfil[]> {
+  getPerfiles(): Observable<PerfilFull[]> {
     const options = this.authService.getAuthHeaders();
-    return this.httpClient.get<Perfil[]>(`${this.apiUrl}/perfiles/`, options);
+    return this.httpClient.get<PerfilFull[]>(`${this.apiUrl}/perfiles/`, options);
   }
 
   getPerfilById(id: number): Observable<Perfil> {
