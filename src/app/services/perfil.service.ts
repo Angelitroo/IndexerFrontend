@@ -45,9 +45,9 @@ export class PerfilService {
     ) as Observable<string>;
   }
 
-  buscarPorNombre(nombre: string): Observable<Perfil[]> {
+  buscarPorNombre(nombre: string): Observable<PerfilFull[]> {
     const options = this.authService.getAuthHeaders();
-    return this.httpClient.get<Perfil[]>(`${this.apiUrl}/perfiles/buscar/${nombre}`, options);
+    return this.httpClient.get<PerfilFull[]>(`${this.apiUrl}/perfiles/buscar/${nombre}`, options);
   }
 
 

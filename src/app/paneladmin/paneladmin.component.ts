@@ -28,6 +28,7 @@ SwiperCore.use([Navigation, Pagination]);
   imports: [CommonModule, IonicModule, FormsModule, NgFor, NgIf, SwiperModule, RouterLink]
 })
 export class PaneladminComponent implements OnInit {
+  private searchTimeout: any;
   modo: boolean = true;
 
   miperfil: Perfil | null = null;
@@ -99,6 +100,32 @@ export class PaneladminComponent implements OnInit {
     });
     await toast.present();
   }
+
+  buscarPerfiles(event: any) {
+    clearTimeout(this.searchTimeout);
+    const nombre = event.target.value.trim();
+
+    this.searchTimeout = setTimeout(() => {
+      if (nombre.length > 0) {
+        this.perfilService.buscarPorNombre(nombre).subscribe({
+          next: (perfiles: PerfilFull[]) => {
+            this.perfiles = perfiles.filter(perfil => perfil.rol !== 'ADMIN');
+          },
+          error: (error) => {
+            console.error('Error al buscar perfiles:', error);
+            this.mostrarToast('Error al buscar perfiles', 'danger');
+          }
+        });
+      } else {
+        this.cargarPerfiles();
+      }
+    }, 150);
+  }
+  ngOnDestroy() {
+    clearTimeout(this.searchTimeout);
+  }
+
+
 
   cargarProductos() {
     this.productoService.getAllProductsAdmin().subscribe({

@@ -16,7 +16,9 @@
       placeholder="Buscar perfil..."
       class="input-item"
       [class.searchclaro]="modo"
-      [class.searchoscuro]="!modo">
+      [class.searchoscuro]="!modo"
+      (ionInput)="buscarPerfiles($event)"
+      debounce="150">
     </ion-searchbar>
     <ion-button (click)="abrirCrearProducto()" [fill]="modo ? 'solid' : 'outline'">Crear Producto</ion-button>
   </div>
