@@ -25,23 +25,23 @@
 .branding {
   text-align: center;
   margin-bottom: 16px;
+}
 
-  img {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 10px;
-  }
+.branding img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+}
 
-  h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #e67e22;
-    margin-bottom: 4px;
-  }
+.branding h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #e67e22;
+  margin-bottom: 4px;
+}
 
-  p {
-    font-size: 0.95rem;
-  }
+.branding p {
+  font-size: 0.95rem;
 }
 
 .input-item {
@@ -81,21 +81,21 @@
   z-index: 10;
   background: none;
   border: none;
+}
 
-  ion-icon {
-    font-size: 48px;
-    color: #e67e22;
-    cursor: pointer;
-  }
+.top-icons ion-icon {
+  font-size: 48px;
+  color: #e67e22;
+  cursor: pointer;
+}
 
-  button {
-    background: none;
-    border: none;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.top-icons button {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 ion-button {
@@ -107,31 +107,33 @@ ion-button {
 }
 
 .perfil-grid {
-  display: flex;
-  justify-content: center;
+  padding: 0 16px;
   margin: 0 auto;
   max-width: 1300px;
 }
 
 .product-card,
 .perfil-card {
-  min-width: 250px;
-  width: 220px;
   border-radius: 16px;
   overflow: hidden;
   transition: transform 0.2s ease-in-out;
   position: relative;
-  height: auto;
+  max-width: 230px;
+  height: 410px;
+  display: flex;
+  flex-direction: column;
   border: 2px solid var(--border-color);
+  margin-bottom: 16px;
+}
 
-  img {
-    height: 180px;
-    object-fit: cover;
-    margin: 30px auto 0;
-    display: block;
-    border-radius: 8px;
-    background-color: #f5f5f5;
-  }
+.perfil-card img {
+  height: 180px;
+  object-fit: cover;
+  margin: 30px auto 0;
+  display: block;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  max-width: 80%;
 }
 
 .cardclaro {
@@ -146,10 +148,10 @@ ion-button {
   background: #4e4e4e;
   --border-color: #616161;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+}
 
-  ion-card-title {
-    color: #ffb366;
-  }
+.cardoscuro ion-card-title {
+  color: #ffb366;
 }
 
 ion-card-header {
@@ -166,6 +168,12 @@ ion-card-title {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 220px;
+}
+
+ion-card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .price-row {
@@ -219,14 +227,14 @@ ion-card-title {
   font-family: 'Poppins', sans-serif;
   border-left: 6px solid #e67e22;
   margin-left: 15%;
+}
 
-  &.claro {
-    color: #8c8c8c;
-  }
+.subtitulo.claro {
+  color: #8c8c8c;
+}
 
-  &.oscuro {
-    color: #aaaaaa;
-  }
+.subtitulo.oscuro {
+  color: #aaaaaa;
 }
 
 .custom-swiper {
@@ -239,43 +247,41 @@ ion-card-title {
   max-width: 1300px;
 }
 
-::ng-deep {
-  .custom-swiper .swiper {
-    padding-bottom: 30px;
-  }
+::ng-deep .custom-swiper .swiper {
+  padding-bottom: 30px;
+}
 
-  .custom-swiper .swiper-slide {
-    display: flex;
-    justify-content: center;
-  }
+::ng-deep .custom-swiper .swiper-slide {
+  display: flex;
+  justify-content: center;
+}
 
-  .custom-swiper .swiper-button-prev,
-  .custom-swiper .swiper-button-next {
-    top: calc(50% - 20px);
-    width: 40px;
-    height: 40px;
-    background: rgba(255,255,255,0.8);
-    border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    z-index: 10;
-  }
+::ng-deep .custom-swiper .swiper-button-prev,
+::ng-deep .custom-swiper .swiper-button-next {
+  top: calc(50% - 20px);
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+}
 
-  .custom-swiper .swiper-pagination {
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
-  }
+::ng-deep .custom-swiper .swiper-pagination {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
 
-  .custom-swiper .swiper-pagination-bullet {
-    background: #e67e22;
-    opacity: 0.5;
-    width: 10px;
-    height: 10px;
-  }
+::ng-deep .custom-swiper .swiper-pagination-bullet {
+  background: #e67e22;
+  opacity: 0.5;
+  width: 10px;
+  height: 10px;
+}
 
-  .custom-swiper .swiper-pagination-bullet-active {
-    opacity: 1;
-  }
+::ng-deep .custom-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
 }

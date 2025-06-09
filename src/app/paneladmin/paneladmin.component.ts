@@ -102,7 +102,7 @@ export class PaneladminComponent implements OnInit {
     this.perfilService.getPerfiles().subscribe({
       next: (perfiles: PerfilFull[]) => {
         console.log('📦 Perfiles recibidos del backend:', perfiles);
-        this.perfiles = perfiles;
+        this.perfiles = perfiles.filter(perfil => perfil.rol !== 'ADMIN');
       },
       error: (error) => {
         console.error('Error al obtener los perfiles:', error);

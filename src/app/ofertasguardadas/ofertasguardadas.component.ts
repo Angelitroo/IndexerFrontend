@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { MenuizquierdaconfigComponent } from '../menuizquierdaconfig/menuizquierdaconfig.component';
 import { NgForOf, NgIf, CommonModule } from '@angular/common';
-import { SwiperModule } from 'swiper/angular';
 import { Producto } from '../models/Producto';
-import SwiperCore, {Navigation, Pagination} from "swiper";
+import { SwiperModule, SwiperComponent } from 'swiper/angular';
+import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
 import {addIcons} from "ionicons";
 import {heart, heartOutline} from "ionicons/icons";
 import {HttpClient, HttpClientModule, HttpParams} from '@angular/common/http';
@@ -40,6 +40,20 @@ export class OfertasguardadasComponent implements OnInit {
       'heart': heart
     });
   }
+
+  @ViewChildren('scrollArea') scrollAreas!: QueryList<ElementRef<HTMLElement>>;
+  @ViewChildren(SwiperComponent) swiperInstances!: QueryList<SwiperComponent>;
+
+  slidesPerView = 5;
+  swiperBreakpoints = {
+    320: { slidesPerView: 1 },
+    880: { slidesPerView: 1 },
+    1000: { slidesPerView: 2 },
+    1050: { slidesPerView: 3 },
+    1280: { slidesPerView: 4 },
+    1420: { slidesPerView: 5 },
+  };
+
 
   ngOnInit() {
     const modoGuardado = localStorage.getItem('modo');
