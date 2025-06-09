@@ -30,6 +30,17 @@
     </ion-button>
   </div>
 
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p [class.claro]="modo" [class.oscuro]="!modo">{{ currentLoadingMessage }}</p>
+  </div>
+
+  <div *ngIf="!isLoading && !hasProductsToDisplay()">
+    <p class="no-products-message" [class.claro]="modo" [class.oscuro]="!modo">
+      No se encontraron productos. ¡Realiza una búsqueda para empezar!
+    </p>
+  </div>
+
   <app-menuizquierda *ngIf="mostrarMenu"></app-menuizquierda>
 
   <ng-container *ngIf="productsadmin && productsadmin.length > 0">
@@ -80,17 +91,6 @@
       </ng-template>
     </swiper>
   </ng-container>
-
-  <div *ngIf="isLoading" class="loading-container">
-    <ion-spinner name="crescent"></ion-spinner>
-    <p [class.claro]="modo" [class.oscuro]="!modo">Cargando productos...</p>
-  </div>
-
-  <div *ngIf="!isLoading && !hasProductsToDisplay()">
-    <p class="no-products-message" [class.claro]="modo" [class.oscuro]="!modo">
-      No se encontraron productos. ¡Realiza una búsqueda para empezar!
-    </p>
-  </div>
 
   <ng-container *ngIf="!isLoading && hasProductsToDisplay()">
     <ng-container *ngFor="let group of groupedProducts">

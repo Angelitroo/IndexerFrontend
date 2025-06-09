@@ -93,6 +93,37 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     this.mostrarMenu = !this.mostrarMenu;
   }
 
+  loadingMessages: string[] = [
+    'Cargando productos...',
+    'Encontrando las mejores ofertas...',
+    'Buscando gangas irresistibles...',
+    'Conectando con las tiendas...',
+    'Revisando inventarios...',
+    'Comparando precios...'
+  ];
+  currentLoadingMessage: string = this.loadingMessages[0];
+
+  private loadingMessageIndex: number = 0;
+  private loadingMessageInterval?: any;
+
+  private startLoadingMessagesRotation(): void {
+    this.loadingMessageIndex = 0;
+    this.currentLoadingMessage = this.loadingMessages[0];
+    this.loadingMessageInterval = setInterval(() => {
+      this.loadingMessageIndex = (this.loadingMessageIndex + 1) % this.loadingMessages.length;
+      this.currentLoadingMessage = this.loadingMessages[this.loadingMessageIndex];
+      this.cdr.detectChanges();
+    }, 3500);
+  }
+
+  private stopLoadingMessagesRotation(): void {
+    if (this.loadingMessageInterval) {
+      clearInterval(this.loadingMessageInterval);
+      this.loadingMessageInterval = undefined;
+    }
+  }
+
+
   constructor(
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
@@ -152,6 +183,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       this.processProducts();
     } finally {
       this.isLoading = false;
+      this.stopLoadingMessagesRotation();
       this.cdr.detectChanges();
     }
   }
@@ -213,16 +245,19 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       this.allProducts = [...this.initialDynamicProducts];
       this.processProducts();
       this.isLoading = false;
+      this.stopLoadingMessagesRotation();
       return;
     }
 
     this.isInitialView = false;
     this.isLoading = true;
+    this.startLoadingMessagesRotation();
 
     if (!query && Object.keys(this.activeFilters).length > 0) {
       this.allProducts = [...this.initialDynamicProducts];
       this.processProducts();
       this.isLoading = false;
+      this.stopLoadingMessagesRotation();
       return;
     }
 
@@ -230,7 +265,8 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       this.http.get<SearchResponseWrapper>(`${this.searchApiUrl}/${query}`)
         .pipe(
           finalize(() => {
-            if (localCallId === this.currentSearchCallId) { this.isLoading = false; }
+            if (localCallId === this.currentSearchCallId) { this.isLoading = false;
+              this.stopLoadingMessagesRotation(); }
           })
         )
         .subscribe({
@@ -251,6 +287,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
         });
     } else {
       this.isLoading = false;
+      this.stopLoadingMessagesRotation();
       this.processProducts();
     }
   }
