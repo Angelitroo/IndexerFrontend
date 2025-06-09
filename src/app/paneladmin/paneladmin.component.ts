@@ -15,6 +15,8 @@ import { personCircleOutline } from "ionicons/icons";
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { ToastController } from "@ionic/angular";
+import {AdminperfilpopoverComponent} from "../adminperfilpopover/adminperfilpopover.component";
+import {PerfilActualizar} from "../models/PerfilActualizar";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -161,6 +163,20 @@ export class PaneladminComponent implements OnInit {
       popover.onDidDismiss().then(({ data }) => {
         if (data === 'editado' || data === 'creado') {
           this.cargarProductos();
+        }
+      });
+    });
+  }
+
+  abrirModificarPerfil(perfil: PerfilActualizar) {
+    this.popoverCtrl.create({
+      component: AdminperfilpopoverComponent,
+      componentProps: { perfil }
+    }).then(popover => {
+      popover.present();
+      popover.onDidDismiss().then(({ data }) => {
+        if (data === 'editado' || data === 'creado') {
+          this.cargarPerfiles();
         }
       });
     });

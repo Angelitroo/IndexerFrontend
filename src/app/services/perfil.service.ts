@@ -49,4 +49,29 @@ export class PerfilService {
     const options = this.authService.getAuthHeaders();
     return this.httpClient.get<Perfil[]>(`${this.apiUrl}/perfiles/buscar/${nombre}`, options);
   }
+
+
+  enviarCorreoBaneo(perfilId: number): Observable<string> {
+    const options = {
+      ...this.authService.getAuthHeaders(),
+      responseType: 'text' as const
+    };
+    return this.httpClient.post(
+      `${this.apiUrl}/perfiles/baneo/${perfilId}`,
+      {},
+      options
+    ) as Observable<string>;
+  }
+
+  enviarCorreoDesbaneo(perfilId: number): Observable<string> {
+    const options = {
+      ...this.authService.getAuthHeaders(),
+      responseType: 'text' as const
+    };
+    return this.httpClient.post(
+      `${this.apiUrl}/perfiles/desbaneo/${perfilId}`,
+      {},
+      options
+    ) as Observable<string>;
+  }
 }

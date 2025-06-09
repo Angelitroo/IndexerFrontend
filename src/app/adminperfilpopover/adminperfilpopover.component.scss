@@ -1,0 +1,76 @@
+.popover-content {
+  --background: transparent !important;
+  padding: 0 !important;
+  height: auto;
+  width: 100%;           /* Ocupa todo el ancho posible */
+  min-width: 800px;      /* Máximo ancho más grande que antes */
+  border-radius: 20px;   /* Esquinas más redondas */
+  box-sizing: border-box;
+  margin: auto;          /* Centrar horizontalmente */
+
+}
+
+ion-grid {
+  padding: 20px;
+  background-color: var(--background); /* Usar variable de color */
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+}
+.gridclaro {
+  --background: #ffffff;
+}
+.gridoscuro {
+  --background: #4e4e4e;
+}
+
+
+.foto {
+  height: 150px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Igual que el segundo */
+  background-color: var(--background);
+}
+.fotoclaro {
+  --background: #ffffff;
+}
+.fotooscuro {
+  --background: #e6e6e6;
+}
+
+.foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+ion-item {
+  border-radius: 12px;
+  --background: #e6e6e6;    /* Igual que el segundo */
+  --color: #4d4d4d;
+  --min-height: 36px;
+  margin-bottom: 8px;
+}
+
+
+ion-label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+ion-input{
+  margin-top: 10px;
+  height: 32px;
+}
+
+.boton-guardar {
+  --background: #e67e22;
+  --background-activated: #d35400;
+  --color: white;
+  font-weight: bold;
+  height: 36px;
+  font-size: 14px;
+  border-radius: 8px;
+}

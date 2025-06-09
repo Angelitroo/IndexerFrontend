@@ -6,5 +6,6 @@ export interface PerfilActualizar{
   username: string;
   email: string;
   password: string;
+  baneado?: boolean;
   correonotificaciones?: string;
 }
