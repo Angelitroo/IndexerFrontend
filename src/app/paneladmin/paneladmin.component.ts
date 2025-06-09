@@ -14,6 +14,7 @@ import { addIcons } from "ionicons";
 import { personCircleOutline } from "ionicons/icons";
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { ToastController } from "@ionic/angular";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -50,6 +51,7 @@ export class PaneladminComponent implements OnInit {
     private perfilService: PerfilService,
     private popoverCtrl: PopoverController,
     private productoService: ProductoService,
+    private toastController: ToastController
   ) {
     addIcons({
       'person-circle-outline': personCircleOutline,
@@ -86,6 +88,16 @@ export class PaneladminComponent implements OnInit {
     }
   }
 
+  async mostrarToast(mensaje: string, color: 'success' | 'danger') {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 3000,
+      color,
+      position: 'top'
+    });
+    await toast.present();
+  }
+
   cargarProductos() {
     this.productoService.getAllProductsAdmin().subscribe({
       next: (productos: ProductAdmin[]) => {
@@ -116,10 +128,26 @@ export class PaneladminComponent implements OnInit {
     this.productoService.deleteProduct(product.url).subscribe({
       next: () => {
         console.log('✅ Producto eliminado correctamente:', product);
+        this.mostrarToast('Producto eliminado correctamente', 'success');
         this.cargarProductos();
       },
       error: (error) => {
         console.error('Error al eliminar el producto:', error);
+        this.mostrarToast('Error al eliminar el producto', 'danger');
+      }
+    });
+  }
+
+  eliminarPerfil(perfil: PerfilFull) {
+    this.perfilService.eliminarPerfil(perfil.id).subscribe({
+      next: (respuesta: string) => {
+        console.log('✅ Perfil eliminado correctamente:', respuesta);
+        this.mostrarToast('Perfil eliminado correctamente', 'success');
+        this.cargarPerfiles();
+      },
+      error: (error) => {
+        console.error('Error al eliminar el perfil:', error);
+        this.mostrarToast('Error al eliminar el perfil', 'danger');
       }
     });
   }

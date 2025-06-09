@@ -135,8 +135,9 @@ export class LoginComponent implements OnInit {
           console.error('Login failed:', error);
           let errorMessage = 'Error de inicio de sesión. Inténtalo de nuevo.';
           if (error.status === 401 || error.status === 403) {
-            errorMessage = 'Credenciales incorrectas. Verifica tu usuario y contraseña.';
-          } else if (error.status === 0) {
+            errorMessage = 'Verifica tu usuario y contraseña. Active su cuenta';
+          }
+          else if (error.status === 0) {
             errorMessage = 'No se pudo conectar al servidor. Verifica tu conexión o que el servidor esté corriendo.';
           } else if (error.error && typeof error.error === 'string') {
             errorMessage = error.error;

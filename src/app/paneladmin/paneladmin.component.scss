@@ -118,23 +118,30 @@ ion-button {
   overflow: hidden;
   transition: transform 0.2s ease-in-out;
   position: relative;
+  width: 100%;
   max-width: 230px;
-  height: 410px;
+  height: auto;
+  min-height: 410px;
   display: flex;
   flex-direction: column;
   border: 2px solid var(--border-color);
   margin-bottom: 16px;
+
+  img {
+    height: 100%;
+    max-height: 160px;
+    object-fit: cover;
+    margin: 30px auto 0;
+    display: block;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    max-width: 80%;
+  }
+
 }
 
-.perfil-card img {
-  height: 180px;
-  object-fit: cover;
-  margin: 30px auto 0;
-  display: block;
-  border-radius: 8px;
-  background-color: #f5f5f5;
-  max-width: 80%;
-}
+
+
 
 .cardclaro {
   --background: #ffffff;

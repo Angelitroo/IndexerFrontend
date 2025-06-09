@@ -34,6 +34,17 @@ export class PerfilService {
     return this.httpClient.get<PerfilActualizar>(`${this.apiUrl}/perfiles/actualizado/${id}`, options);
   }
 
+  eliminarPerfil(id: number): Observable<string> {
+    const options = {
+      ...this.authService.getAuthHeaders(),
+      responseType: 'text' as const
+    };
+    return this.httpClient.delete(
+      `${this.apiUrl}/perfiles/eliminar/${id}`,
+      options
+    ) as Observable<string>;
+  }
+
   buscarPorNombre(nombre: string): Observable<Perfil[]> {
     const options = this.authService.getAuthHeaders();
     return this.httpClient.get<Perfil[]>(`${this.apiUrl}/perfiles/buscar/${nombre}`, options);

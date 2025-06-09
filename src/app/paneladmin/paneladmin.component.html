@@ -8,7 +8,7 @@
   <div class="branding">
     <img src="assets/indexer.png" alt="Logo" />
     <h1 [class.claro]="modo" [class.oscuro]="!modo">Panel Admin</h1>
-    <p [class.claro]="modo" [class.oscuro]="!modo">Bienvenido {{ miperfil?.nombre }}</p>
+    <p [class.claro]="modo" [class.oscuro]="!modo">Bienvenido <b>{{ miperfil?.nombre }}</b></p>
   </div>
 
   <div class="searchbar-container">
@@ -45,7 +45,6 @@
             <span class="old-price">€{{ producto.oldPrice?.toFixed(2) }}</span>
           </div>
           <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ producto.rating }}</div>
-          <div class="delivery" [class.claro]="modo" [class.oscuro]="!modo">{{ producto.delivery }}</div>
           <ion-button expand="block" fill="outline" size="small" class="login-button" [href]="producto.url" target="_blank">Ver más</ion-button>
           <ion-button (click)="abrirCrearProducto(producto)" expand="block" fill="outline" size="small" class="login-button">Modificar</ion-button>
           <ion-button (click)="deleteProduct(producto)" expand="block" fill="outline" size="small" color="danger" class="login-button">Eliminar</ion-button>
@@ -71,7 +70,7 @@
             <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">{{ perfil.pais }}</div>
             <ion-button expand="block" fill="outline" size="small" class="login-button">Modificar</ion-button>
             <ion-button expand="block" fill="outline" size="small" color="danger" class="login-button">Banear</ion-button>
-            <ion-button expand="block" fill="outline" size="small" color="danger" class="login-button">Eliminar</ion-button>
+            <ion-button (click)="eliminarPerfil(perfil)" expand="block" fill="outline" size="small" color="danger" class="login-button">Eliminar</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>
