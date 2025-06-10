@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ElementRef, QueryList, ViewChildren, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, PopoverController, ToastController } from '@ionic/angular'; // Added ToastController
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
 import { RouterLink } from "@angular/router";
@@ -9,12 +9,13 @@ import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
 import { addIcons } from "ionicons";
 import { notificationsOutline, personCircleOutline, heartOutline, heart, searchOutline, filterCircleOutline } from "ionicons/icons";
 import { finalize } from 'rxjs/operators';
-import { PopoverController } from '@ionic/angular';
 import { MenuizquierdaComponent } from "../menuizquierda/menuizquierda.component";
 import { CrearalertapopoverComponent } from "../crearalertapopover/crearalertapopover.component";
 import { Producto } from '../models/Producto';
 import { ProductFilters } from '../models/ProductFilters';
 import { ProductoService } from '../services/producto.service';
+import { AlertaService } from '../services/alerta.service';
+import { Alerta } from '../models/Alerta';
 import { ProductAdmin } from "../models/ProductAdmin";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
@@ -123,12 +124,13 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   constructor(
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
     private popoverCtrl: PopoverController,
     private productoService: ProductoService,
+    private alertaService: AlertaService,
+    private toastController: ToastController,
   ) {
     addIcons({
       'person-circle-outline': personCircleOutline,
@@ -385,18 +387,45 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     });
   }
 
+
+  async mostrarToast(mensaje: string, color: 'success' | 'danger' | 'medium', duration: number = 4000) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: duration,
+      color,
+      position: 'top'
+    });
+    await toast.present();
+  }
+
   async abrirCrearAlerta() {
     const popover = await this.popoverCtrl.create({
       component: CrearalertapopoverComponent,
       translucent: true,
       componentProps: {
-        alerta: null
+        alerta: {
+          concepto: this.searchTerm,
+          precioObjetivo: undefined,
+          empresas: this.activeFilters.selectedEmpresas || []
+        }
       }
     });
 
     popover.onDidDismiss().then((result) => {
-      if (result.data) {
-        console.log('Alerta creada:', result.data);
+      if (result.data && result.data.submitted) {
+        const alertaData = result.data.data as Partial<Alerta>;
+
+        this.mostrarToast('Alerta creada', 'success', 3000);
+        this.alertaService.crearAlerta(alertaData).subscribe({
+          next: (response) => {
+            console.log('Alerta creada:', response);
+          },
+          error: (err: any) => {
+            console.error('Error al crear la alerta', err);
+            const errorMessage = err.error?.message || 'Error desconocido al crear la alerta.';
+            this.mostrarToast(`Error: ${errorMessage}`, 'danger', 5000);
+          }
+        });
       }
     });
 

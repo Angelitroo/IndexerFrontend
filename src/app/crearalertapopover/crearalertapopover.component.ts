@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IonicModule, PopoverController, ToastController } from "@ionic/angular";
 import { FormsModule } from "@angular/forms";
 import { Alerta } from "../models/Alerta";
-import { AlertaService } from "../services/alerta.service";
 
 @Component({
   selector: 'app-crearalertapopover',
@@ -24,7 +23,6 @@ export class CrearalertapopoverComponent implements OnInit {
   };
 
   constructor(
-    private alertaService: AlertaService,
     private popoverCtrl: PopoverController,
     private toastController: ToastController,
   ) { }
@@ -58,16 +56,10 @@ export class CrearalertapopoverComponent implements OnInit {
       return;
     }
 
-    this.alertaService.crearAlerta(this.alerta).subscribe({
-      next: (response) => {
-        this.mostrarToast('Alerta creada con éxito', 'success');
-        this.popoverCtrl.dismiss(response);
-      },
-      error: (err: any) => {
-        console.error(err);
-        this.mostrarToast('Error al crear la alerta', 'danger');
-        this.popoverCtrl.dismiss();
-      }
-    });
+    this.popoverCtrl.dismiss({ submitted: true, data: this.alerta });
+  }
+
+  cancelar(): void {
+    this.popoverCtrl.dismiss();
   }
 }
