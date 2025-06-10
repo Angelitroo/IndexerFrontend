@@ -112,7 +112,6 @@ ion-button {
   max-width: 1300px;
 }
 
-.product-card,
 .perfil-card {
   border-radius: 16px;
   overflow: hidden;
@@ -140,6 +139,34 @@ ion-button {
 
 }
 
+.product-card{
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  position: relative;
+  width: 100%;
+  max-width: 230px;
+  height: auto;
+  min-height: 370px;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--border-color);
+  margin-bottom: 16px;
+
+  img {
+    height: 100%;
+    max-height: 140px;
+    min-height: 140px;
+    object-fit: cover;
+    margin: 10px auto 0;
+    display: block;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    width: 100%;
+    max-width: 80%;
+  }
+
+}
 
 
 
@@ -183,6 +210,47 @@ ion-card-content {
   flex-direction: column;
 }
 
+
+.descuento {
+  --background: linear-gradient(to right, #e74c3c, #e67e22);
+  --color: white;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: pulse 2s infinite;
+  width: auto;
+  height: auto;
+  visibility: visible;
+  position: relative;
+  margin-left: 8px;
+}
+
+/* Eliminar la clase específica para color danger ya que usamos nuestro propio estilo */
+.descuento[color="danger"] {
+  --background: none;
+}
+
+/* Animación de pulso */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+  }
+  70% {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+  }
+}
+
+
 .price-row {
   display: flex;
   gap: 8px;
@@ -202,20 +270,14 @@ ion-card-content {
   color: gray;
 }
 
-.rating,
-.delivery {
+.rating{
   font-size: 0.9rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 220px;
-  text-align: center;
 }
 
-.delivery {
-  font-size: 0.85rem;
-  margin-bottom: 8px;
-}
 
 .login-button {
   --background: #e67e22;

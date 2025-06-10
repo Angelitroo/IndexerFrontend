@@ -39,7 +39,10 @@
         <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
         <ion-card-header>
           <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
-          <ion-badge color="danger" *ngIf="producto.discount">{{ producto.discount }} OFF</ion-badge>
+          <ion-badge class="descuento"
+                     *ngIf="producto.discount && producto.oldPrice && producto.oldPrice !== 0 && producto.oldPrice !== producto.actualPrice">
+            {{ producto.discount }}
+          </ion-badge>
         </ion-card-header>
         <ion-card-content>
           <div class="price-row">

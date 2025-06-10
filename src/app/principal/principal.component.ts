@@ -324,6 +324,15 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   private processProducts() {
     let productsToDisplay = [...this.allProducts];
 
+
+    //Precio entre
+    if (this.activeFilters.minPrice !== undefined && this.activeFilters.minPrice !== null) {
+      productsToDisplay = productsToDisplay.filter(p => p.actualPrice >= this.activeFilters.minPrice!);
+    }
+    if (this.activeFilters.maxPrice !== undefined && this.activeFilters.maxPrice !== null) {
+      productsToDisplay = productsToDisplay.filter(p => p.actualPrice <= this.activeFilters.maxPrice!);
+    }
+
     if (this.activeFilters.sortBy) {
       switch (this.activeFilters.sortBy) {
         case 'precio-asc':
