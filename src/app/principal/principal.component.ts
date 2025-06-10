@@ -305,49 +305,77 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   }
 
   private processProducts() {
+    // 1. Copiar todos los productos para trabajar con ellos
     let productsToDisplay = [...this.allProducts];
 
-    if (this.activeFilters.selectedEmpresas && this.activeFilters.selectedEmpresas.length > 0) {
+    // 2. Aplicar filtros
+    // Filtro por categoría (búsqueda en el título si no hay campo category)
+    if (this.activeFilters.selectedCategory) {
+      const categoryLower = this.activeFilters.selectedCategory.toLowerCase();
       productsToDisplay = productsToDisplay.filter(p =>
-        p.empresa && this.activeFilters.selectedEmpresas!.includes(p.empresa)
+        p.title.toLowerCase().includes(categoryLower) ||
+        (p as any).category?.toLowerCase().includes(categoryLower)
       );
     }
-    if (this.activeFilters.selectedCategories && this.activeFilters.selectedCategories.length > 0) {
-      console.warn("Category filtering in processProducts needs implementation based on product data structure.");
-    }
+
+    // Filtro por precio mínimo
     if (this.activeFilters.minPrice !== undefined && this.activeFilters.minPrice !== null) {
       productsToDisplay = productsToDisplay.filter(p => p.actualPrice >= this.activeFilters.minPrice!);
     }
+
+    // Filtro por precio máximo
     if (this.activeFilters.maxPrice !== undefined && this.activeFilters.maxPrice !== null) {
       productsToDisplay = productsToDisplay.filter(p => p.actualPrice <= this.activeFilters.maxPrice!);
     }
 
+    // 3. Aplicar ordenación
     if (this.activeFilters.sortBy) {
       switch (this.activeFilters.sortBy) {
-        case 'precio-asc': productsToDisplay.sort((a, b) => a.actualPrice - b.actualPrice); break;
-        case 'precio-desc': productsToDisplay.sort((a, b) => b.actualPrice - a.actualPrice); break;
-        case 'popularidad': productsToDisplay.sort((a, b) => (parseFloat(b.rating || '0')) - (parseFloat(a.rating || '0'))); break;
+        case 'precio-asc':
+          productsToDisplay.sort((a, b) => a.actualPrice - b.actualPrice);
+          break;
+        case 'precio-desc':
+          productsToDisplay.sort((a, b) => b.actualPrice - a.actualPrice);
+          break;
+        case 'popularidad':
+          productsToDisplay.sort((a, b) => {
+            const ratingA = parseFloat(a.rating || '0') || 0;
+            const ratingB = parseFloat(b.rating || '0') || 0;
+            return ratingB - ratingA;
+          });
+          break;
       }
     }
 
+    // 4. Agrupar por empresa
     const grouped = new Map<string, Producto[]>();
+
     productsToDisplay.forEach(product => {
       const empresaKey = product.empresa || 'Desconocido';
-      if (!grouped.has(empresaKey)) { grouped.set(empresaKey, []); }
+      if (!grouped.has(empresaKey)) {
+        grouped.set(empresaKey, []);
+      }
       grouped.get(empresaKey)!.push(product);
     });
 
+    // 5. Ordenar grupos según availableEmpresas y añadir los restantes
     this.groupedProducts = this.availableEmpresas
-      .map(empresaName => ({ empresa: empresaName, items: grouped.get(empresaName) || [] }))
+      .map(empresaName => ({
+        empresa: empresaName,
+        items: grouped.get(empresaName) || []
+      }))
       .filter(group => group.items.length > 0);
 
+    // Añadir empresas no listadas en availableEmpresas
     grouped.forEach((items, empresaName) => {
-      if (!this.availableEmpresas.includes(empresaName) && items.length > 0) {
-        if (!this.groupedProducts.find(g => g.empresa === empresaName)) {
+      if (!this.availableEmpresas.includes(empresaName)) {
+        if (items.length > 0 && !this.groupedProducts.some(g => g.empresa === empresaName)) {
           this.groupedProducts.push({ empresa: empresaName, items });
         }
       }
     });
+
+    // 6. Actualizar la vista
     this.cdr.detectChanges();
     this.updateSwipers();
   }
@@ -446,5 +474,19 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       empresa: p.empresa || p.source || 'Desconocido',
       favorito: p.favorito || false
     };
+  }
+
+  onCategorySearch(category: string) {
+    this.searchTerm = category;
+    this.isInitialView = false;
+    this.isLoading = true;
+    this.startLoadingMessagesRotation();
+
+    const searchbar = document.querySelector('ion-searchbar');
+    if (searchbar) {
+      (searchbar as any).value = category;
+    }
+
+    this.onSearchChange({ target: { value: category } });
   }
 }

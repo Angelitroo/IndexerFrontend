@@ -18,21 +18,20 @@ import { ProductFilters } from "../models/ProductFilters";
 export class MenuizquierdaComponent implements OnInit {
   modo: boolean = true;
   categorias: string[] = [
-    'Electrónica', 'Moda', 'Hogar', 'Juguetes', 'Deportes', 'Belleza', 'Automóvil'
+    'Tárjetas Gráficas', 'Portatil', 'Videojuegos', 'Juguetes', 'Consolas', 'Móviles', 'Accesorios', 'Iluminación', 'Electrodomésticos'
   ];
 
   sortBy: string | null = null;
   minPrice: number | null = null;
   maxPrice: number | null = null;
-  selectedCategoriesMap: { [key: string]: boolean } = {};
+  selectedCategory: string | null = null;
 
   @Output() filtersApplied = new EventEmitter<ProductFilters>();
+  @Output() categorySearch = new EventEmitter<string>(); // Nuevo EventEmitter para la búsqueda por categoría
 
   constructor() { }
 
   ngOnInit() {
-    this.categorias.forEach(cat => this.selectedCategoriesMap[cat] = false);
-
     const modoGuardado = localStorage.getItem('modo');
     if (modoGuardado !== null) {
       this.modo = JSON.parse(modoGuardado);
@@ -42,15 +41,13 @@ export class MenuizquierdaComponent implements OnInit {
   }
 
   applyCurrentFilters() {
-    const activeSelectedCategories = Object.keys(this.selectedCategoriesMap)
-      .filter(cat => this.selectedCategoriesMap[cat]);
-
     const currentFilters: ProductFilters = {
       sortBy: this.sortBy || undefined,
       minPrice: this.minPrice !== null && !isNaN(Number(this.minPrice)) ? Number(this.minPrice) : undefined,
       maxPrice: this.maxPrice !== null && !isNaN(Number(this.maxPrice)) ? Number(this.maxPrice) : undefined,
-      selectedCategories: activeSelectedCategories.length > 0 ? activeSelectedCategories : undefined
+      selectedCategory: this.selectedCategory || undefined // Añade esto
     };
+
     console.log('Applying filters:', currentFilters);
     this.filtersApplied.emit(currentFilters);
   }
@@ -59,8 +56,12 @@ export class MenuizquierdaComponent implements OnInit {
     this.sortBy = null;
     this.minPrice = null;
     this.maxPrice = null;
-    this.categorias.forEach(cat => this.selectedCategoriesMap[cat] = false);
+    this.selectedCategory = null;
     this.filtersApplied.emit({});
     console.log('Filters reset');
+  }
+
+  selectCategory(category: string) {
+    this.selectedCategory = this.selectedCategory === category ? null : category;
   }
 }

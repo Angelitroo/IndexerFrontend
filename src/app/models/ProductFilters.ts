@@ -2,6 +2,6 @@ export interface ProductFilters {
   sortBy?: string;
   minPrice?: number;
   maxPrice?: number;
-  selectedCategories?: string[];
+  selectedCategory?: string;
   selectedEmpresas?: string[]
 }

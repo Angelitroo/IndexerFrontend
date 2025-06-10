@@ -66,10 +66,26 @@ ion-list {
   padding: 0 8px;
 }
 
-.checkbox {
-  --checkbox-background: #e67e22;
-  --checkbox-border-color: #e67e22;
+ion-radio {
+  --color: #e67e22; /* Color del borde */
+  --color-checked: #e67e22; /* Color cuando está seleccionado */
 }
+
+ion-radio::part(container) {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #e67e22;
+}
+
+ion-radio::part(mark) {
+  background: #e67e22;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
 
 .menu ion-button {
   --background: #e67e22;
