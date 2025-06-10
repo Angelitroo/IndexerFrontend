@@ -242,7 +242,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     this.currentSearchCallId++;
     const localCallId = this.currentSearchCallId;
 
-    if (!query && (!this.activeFilters || Object.keys(this.activeFilters).length === 0 || (Object.keys(this.activeFilters).length === 1 && this.activeFilters.selectedEmpresas?.length === 0))) {
+    if (!query && (!this.activeFilters || Object.keys(this.activeFilters).length === 0 || (Object.keys(this.activeFilters).length === 1))) {
       this.isInitialView = true;
       this.allProducts = [...this.initialDynamicProducts];
       this.processProducts();
@@ -308,27 +308,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     // 1. Copiar todos los productos para trabajar con ellos
     let productsToDisplay = [...this.allProducts];
 
-    // 2. Aplicar filtros
-    // Filtro por categoría (búsqueda en el título si no hay campo category)
-    if (this.activeFilters.selectedCategory) {
-      const categoryLower = this.activeFilters.selectedCategory.toLowerCase();
-      productsToDisplay = productsToDisplay.filter(p =>
-        p.title.toLowerCase().includes(categoryLower) ||
-        (p as any).category?.toLowerCase().includes(categoryLower)
-      );
-    }
-
-    // Filtro por precio mínimo
-    if (this.activeFilters.minPrice !== undefined && this.activeFilters.minPrice !== null) {
-      productsToDisplay = productsToDisplay.filter(p => p.actualPrice >= this.activeFilters.minPrice!);
-    }
-
-    // Filtro por precio máximo
-    if (this.activeFilters.maxPrice !== undefined && this.activeFilters.maxPrice !== null) {
-      productsToDisplay = productsToDisplay.filter(p => p.actualPrice <= this.activeFilters.maxPrice!);
-    }
-
-    // 3. Aplicar ordenación
+    // 2. Aplicar ordenación
     if (this.activeFilters.sortBy) {
       switch (this.activeFilters.sortBy) {
         case 'precio-asc':
@@ -347,7 +327,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       }
     }
 
-    // 4. Agrupar por empresa
+    // 3. Agrupar por empresa
     const grouped = new Map<string, Producto[]>();
 
     productsToDisplay.forEach(product => {
@@ -434,7 +414,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
         alerta: {
           concepto: this.searchTerm,
           precioObjetivo: undefined,
-          empresas: this.activeFilters.selectedEmpresas || []
         }
       }
     });

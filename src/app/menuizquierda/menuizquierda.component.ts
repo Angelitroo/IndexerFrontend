@@ -18,7 +18,7 @@ import { ProductFilters } from "../models/ProductFilters";
 export class MenuizquierdaComponent implements OnInit {
   modo: boolean = true;
   categorias: string[] = [
-    'Tarjetas Gráficas', 'Portatil', 'Videojuegos', 'Juguetes', 'Consolas', 'Móviles', 'Accesorios', 'Iluminación', 'Electrodomésticos'
+    'Tarjetas Gráficas', 'Portatil', 'Videojuegos', 'Juguetes', 'Consolas', 'Móvil', 'Accesorios', 'Iluminación', 'Electrodomésticos'
   ];
 
   sortBy: string | null = null;
