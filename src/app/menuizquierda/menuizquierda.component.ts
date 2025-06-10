@@ -18,7 +18,7 @@ import { ProductFilters } from "../models/ProductFilters";
 export class MenuizquierdaComponent implements OnInit {
   modo: boolean = true;
   categorias: string[] = [
-    'Tárjetas Gráficas', 'Portatil', 'Videojuegos', 'Juguetes', 'Consolas', 'Móviles', 'Accesorios', 'Iluminación', 'Electrodomésticos'
+    'Tarjetas Gráficas', 'Portatil', 'Videojuegos', 'Juguetes', 'Consolas', 'Móviles', 'Accesorios', 'Iluminación', 'Electrodomésticos'
   ];
 
   sortBy: string | null = null;
@@ -27,7 +27,7 @@ export class MenuizquierdaComponent implements OnInit {
   selectedCategory: string | null = null;
 
   @Output() filtersApplied = new EventEmitter<ProductFilters>();
-  @Output() categorySearch = new EventEmitter<string>(); // Nuevo EventEmitter para la búsqueda por categoría
+  @Output() categorySelected = new EventEmitter<string>();
 
   constructor() { }
 
@@ -45,11 +45,14 @@ export class MenuizquierdaComponent implements OnInit {
       sortBy: this.sortBy || undefined,
       minPrice: this.minPrice !== null && !isNaN(Number(this.minPrice)) ? Number(this.minPrice) : undefined,
       maxPrice: this.maxPrice !== null && !isNaN(Number(this.maxPrice)) ? Number(this.maxPrice) : undefined,
-      selectedCategory: this.selectedCategory || undefined // Añade esto
+      selectedCategory: this.selectedCategory || undefined
     };
 
-    console.log('Applying filters:', currentFilters);
     this.filtersApplied.emit(currentFilters);
+
+    if (this.selectedCategory) {
+      this.categorySelected.emit(this.selectedCategory);
+    }
   }
 
   resetFilters() {
@@ -61,7 +64,7 @@ export class MenuizquierdaComponent implements OnInit {
     console.log('Filters reset');
   }
 
-  selectCategory(category: string) {
-    this.selectedCategory = this.selectedCategory === category ? null : category;
+  toggleCheckbox(categoria: string) {
+    this.selectedCategory = this.selectedCategory === categoria ? null : categoria;
   }
 }

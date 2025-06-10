@@ -66,25 +66,30 @@ ion-list {
   padding: 0 8px;
 }
 
-ion-radio {
-  --color: #e67e22; /* Color del borde */
-  --color-checked: #e67e22; /* Color cuando está seleccionado */
+ion-checkbox {
+  --size: 20px;
+  --checkbox-background: white;
+  --border-color: #e67e22;
+  --border-width: 2px;
+  --checkmark-color: white;
+  --background-checked: #e67e22;
 }
 
-ion-radio::part(container) {
+ion-checkbox::part(container) {
   width: 20px;
   height: 20px;
-  border-radius: 50%;
+  border-radius: 6px;
   border: 2px solid #e67e22;
-}
-
-ion-radio::part(mark) {
-  background: #e67e22;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  background: #e77e3c;
   transition: all 0.3s ease;
 }
+
+
+ion-checkbox[checked]::part(container) {
+  background-color: #e67e22;
+  border-color: #e67e22;
+}
+
 
 
 .menu ion-button {

@@ -42,7 +42,11 @@
     </p>
   </div>
 
-  <app-menuizquierda *ngIf="mostrarMenu" (filtersApplied)="onFiltersChanged($event)"></app-menuizquierda>
+  <app-menuizquierda
+    *ngIf="mostrarMenu"
+    (filtersApplied)="onFiltersChanged($event)"
+    (categorySelected)="onCategorySearch($event)">
+  </app-menuizquierda>
 
   <ng-container *ngIf="productsadmin && productsadmin.length > 0">
     <h2 class="empresa-titulo" [class.claro]="modo" [class.oscuro]="!modo">Productos destacados</h2>

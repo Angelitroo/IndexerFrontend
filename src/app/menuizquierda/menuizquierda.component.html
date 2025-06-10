@@ -28,17 +28,17 @@
     </div>
 
     <!-- Categorías -->
+    <!-- Categorías -->
     <ion-label class="seccion-label" [class.text-claro]="modo" [class.text-oscuro]="!modo">
       Categorías
     </ion-label>
-    <ion-radio-group [(ngModel)]="selectedCategory">
-      <ion-list>
-        <ion-item *ngFor="let categoria of categorias">
-          <ion-radio slot="start" [value]="categoria"></ion-radio>
-          <ion-label [class.text-claro]="modo" [class.text-oscuro]="!modo">{{ categoria }}</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-radio-group>
+    <ion-list>
+      <ion-item *ngFor="let categoria of categorias" (click)="toggleCheckbox(categoria)">
+        <ion-checkbox slot="start" [checked]="selectedCategory === categoria"></ion-checkbox>
+        <ion-label [class.text-claro]="modo" [class.text-oscuro]="!modo">{{ categoria }}</ion-label>
+      </ion-item>
+    </ion-list>
+
 
     <!-- Botones -->
     <ion-button expand="block" (click)="applyCurrentFilters()">Aplicar filtros</ion-button>

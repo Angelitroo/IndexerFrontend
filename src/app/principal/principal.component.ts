@@ -479,8 +479,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   onCategorySearch(category: string) {
     this.searchTerm = category;
     this.isInitialView = false;
-    this.isLoading = true;
-    this.startLoadingMessagesRotation();
 
     const searchbar = document.querySelector('ion-searchbar');
     if (searchbar) {
