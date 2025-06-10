@@ -1,11 +1,12 @@
 <ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
   <div class="top-icons">
-    <button (click)="abrirCrearAlerta()">
-      <ion-icon name="notifications-outline" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
-    </button>
-    <button>
-      <ion-icon name="person-circle-outline" [routerLink]="'/modificarperfil'" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
-    </button>
+    <ion-button fill="clear" (click)="abrirCrearAlerta()">
+      <ion-icon slot="icon-only" name="notifications-outline" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
+    </ion-button>
+
+    <ion-button fill="clear" [routerLink]="'/modificarperfil'">
+      <ion-icon slot="icon-only" name="person-circle-outline" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
+    </ion-button>
   </div>
 
   <div class="branding">
