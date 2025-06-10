@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ElementRef, QueryList, ViewChildren, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, PopoverController, ToastController } from '@ionic/angular'; // Added ToastController
+import { IonicModule, PopoverController, ToastController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
 import { RouterLink } from "@angular/router";
@@ -34,6 +34,7 @@ interface BackendProduct {
   empresa: string;
   source?: string;
   favorito?: boolean;
+  sourceQualityTag?: string;
 }
 
 interface SearchResponseWrapper {
@@ -242,7 +243,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     this.currentSearchCallId++;
     const localCallId = this.currentSearchCallId;
 
-    if (!query && (!this.activeFilters || Object.keys(this.activeFilters).length === 0 || (Object.keys(this.activeFilters).length === 1))) {
+    if (!query && (!this.activeFilters || Object.keys(this.activeFilters).length === 0)) {
       this.isInitialView = true;
       this.allProducts = [...this.initialDynamicProducts];
       this.processProducts();
@@ -252,8 +253,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     }
 
     this.isInitialView = false;
-    this.isLoading = true;
-    this.startLoadingMessagesRotation();
+
 
     if (!query && Object.keys(this.activeFilters).length > 0) {
       this.allProducts = [...this.initialDynamicProducts];
@@ -264,22 +264,39 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     }
 
     if (query) {
+      const loadingTimer = setTimeout(() => {
+        this.isLoading = true;
+        this.startLoadingMessagesRotation();
+        this.cdr.detectChanges();
+      }, 250);
+
       this.http.get<SearchResponseWrapper>(`${this.searchApiUrl}/${query}`)
         .pipe(
           finalize(() => {
-            if (localCallId === this.currentSearchCallId) { this.isLoading = false;
-              this.stopLoadingMessagesRotation(); }
+            if (localCallId === this.currentSearchCallId) {
+              this.isLoading = false;
+              this.stopLoadingMessagesRotation();
+            }
           })
         )
         .subscribe({
           next: (response) => {
+            clearTimeout(loadingTimer);
+
             if (localCallId === this.currentSearchCallId) {
               const productsFromServer = response.products || [];
               this.allProducts = productsFromServer.map((p: BackendProduct, index: number): Producto => this.mapBackendProductToProducto(p, index));
               this.processProducts();
+
+              if (response.fromCache) {
+                this.isLoading = false;
+                this.stopLoadingMessagesRotation();
+              }
             }
           },
           error: (err) => {
+            clearTimeout(loadingTimer);
+
             if (localCallId === this.currentSearchCallId) {
               console.error(`Error al buscar productos para "${query}":`, err);
               this.allProducts = [];
@@ -305,10 +322,8 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   }
 
   private processProducts() {
-    // 1. Copiar todos los productos para trabajar con ellos
     let productsToDisplay = [...this.allProducts];
 
-    // 2. Aplicar ordenación
     if (this.activeFilters.sortBy) {
       switch (this.activeFilters.sortBy) {
         case 'precio-asc':
@@ -327,7 +342,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       }
     }
 
-    // 3. Agrupar por empresa
     const grouped = new Map<string, Producto[]>();
 
     productsToDisplay.forEach(product => {
@@ -338,7 +352,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       grouped.get(empresaKey)!.push(product);
     });
 
-    // 5. Ordenar grupos según availableEmpresas y añadir los restantes
     this.groupedProducts = this.availableEmpresas
       .map(empresaName => ({
         empresa: empresaName,
@@ -346,7 +359,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       }))
       .filter(group => group.items.length > 0);
 
-    // Añadir empresas no listadas en availableEmpresas
     grouped.forEach((items, empresaName) => {
       if (!this.availableEmpresas.includes(empresaName)) {
         if (items.length > 0 && !this.groupedProducts.some(g => g.empresa === empresaName)) {
@@ -355,7 +367,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       }
     });
 
-    // 6. Actualizar la vista
     this.cdr.detectChanges();
     this.updateSwipers();
   }
@@ -451,7 +462,8 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       delivery: p.delivery || undefined,
       url: p.url || p.urlProduct || '#',
       empresa: p.empresa || p.source || 'Desconocido',
-      favorito: p.favorito || false
+      favorito: p.favorito || false,
+      sourceQualityTag: p.sourceQualityTag
     };
   }
 

@@ -68,7 +68,7 @@
           <ion-card-header>
             <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ productadmin.title }}</ion-card-title>
             <ion-badge class="descuento"
-              *ngIf="productadmin.discount && productadmin.oldPrice && productadmin.oldPrice !== 0 && productadmin.oldPrice !== productadmin.actualPrice">
+                       *ngIf="productadmin.discount && productadmin.oldPrice && productadmin.oldPrice !== 0 && productadmin.oldPrice !== productadmin.actualPrice">
               {{ productadmin.discount }}
             </ion-badge>
           </ion-card-header>
@@ -114,7 +114,7 @@
               <ion-icon [name]="producto.favorito ? 'heart' : 'heart-outline'"></ion-icon>
             </div>
 
-            <div class="interest-badge">
+            <div *ngIf="producto.sourceQualityTag === 'NON_AI_FILL_UP'" class="interest-badge">
               <ion-badge>Te podría interesar</ion-badge>
             </div>
 
@@ -122,7 +122,7 @@
             <ion-card-header>
               <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
               <ion-badge class="descuento"
-                *ngIf="producto.discount && producto.oldPrice && producto.oldPrice !== 0 && producto.oldPrice !== producto.actualPrice">
+                         *ngIf="producto.discount && producto.oldPrice && producto.oldPrice !== 0 && producto.oldPrice !== producto.actualPrice">
                 {{ producto.discount }} OFF
               </ion-badge>
             </ion-card-header>

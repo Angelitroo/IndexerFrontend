@@ -10,4 +10,5 @@ export interface Producto {
   url: string;
   empresa: string;
   favorito: boolean;
+  sourceQualityTag?: string;
 }
