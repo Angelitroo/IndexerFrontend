@@ -137,6 +137,46 @@ ion-badge[color="danger"] {
   visibility: visible;
 }
 
+
+.descuento {
+  --background: linear-gradient(to right, #e74c3c, #e67e22);
+  --color: white;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: pulse 2s infinite;
+  width: auto;
+  height: auto;
+  visibility: visible;
+  position: relative;
+  margin-left: 8px;
+}
+
+/* Eliminar la clase específica para color danger ya que usamos nuestro propio estilo */
+.descuento[color="danger"] {
+  --background: none;
+}
+
+/* Animación de pulso */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+  }
+  70% {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+  }
+}
+
 .price-row {
   display: flex;
   gap: 8px;
