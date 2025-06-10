@@ -58,7 +58,7 @@ interface SearchResponseWrapper {
   styleUrls: ['./principal.component.scss']
 })
 export class PrincipalComponent implements OnInit, AfterViewInit {
-  availableEmpresas: string[] = ['Amazon', 'eBay', 'AliExpress', 'PCComponentes', 'MediaMarkt', 'Carrefour', 'El Corte Inglés'];
+  availableEmpresas: string[] = ['Amazon', 'eBay', 'PCComponentes', 'MediaMarkt', 'Carrefour', 'El Corte Inglés'];
 
   private initialDynamicProducts: Producto[] = [];
   allProducts: Producto[] = [];
