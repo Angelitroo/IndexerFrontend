@@ -8,6 +8,7 @@ import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
 import {addIcons} from "ionicons";
 import {heart, heartOutline} from "ionicons/icons";
 import {HttpClient, HttpClientModule, HttpParams} from '@angular/common/http';
+import {ProductAdmin} from "../models/ProductAdmin";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -85,7 +86,7 @@ export class OfertasguardadasComponent implements OnInit {
     });
   }
 
-  toggleFavorito(producto: Producto): void {
+  toggleFavorito(producto: Producto | ProductAdmin): void {
     const productUrlValue = producto.url;
     if (!productUrlValue || productUrlValue === '#') {
       console.error('Cannot unfavorite: Product URL is missing or invalid.', producto);

@@ -354,7 +354,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     return this.groupedProducts.some(group => group.items.length > 0);
   }
 
-  toggleFavorito(producto: Producto): void {
+  toggleFavorito(producto: Producto | ProductAdmin): void {
     if (typeof producto.url !== 'string' || !producto.url || producto.url === '#') {
       console.error('CRITICAL: Product URL is invalid or not a string.', producto.url, producto);
       return;

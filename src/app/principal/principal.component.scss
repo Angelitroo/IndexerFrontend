@@ -167,6 +167,27 @@
   color: #aaaaaa;
 }
 
+.interest-badge {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 5;
+  width: max-content;
+
+  ion-badge {
+    --background: rgba(230, 126, 34, 0.9);
+    --color: white;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+}
+
 /* ------------------ PRODUCTOS ------------------ */
 .product-card {
   flex: 0 0 auto;
@@ -183,7 +204,7 @@
   img {
     height: 180px;
     object-fit: contain;
-    margin: 30px auto 0;
+    margin: 40px auto 0;
     display: block;
     border-radius: 8px;
     background-color: #f5f5f5;
@@ -212,7 +233,7 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 5;
+  z-index: 6;
   cursor: pointer;
 
   ion-icon {
@@ -242,15 +263,45 @@ ion-card-title {
   text-overflow: ellipsis;
   max-width: 180px;
 }
-ion-badge {
-  visibility: hidden;
-  width: 80px;
-  height: 24px;
+.descuento {
+  --background: linear-gradient(to right, #e74c3c, #e67e22);
+  --color: white;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: pulse 2s infinite;
+  width: auto;
+  height: auto;
+  visibility: visible;
+  position: relative;
+  margin-left: 8px;
 }
 
-ion-badge[color="danger"] {
-  visibility: visible;
+/* Eliminar la clase específica para color danger ya que usamos nuestro propio estilo */
+.descuento[color="danger"] {
+  --background: none;
 }
+
+/* Animación de pulso */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+  }
+  70% {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+  }
+}
+
 
 
 .price-row {
