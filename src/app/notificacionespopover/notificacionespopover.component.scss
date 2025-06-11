@@ -1,0 +1,36 @@
+.popover-content {
+  --background: transparent !important;
+  padding: 0 !important;
+  height: auto;
+  width: 100%;           /* Ocupa todo el ancho posible */
+  min-width: 800px;      /* Máximo ancho más grande que antes */
+  border-radius: 20px;   /* Esquinas más redondas */
+  box-sizing: border-box;
+  margin: auto;          /* Centrar horizontalmente */
+
+}
+
+ion-grid {
+  padding: 20px;
+  background-color: var(--background); /* Usar variable de color */
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+}
+.gridclaro {
+  --background: #ffffff;
+}
+.gridoscuro {
+  --background: #4e4e4e;
+}
+
+.boton-aceptar {
+  --background: #e67e22;
+  --background-activated: #d35400;
+  --color: white;
+  font-weight: bold;
+  height: 36px;
+  font-size: 14px;
+  border-radius: 8px;
+}

@@ -7,10 +7,19 @@ import { RouterLink } from "@angular/router";
 import { SwiperModule, SwiperComponent } from 'swiper/angular';
 import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
 import { addIcons } from "ionicons";
-import { notificationsOutline, personCircleOutline, heartOutline, heart, searchOutline, filterCircleOutline } from "ionicons/icons";
+import {
+  notificationsOutline,
+  personCircleOutline,
+  heartOutline,
+  heart,
+  searchOutline,
+  filterCircleOutline,
+  alarmOutline
+} from "ionicons/icons";
 import { finalize } from 'rxjs/operators';
 import { MenuizquierdaComponent } from "../menuizquierda/menuizquierda.component";
 import { CrearalertapopoverComponent } from "../crearalertapopover/crearalertapopover.component";
+import { NotificacionespopoverComponent } from "../notificacionespopover/notificacionespopover.component";
 import { Producto } from '../models/Producto';
 import { ProductFilters } from '../models/ProductFilters';
 import { ProductoService } from '../services/producto.service';
@@ -69,6 +78,8 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   isLoading: boolean = false;
   isInitialView: boolean = true;
   modo: boolean = true;
+
+  notificacionesCount: number = 1;
 
   private currentSearchCallId = 0;
   private searchApiUrl = 'http://localhost:8080/scrap/search';
@@ -140,6 +151,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
       'heart': heart,
       'search-outline': searchOutline,
       'filter-circle-outline': filterCircleOutline,
+      'alarm-outline': alarmOutline,
     });
   }
 
@@ -437,7 +449,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
         }
       }
     });
-
     popover.onDidDismiss().then((result) => {
       if (result.data && result.data.submitted) {
         const alertaData = result.data.data as Partial<Alerta>;
@@ -455,7 +466,17 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
         });
       }
     });
+    await popover.present();
+  }
 
+
+  async abrirNotificaciones() {
+    const popover = await this.popoverCtrl.create({
+      component: NotificacionespopoverComponent,
+      translucent: true,
+      componentProps: {
+      }
+    });
     await popover.present();
   }
 

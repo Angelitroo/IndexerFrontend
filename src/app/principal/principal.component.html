@@ -1,7 +1,12 @@
 <ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
   <div class="top-icons">
-    <ion-button fill="clear" (click)="abrirCrearAlerta()">
+    <ion-button fill="clear" (click)="abrirNotificaciones()" class="notification-button">
       <ion-icon slot="icon-only" name="notifications-outline" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
+      <span class="notification-badge" *ngIf="notificacionesCount > 0">{{notificacionesCount}}</span>
+    </ion-button>
+
+    <ion-button fill="clear" (click)="abrirCrearAlerta()">
+      <ion-icon slot="icon-only" name="alarm-outline" [class.claro]="modo" [class.oscuro]="!modo"></ion-icon>
     </ion-button>
 
     <ion-button fill="clear" [routerLink]="'/modificarperfil'">
