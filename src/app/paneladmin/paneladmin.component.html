@@ -72,7 +72,6 @@
             </ion-badge>
           </ion-card-header>
           <ion-card-content>
-            <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">{{ perfil.pais }}</div>
             <ion-button (click)="abrirModificarPerfil(perfil)" expand="block" fill="outline" size="small" class="login-button">Modificar</ion-button>
             <ion-button (click)="eliminarPerfil(perfil)" expand="block" fill="outline" size="small" color="danger" class="login-button">Eliminar</ion-button>
           </ion-card-content>
