@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IonicModule, ToastController, PopoverController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
+import { Producto } from '../models/Producto';
 import { ProductoService } from '../services/producto.service';
-import { ProductAdmin } from "../models/ProductAdmin";
+import {ProductAdmin} from "../models/ProductAdmin";
 
 @Component({
   selector: 'app-crearproductopopover',
@@ -13,9 +14,8 @@ import { ProductAdmin } from "../models/ProductAdmin";
 })
 export class CrearproductopopoverComponent implements OnInit {
   modo: boolean = true;
-
   @Input() set productadmin(value: ProductAdmin | undefined) {
-    this._productadmin = value ? { ...value } : this.getDefaultProduct();
+    this._productadmin = value ?? this.getDefaultProduct();
   }
   get productadmin(): ProductAdmin {
     return this._productadmin;
@@ -41,7 +41,7 @@ export class CrearproductopopoverComponent implements OnInit {
 
   private getDefaultProduct(): ProductAdmin {
     return {
-      id: null,
+      id: 0,
       favorito: false,
       title: '',
       discount: '',
@@ -70,21 +70,17 @@ export class CrearproductopopoverComponent implements OnInit {
 
     this.productadmin.image = this.imagePath;
 
-    if (this.productadmin.id) {
-      this.productoService.updateProduct(this.productadmin.id, this.productadmin).subscribe({
-        next: (updatedProduct) => {
-          this.mostrarToast('Producto actualizado correctamente', 'success');
-          this.popoverCtrl.dismiss({ status: 'editado', product: updatedProduct });
-        },
-        error: (err) => this.mostrarToast(`Error al actualizar: ${err.error}`, 'danger')
+    if (this.productadmin.url) {
+      // Modo edición
+      this.productoService.updateProduct( this.productadmin.url,this.productadmin).subscribe(() => {
+        this.mostrarToast('Producto actualizado correctamente', 'success');
+        this.popoverCtrl.dismiss('editado');
       });
     } else {
-      this.productoService.addProduct(this.productadmin).subscribe({
-        next: (createdProduct) => {
-          this.mostrarToast('Producto creado correctamente', 'success');
-          this.popoverCtrl.dismiss({ status: 'creado', product: createdProduct });
-        },
-        error: (err) => this.mostrarToast(`Error al crear: ${err.error}`, 'danger')
+      // Modo creación
+      this.productoService.addProduct(this.productadmin).subscribe(() => {
+        this.mostrarToast('Producto creado correctamente', 'success');
+        this.popoverCtrl.dismiss('creado');
       });
     }
   }
