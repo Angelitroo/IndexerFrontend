@@ -61,7 +61,6 @@ export class MenuizquierdaComponent implements OnInit {
     this.minPrice = null;
     this.maxPrice = null;
     this.selectedCategory = null;
-    this.filtersApplied.emit({});
     console.log('Filters reset');
   }
 
