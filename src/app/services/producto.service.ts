@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import {AuthService} from "./auth.service";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
-import {Producto} from "../models/Producto";
-import {Observable} from "rxjs";
-import {ProductAdmin} from "../models/ProductAdmin";
+import { AuthService } from "./auth.service";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "../../environments/environment";
+import { Observable } from "rxjs";
+import { ProductAdmin } from "../models/ProductAdmin";
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +19,10 @@ export class ProductoService {
     return this.httpClient.post<ProductAdmin>(`${this.apiUrl}/api/products/create`, productadmin, options);
   }
 
-  updateProduct(productadmin: Partial<ProductAdmin>): Observable<ProductAdmin> {
+  updateProduct(originalUrlIdentifier: string, productData: ProductAdmin): Observable<ProductAdmin> {
     const options = this.authService.getAuthHeaders();
-    return this.httpClient.put<ProductAdmin>(`${this.apiUrl}/api/products/${productadmin.url}`, productadmin, options);
+    const url = `${this.apiUrl}/api/products/url?value=${encodeURIComponent(originalUrlIdentifier)}`;
+    return this.httpClient.put<ProductAdmin>(url, productData, options);
   }
 
   deleteProduct(productUrl: string): Observable<void> {
