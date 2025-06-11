@@ -70,9 +70,9 @@ export class CrearproductopopoverComponent implements OnInit {
 
     this.productadmin.image = this.imagePath;
 
-    if (this.productadmin.url) {
+    if (this.productadmin.id) {
       // Modo edición
-      this.productoService.updateProduct( this.productadmin.url,this.productadmin).subscribe(() => {
+      this.productoService.updateProduct( this.productadmin.id,this.productadmin).subscribe(() => {
         this.mostrarToast('Producto actualizado correctamente', 'success');
         this.popoverCtrl.dismiss('editado');
       });
