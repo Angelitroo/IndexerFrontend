@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -11,36 +12,36 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path:"principal",
+    path: "principal",
     loadComponent: () => import('./principal/principal.component').then((m) => m.PrincipalComponent),
   },
   {
-    path:"modificarperfil",
+    path: "modificarperfil",
     loadComponent: () => import('./modificarperfil/modificarperfil.component').then((m) => m.ModificarperfilComponent),
   },
   {
-    path:"paneladmin",
+    path: "paneladmin",
     loadComponent: () => import('./paneladmin/paneladmin.component').then((m) => m.PaneladminComponent),
+    canActivate: [AdminGuard]
   },
   {
-    path:"carrousel",
+    path: "carrousel",
     loadComponent: () => import('./carrousel/carrousel.component').then((m) => m.CarrouselComponent),
   },
   {
-    path:"ofertasguardadas",
+    path: "ofertasguardadas",
     loadComponent: () => import('./ofertasguardadas/ofertasguardadas.component').then((m) => m.OfertasguardadasComponent),
   },
   {
-    path:"historial",
+    path: "historial",
     loadComponent: () => import('./historial/historial.component').then((m) => m.HistorialComponent),
   },
   {
-    path:"ajustes",
+    path: "ajustes",
     loadComponent: () => import('./ajustes/ajustes.component').then((m) => m.AjustesComponent),
   },
-
   {
-    path:"alertas",
+    path: "alertas",
     loadComponent: () => import('./alertas/alertas.component').then((m) => m.AlertasComponent),
   },
 ];
