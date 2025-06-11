@@ -182,13 +182,20 @@ export class PaneladminComponent implements OnInit {
   }
 
   abrirCrearProducto(productadmin?: ProductAdmin) {
+    let props: { productadmin?: ProductAdmin } = {};
+
+    if (productadmin) {
+      const productToEdit = { ...productadmin, id: productadmin.url };
+      props.productadmin = productToEdit;
+    }
+
     this.popoverCtrl.create({
       component: CrearproductopopoverComponent,
-      componentProps: { productadmin }
+      componentProps: props
     }).then(popover => {
       popover.present();
       popover.onDidDismiss().then(({ data }) => {
-        if (data === 'editado' || data === 'creado') {
+        if (data && (data.status === 'editado' || data.status === 'creado')) {
           this.cargarProductos();
         }
       });
