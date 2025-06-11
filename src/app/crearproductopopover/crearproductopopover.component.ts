@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IonicModule, ToastController, PopoverController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { Producto } from '../models/Producto';
+import { ProductAdmin } from "../models/ProductAdmin";
 import { ProductoService } from '../services/producto.service';
-import {ProductAdmin} from "../models/ProductAdmin";
 
 @Component({
   selector: 'app-crearproductopopover',
@@ -14,15 +13,21 @@ import {ProductAdmin} from "../models/ProductAdmin";
 })
 export class CrearproductopopoverComponent implements OnInit {
   modo: boolean = true;
-  @Input() set productadmin(value: ProductAdmin | undefined) {
-    this._productadmin = value ?? this.getDefaultProduct();
-  }
-  get productadmin(): ProductAdmin {
-    return this._productadmin;
-  }
-  private _productadmin!: ProductAdmin;
-
+  productadmin!: ProductAdmin;
+  isEditMode: boolean = false;
+  private originalUrlForUpdate: string | null = null;
   imagePath: string = '';
+
+  @Input() set productadminInput(value: ProductAdmin | undefined) {
+    if (value) {
+      this.isEditMode = true;
+      this.productadmin = { ...value };
+      this.originalUrlForUpdate = value.url;
+    } else {
+      this.isEditMode = false;
+      this.productadmin = this.getDefaultProduct();
+    }
+  }
 
   constructor(
     private toastController: ToastController,
@@ -41,7 +46,6 @@ export class CrearproductopopoverComponent implements OnInit {
 
   private getDefaultProduct(): ProductAdmin {
     return {
-      id: 0,
       favorito: false,
       title: '',
       discount: '',
@@ -70,17 +74,27 @@ export class CrearproductopopoverComponent implements OnInit {
 
     this.productadmin.image = this.imagePath;
 
-    if (this.productadmin.id) {
-      // Modo edición
-      this.productoService.updateProduct( this.productadmin.id,this.productadmin).subscribe(() => {
-        this.mostrarToast('Producto actualizado correctamente', 'success');
-        this.popoverCtrl.dismiss('editado');
+    if (this.isEditMode) {
+      this.productoService.updateProduct(this.originalUrlForUpdate!, this.productadmin).subscribe({
+        next: () => {
+          this.mostrarToast('Producto actualizado correctamente', 'success');
+          this.popoverCtrl.dismiss('editado');
+        },
+        error: (err) => {
+          console.error('Error updating product:', err);
+          this.mostrarToast('Error al actualizar el producto', 'danger');
+        }
       });
     } else {
-      // Modo creación
-      this.productoService.addProduct(this.productadmin).subscribe(() => {
-        this.mostrarToast('Producto creado correctamente', 'success');
-        this.popoverCtrl.dismiss('creado');
+      this.productoService.addProduct(this.productadmin).subscribe({
+        next: () => {
+          this.mostrarToast('Producto creado correctamente', 'success');
+          this.popoverCtrl.dismiss('creado');
+        },
+        error: (err) => {
+          console.error('Error creating product:', err);
+          this.mostrarToast('Error al crear el producto', 'danger');
+        }
       });
     }
   }

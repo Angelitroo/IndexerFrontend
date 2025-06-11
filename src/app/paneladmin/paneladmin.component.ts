@@ -36,16 +36,14 @@ export class PaneladminComponent implements OnInit {
 
   perfiles: PerfilFull[] = [  ];
 
-  slidesPerView = 5; // Valor por defecto (pantallas grandes)
+  slidesPerView = 5;
   swiperBreakpoints = {
-    // Ajusta el número de slides según el ancho de la pantalla
-    320: { slidesPerView: 1 },  // Móvil pequeño
-    576: { slidesPerView: 2 },  // Móvil grande
-    768: { slidesPerView: 3 },  // Tablet
-    992: { slidesPerView: 4 },  // Pantalla mediana
-    1200: { slidesPerView: 5 }  // Pantalla grande
+    320: { slidesPerView: 1 },
+    576: { slidesPerView: 2 },
+    768: { slidesPerView: 3 },
+    992: { slidesPerView: 4 },
+    1200: { slidesPerView: 5 }
   };
-
 
   productos: ProductAdmin[] = [];
 
@@ -125,8 +123,6 @@ export class PaneladminComponent implements OnInit {
     clearTimeout(this.searchTimeout);
   }
 
-
-
   cargarProductos() {
     this.productoService.getAllProductsAdmin().subscribe({
       next: (productos: ProductAdmin[]) => {
@@ -150,8 +146,6 @@ export class PaneladminComponent implements OnInit {
       }
     });
   }
-
-
 
   deleteProduct(product: ProductAdmin) {
     this.productoService.deleteProduct(product.url).subscribe({
@@ -181,38 +175,33 @@ export class PaneladminComponent implements OnInit {
     });
   }
 
-  abrirCrearProducto(productadmin?: ProductAdmin) {
-    let props: { productadmin?: ProductAdmin } = {};
-
-    if (productadmin) {
-      const productToEdit = { ...productadmin, id: productadmin.url };
-      props.productadmin = productToEdit;
-    }
-
-    this.popoverCtrl.create({
+  async abrirCrearProducto(productadmin?: ProductAdmin) {
+    const popover = await this.popoverCtrl.create({
       component: CrearproductopopoverComponent,
-      componentProps: props
-    }).then(popover => {
-      popover.present();
-      popover.onDidDismiss().then(({ data }) => {
-        if (data && (data.status === 'editado' || data.status === 'creado')) {
-          this.cargarProductos();
-        }
-      });
+      componentProps: {
+        productadminInput: productadmin
+      }
     });
+
+    await popover.present();
+
+    const { data } = await popover.onDidDismiss();
+    if (data && (data === 'editado' || data === 'creado')) {
+      this.cargarProductos();
+    }
   }
 
-  abrirModificarPerfil(perfil: PerfilActualizar) {
-    this.popoverCtrl.create({
+  async abrirModificarPerfil(perfil: PerfilActualizar) {
+    const popover = await this.popoverCtrl.create({
       component: AdminperfilpopoverComponent,
       componentProps: { perfil }
-    }).then(popover => {
-      popover.present();
-      popover.onDidDismiss().then(({ data }) => {
-        if (data === 'editado' || data === 'creado') {
-          this.cargarPerfiles();
-        }
-      });
     });
+
+    await popover.present();
+
+    const { data } = await popover.onDidDismiss();
+    if (data === 'editado' || data === 'creado') {
+      this.cargarPerfiles();
+    }
   }
 }

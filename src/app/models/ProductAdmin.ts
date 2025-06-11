@@ -1,5 +1,4 @@
 export interface ProductAdmin {
-  id: any;
   title: string;
   discount: string;
   actualPrice: number;
