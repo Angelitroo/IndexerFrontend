@@ -53,6 +53,7 @@ export class MenuizquierdaComponent implements OnInit {
     if (this.selectedCategory) {
       this.categorySelected.emit(this.selectedCategory);
     }
+    this.resetFilters();
   }
 
   resetFilters() {
