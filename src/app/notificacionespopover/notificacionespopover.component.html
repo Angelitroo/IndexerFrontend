@@ -1,8 +1,41 @@
-<ion-content class="popover-content login-background">
-  <div class="contenido">
-    <ion-grid  [class.gridclaro]="modo" [class.gridoscuro]="!modo">
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Notificaciones</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="markAllAsRead()" [disabled]="isLoading || areAllNotificationsRead">
+        Marcar todas como leídas
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-      <ion-button expand="block" class="boton-aceptar" (click)="aceptar()">Aceptar</ion-button>
-    </ion-grid>
+<ion-content class="popover-content" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
+    <ion-spinner></ion-spinner>
   </div>
+
+  <ion-list *ngIf="!isLoading">
+    <div *ngIf="notifications.length === 0" class="empty-state">
+      <ion-icon name="notifications-off-outline"></ion-icon>
+      <p>No tienes notificaciones nuevas.</p>
+    </div>
+
+    <ion-item *ngFor="let notification of notifications"
+              (click)="handleNotificationClick(notification)"
+              button
+              detail="false"
+              [class.unread]="!notification.read">
+      <ion-label>
+        <h2>{{ notification.message }}</h2>
+        <p>{{ getRelativeTime(notification.createdAt) }}</p>
+      </ion-label>
+      <div *ngIf="!notification.read" class="unread-dot" slot="start"></div>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" fill="clear" (click)="closePopover()">Cerrar</ion-button>
+  </ion-toolbar>
+</ion-footer>

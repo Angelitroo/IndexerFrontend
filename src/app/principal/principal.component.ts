@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, QueryList, ViewChildren, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, QueryList, ViewChildren, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, PopoverController, ToastController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +16,7 @@ import {
   filterCircleOutline,
   alarmOutline
 } from "ionicons/icons";
-import { finalize } from 'rxjs/operators';
+import { finalize, Subscription } from 'rxjs';
 import { MenuizquierdaComponent } from "../menuizquierda/menuizquierda.component";
 import { CrearalertapopoverComponent } from "../crearalertapopover/crearalertapopover.component";
 import { NotificacionespopoverComponent } from "../notificacionespopover/notificacionespopover.component";
@@ -26,6 +26,7 @@ import { ProductoService } from '../services/producto.service';
 import { AlertaService } from '../services/alerta.service';
 import { Alerta } from '../models/Alerta';
 import { ProductAdmin } from "../models/ProductAdmin";
+import { NotificationService } from '../services/notification.service';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -66,7 +67,7 @@ interface SearchResponseWrapper {
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.scss']
 })
-export class PrincipalComponent implements OnInit, AfterViewInit {
+export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   availableEmpresas: string[] = ['Amazon', 'eBay', 'PCComponentes', 'MediaMarkt', 'Carrefour', 'El Corte Inglés'];
 
   private initialDynamicProducts: Producto[] = [];
@@ -79,7 +80,9 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   isInitialView: boolean = true;
   modo: boolean = true;
 
-  notificacionesCount: number = 1;
+  notificacionesCount: number = 0;
+  private notificationSub: Subscription | undefined;
+  private eventSource: EventSource | undefined;
 
   private currentSearchCallId = 0;
   private searchApiUrl = 'http://localhost:8080/scrap/search';
@@ -143,6 +146,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     private productoService: ProductoService,
     private alertaService: AlertaService,
     private toastController: ToastController,
+    private notificationService: NotificationService,
   ) {
     addIcons({
       'person-circle-outline': personCircleOutline,
@@ -167,6 +171,9 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     } else {
       this.modo = true;
     }
+
+    this.fetchUnreadCount();
+    this.subscribeToLiveUpdates();
   }
 
   ngAfterViewInit() {
@@ -174,6 +181,36 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     this.updateSwipers();
     this.swiperInstances.changes.subscribe(() => {
       this.updateSwipers();
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.notificationSub) {
+      this.notificationSub.unsubscribe();
+    }
+    if (this.eventSource) {
+      this.eventSource.close();
+    }
+  }
+
+  fetchUnreadCount() {
+    this.notificationService.getUnreadCount().subscribe({
+      next: (count) => {
+        this.notificacionesCount = count;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Failed to fetch unread notification count', err)
+    });
+  }
+
+  subscribeToLiveUpdates() {
+    if (this.eventSource) {
+      this.eventSource.close();
+    }
+    this.eventSource = this.notificationService.subscribeToNotifications();
+
+    this.notificationSub = this.notificationService.notifications$.subscribe(() => {
+      this.fetchUnreadCount();
     });
   }
 
@@ -336,8 +373,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   private processProducts() {
     let productsToDisplay = [...this.allProducts];
 
-
-    //Precio entre
     if (this.activeFilters.minPrice !== undefined && this.activeFilters.minPrice !== null) {
       productsToDisplay = productsToDisplay.filter(p => p.actualPrice >= this.activeFilters.minPrice!);
     }
@@ -471,13 +506,23 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
 
 
   async abrirNotificaciones() {
-    const popover = await this.popoverCtrl.create({
-      component: NotificacionespopoverComponent,
-      translucent: true,
-      componentProps: {
-      }
+    this.notificationService.getNotifications().subscribe(async (notifications) => {
+      const popover = await this.popoverCtrl.create({
+        component: NotificacionespopoverComponent,
+        translucent: true,
+        componentProps: {
+          notifications: notifications
+        }
+      });
+
+      popover.onDidDismiss().then((result) => {
+        if (result.data && result.data.notificationsUpdated) {
+          this.fetchUnreadCount();
+        }
+      });
+
+      await popover.present();
     });
-    await popover.present();
   }
 
   private mapBackendProductToProducto(p: BackendProduct, index: number): Producto {
