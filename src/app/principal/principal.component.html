@@ -1,3 +1,9 @@
+<app-notification-prompt
+  *ngIf="showNotificationPrompt"
+  (allow)="handleAllowNotifications()"
+  (deny)="handleDenyNotifications()">
+</app-notification-prompt>
+
 <ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
   <div class="top-icons">
     <ion-button fill="clear" (click)="abrirNotificaciones()" class="notification-button">

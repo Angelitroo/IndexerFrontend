@@ -14,7 +14,8 @@ import {
   heart,
   searchOutline,
   filterCircleOutline,
-  alarmOutline
+  alarmOutline,
+  notificationsCircleOutline
 } from "ionicons/icons";
 import { finalize, Subscription } from 'rxjs';
 import { MenuizquierdaComponent } from "../menuizquierda/menuizquierda.component";
@@ -27,6 +28,7 @@ import { AlertaService } from '../services/alerta.service';
 import { Alerta } from '../models/Alerta';
 import { ProductAdmin } from "../models/ProductAdmin";
 import { NotificationService } from '../services/notification.service';
+import { NotificationPromptComponent } from '../notification-prompt/notification-prompt.component';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -62,38 +64,34 @@ interface SearchResponseWrapper {
     HttpClientModule,
     RouterLink,
     SwiperModule,
-    MenuizquierdaComponent
+    MenuizquierdaComponent,
+    NotificationPromptComponent
   ],
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.scss']
 })
 export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
-  availableEmpresas: string[] = ['Amazon', 'eBay', 'PCComponentes', 'MediaMarkt', 'Carrefour', 'El Corte Inglés'];
+  showNotificationPrompt = false;
 
+  availableEmpresas: string[] = ['Amazon', 'eBay', 'PCComponentes', 'MediaMarkt', 'Carrefour', 'El Corte Inglés'];
   private initialDynamicProducts: Producto[] = [];
   allProducts: Producto[] = [];
   groupedProducts: { empresa: string, items: Producto[] }[] = [];
-
   searchTerm: string = '';
   activeFilters: ProductFilters = {};
   isLoading: boolean = false;
   isInitialView: boolean = true;
   modo: boolean = true;
-
   notificacionesCount: number = 0;
   private notificationSub: Subscription | undefined;
   private eventSource: EventSource | undefined;
-
   private currentSearchCallId = 0;
   private searchApiUrl = 'http://localhost:8080/scrap/search';
   private defaultProductsApiUrl = 'http://localhost:8080/scrap/default-products';
   private favoriteApiBaseUrl = 'http://localhost:8080/api/products/favorite';
-
   productsadmin: ProductAdmin[] = [];
-
   @ViewChildren('scrollArea') scrollAreas!: QueryList<ElementRef<HTMLElement>>;
   @ViewChildren(SwiperComponent) swiperInstances!: QueryList<SwiperComponent>;
-
   slidesPerView = 5;
   swiperBreakpoints = {
     320: { slidesPerView: 1 },
@@ -102,13 +100,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     992: { slidesPerView: 4 },
     1200: { slidesPerView: 5 }
   };
-
   mostrarMenu: boolean = true;
-
-  toggleMenu() {
-    this.mostrarMenu = !this.mostrarMenu;
-  }
-
   loadingMessages: string[] = [
     'Cargando productos...',
     'Encontrando las mejores ofertas...',
@@ -118,26 +110,8 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     'Comparando precios...'
   ];
   currentLoadingMessage: string = this.loadingMessages[0];
-
   private loadingMessageIndex: number = 0;
   private loadingMessageInterval?: any;
-
-  private startLoadingMessagesRotation(): void {
-    this.loadingMessageIndex = 0;
-    this.currentLoadingMessage = this.loadingMessages[0];
-    this.loadingMessageInterval = setInterval(() => {
-      this.loadingMessageIndex = (this.loadingMessageIndex + 1) % this.loadingMessages.length;
-      this.currentLoadingMessage = this.loadingMessages[this.loadingMessageIndex];
-      this.cdr.detectChanges();
-    }, 3500);
-  }
-
-  private stopLoadingMessagesRotation(): void {
-    if (this.loadingMessageInterval) {
-      clearInterval(this.loadingMessageInterval);
-      this.loadingMessageInterval = undefined;
-    }
-  }
 
   constructor(
     private http: HttpClient,
@@ -156,6 +130,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
       'search-outline': searchOutline,
       'filter-circle-outline': filterCircleOutline,
       'alarm-outline': alarmOutline,
+      'notifications-circle-outline': notificationsCircleOutline
     });
   }
 
@@ -164,16 +139,32 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isLoading = true;
     this.loadInitialDynamicProducts();
     this.cargarProductosAdmin();
-
     const modoGuardado = localStorage.getItem('modo');
     if (modoGuardado !== null) {
       this.modo = JSON.parse(modoGuardado);
     } else {
       this.modo = true;
     }
-
     this.fetchUnreadCount();
-    this.subscribeToLiveUpdates();
+    this.subscribeToSseLiveUpdates();
+    this.checkNotificationPermission();
+  }
+
+  checkNotificationPermission() {
+    if ('Notification' in window) {
+      if (this.notificationService.getPermissionState() === 'default') {
+        this.showNotificationPrompt = true;
+      }
+    }
+  }
+
+  handleAllowNotifications() {
+    this.notificationService.requestPushPermissionAndToken();
+    this.showNotificationPrompt = false;
+  }
+
+  handleDenyNotifications() {
+    this.showNotificationPrompt = false;
   }
 
   ngAfterViewInit() {
@@ -193,6 +184,27 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  toggleMenu() {
+    this.mostrarMenu = !this.mostrarMenu;
+  }
+
+  private startLoadingMessagesRotation(): void {
+    this.loadingMessageIndex = 0;
+    this.currentLoadingMessage = this.loadingMessages[0];
+    this.loadingMessageInterval = setInterval(() => {
+      this.loadingMessageIndex = (this.loadingMessageIndex + 1) % this.loadingMessages.length;
+      this.currentLoadingMessage = this.loadingMessages[this.loadingMessageIndex];
+      this.cdr.detectChanges();
+    }, 3500);
+  }
+
+  private stopLoadingMessagesRotation(): void {
+    if (this.loadingMessageInterval) {
+      clearInterval(this.loadingMessageInterval);
+      this.loadingMessageInterval = undefined;
+    }
+  }
+
   fetchUnreadCount() {
     this.notificationService.getUnreadCount().subscribe({
       next: (count) => {
@@ -203,12 +215,11 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  subscribeToLiveUpdates() {
+  subscribeToSseLiveUpdates() {
     if (this.eventSource) {
       this.eventSource.close();
     }
-    this.eventSource = this.notificationService.subscribeToNotifications();
-
+    this.eventSource = this.notificationService.subscribeToSseNotifications();
     this.notificationSub = this.notificationService.notifications$.subscribe(() => {
       this.fetchUnreadCount();
     });
@@ -217,7 +228,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   private async loadInitialDynamicProducts() {
     try {
       const response = await this.http.get<SearchResponseWrapper>(this.defaultProductsApiUrl).toPromise();
-
       if (response && response.products) {
         const uniqueProducts = response.products.map((p, index) => this.mapBackendProductToProducto(p, index));
         this.allProducts = uniqueProducts;
@@ -227,7 +237,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
         this.initialDynamicProducts = [];
       }
       this.processProducts();
-
     } catch (error) {
       console.error('Error loading initial dynamic products:', error);
       this.allProducts = [];
@@ -291,7 +300,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchTerm = query;
     this.currentSearchCallId++;
     const localCallId = this.currentSearchCallId;
-
     if (!query && (!this.activeFilters || Object.keys(this.activeFilters).length === 0)) {
       this.isInitialView = true;
       this.allProducts = [...this.initialDynamicProducts];
@@ -300,10 +308,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
       this.stopLoadingMessagesRotation();
       return;
     }
-
     this.isInitialView = false;
-
-
     if (!query && Object.keys(this.activeFilters).length > 0) {
       this.allProducts = [...this.initialDynamicProducts];
       this.processProducts();
@@ -311,14 +316,12 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
       this.stopLoadingMessagesRotation();
       return;
     }
-
     if (query) {
       const loadingTimer = setTimeout(() => {
         this.isLoading = true;
         this.startLoadingMessagesRotation();
         this.cdr.detectChanges();
       }, 250);
-
       this.http.get<SearchResponseWrapper>(`${this.searchApiUrl}/${query}`)
         .pipe(
           finalize(() => {
@@ -331,12 +334,10 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe({
           next: (response) => {
             clearTimeout(loadingTimer);
-
             if (localCallId === this.currentSearchCallId) {
               const productsFromServer = response.products || [];
               this.allProducts = productsFromServer.map((p: BackendProduct, index: number): Producto => this.mapBackendProductToProducto(p, index));
               this.processProducts();
-
               if (response.fromCache) {
                 this.isLoading = false;
                 this.stopLoadingMessagesRotation();
@@ -345,7 +346,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
           },
           error: (err) => {
             clearTimeout(loadingTimer);
-
             if (localCallId === this.currentSearchCallId) {
               console.error(`Error al buscar productos para "${query}":`, err);
               this.allProducts = [];
@@ -363,7 +363,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   onFiltersChanged(filters: ProductFilters) {
     this.activeFilters = filters;
     this.isInitialView = false;
-
     if (!this.searchTerm) {
       this.allProducts = [...this.initialDynamicProducts];
     }
@@ -372,14 +371,12 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private processProducts() {
     let productsToDisplay = [...this.allProducts];
-
     if (this.activeFilters.minPrice !== undefined && this.activeFilters.minPrice !== null) {
       productsToDisplay = productsToDisplay.filter(p => p.actualPrice >= this.activeFilters.minPrice!);
     }
     if (this.activeFilters.maxPrice !== undefined && this.activeFilters.maxPrice !== null) {
       productsToDisplay = productsToDisplay.filter(p => p.actualPrice <= this.activeFilters.maxPrice!);
     }
-
     if (this.activeFilters.sortBy) {
       switch (this.activeFilters.sortBy) {
         case 'precio-asc':
@@ -397,9 +394,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
           break;
       }
     }
-
     const grouped = new Map<string, Producto[]>();
-
     productsToDisplay.forEach(product => {
       const empresaKey = product.empresa || 'Desconocido';
       if (!grouped.has(empresaKey)) {
@@ -407,14 +402,12 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       grouped.get(empresaKey)!.push(product);
     });
-
     this.groupedProducts = this.availableEmpresas
       .map(empresaName => ({
         empresa: empresaName,
         items: grouped.get(empresaName) || []
       }))
       .filter(group => group.items.length > 0);
-
     grouped.forEach((items, empresaName) => {
       if (!this.availableEmpresas.includes(empresaName)) {
         if (items.length > 0 && !this.groupedProducts.some(g => g.empresa === empresaName)) {
@@ -422,7 +415,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     });
-
     this.cdr.detectChanges();
     this.updateSwipers();
   }
@@ -439,17 +431,14 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     const productUrlValue = producto.url;
     const originalFavoritoState = producto.favorito;
     producto.favorito = !producto.favorito;
-
     const requestUrl = this.favoriteApiBaseUrl;
     const params = new HttpParams().set('url', productUrlValue);
-
     let apiCall;
     if (producto.favorito) {
       apiCall = this.http.post(requestUrl, {}, { params: params });
     } else {
       apiCall = this.http.delete(requestUrl, { params: params });
     }
-
     apiCall.subscribe({
       next: (response) => {
         console.log(`Favorite action successful for ${productUrlValue}`, response);
@@ -461,7 +450,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
-
 
   async mostrarToast(mensaje: string, color: 'success' | 'danger' | 'medium', duration: number = 4000) {
     const toast = await this.toastController.create({
@@ -487,7 +475,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     popover.onDidDismiss().then((result) => {
       if (result.data && result.data.submitted) {
         const alertaData = result.data.data as Partial<Alerta>;
-
         this.mostrarToast('Alerta creada', 'success', 3000);
         this.alertaService.crearAlerta(alertaData).subscribe({
           next: (response) => {
@@ -504,7 +491,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     await popover.present();
   }
 
-
   async abrirNotificaciones() {
     this.notificationService.getNotifications().subscribe(async (notifications) => {
       const popover = await this.popoverCtrl.create({
@@ -514,13 +500,11 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
           notifications: notifications
         }
       });
-
       popover.onDidDismiss().then((result) => {
         if (result.data && result.data.notificationsUpdated) {
           this.fetchUnreadCount();
         }
       });
-
       await popover.present();
     });
   }
@@ -545,12 +529,10 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   onCategorySearch(category: string) {
     this.searchTerm = category;
     this.isInitialView = false;
-
     const searchbar = document.querySelector('ion-searchbar');
     if (searchbar) {
       (searchbar as any).value = category;
     }
-
     this.onSearchChange({ target: { value: category } });
   }
 }
