@@ -130,6 +130,7 @@ ion-button {
 .perfil-card img {
   height: 100%;
   max-height: 160px;
+  min-height: 160px;
   object-fit: cover;
   margin: 30px auto 0;
   display: block;
