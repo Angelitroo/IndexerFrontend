@@ -1,14 +1,14 @@
 <ion-content class="popover-content login-background">
-  <div>
+  <div class="contenido">
     <ion-grid  [class.gridclaro]="modo" [class.gridoscuro]="!modo">
-      <ion-row class="ion-justify-content-center" style="align-items: center">
-        <ion-col size="5" class="ion-text-center">
+      <ion-row class="image-url-container">
+        <ion-col size="auto" class="ion-align-self-center">
           <ion-card class="foto" [class.fotoclaro]="modo" [class.fotooscuro]="!modo">
-            <img [src]="imagePath" alt="Vista previa" style="width: 100%; height: 100%; object-fit: cover;" />
+            <img [src]="imagePath" alt="Vista previa" />
           </ion-card>
         </ion-col>
-        <ion-col size="7" class="ion-text-center">
-          <ion-item lines="none" [class.itemclaro]="modo" [class.itemoscuro]="!modo">
+        <ion-col class="ion-align-self-center">
+          <ion-item lines="none">
             <ion-label position="floating">Foto del Producto</ion-label>
             <ion-input [(ngModel)]="imagePath" placeholder="Introduce la URL de la imagen"></ion-input>
           </ion-item>
@@ -19,7 +19,7 @@
         <ion-col>
           <ion-item lines="none">
             <ion-label position="floating">Nombre del Producto</ion-label>
-            <ion-input [(ngModel)]="productadmin.title"></ion-input>
+            <ion-input [(ngModel)]="productadmin.title" placeholder=""></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -28,7 +28,7 @@
         <ion-col>
           <ion-item lines="none">
             <ion-label position="floating">Precio actual</ion-label>
-            <ion-input [(ngModel)]="productadmin.actualPrice"></ion-input>
+            <ion-input [(ngModel)]="productadmin.actualPrice" type="number"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -37,7 +37,7 @@
         <ion-col>
           <ion-item lines="none">
             <ion-label position="floating">Precio antiguo</ion-label>
-            <ion-input [(ngModel)]="productadmin.oldPrice"></ion-input>
+            <ion-input [(ngModel)]="productadmin.oldPrice" type="number"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>

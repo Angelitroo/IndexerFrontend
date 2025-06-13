@@ -2,42 +2,51 @@
   --background: transparent !important;
   padding: 0 !important;
   height: auto;
-  width: 100%;           /* Ocupa todo el ancho posible */
-  min-width: 800px;      /* Máximo ancho más grande que antes */
-  border-radius: 20px;   /* Esquinas más redondas */
+  width: 100%;
+  max-width: 1000px; /* Ancho máximo más grande para este popover */
+  min-width: 300px; /* Ancho mínimo razonable */
+  border-radius: 20px;
   box-sizing: border-box;
-  margin: auto;          /* Centrar horizontalmente */
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.contenido {
+  width: 100%;
+  padding: 10px;
 }
 
 ion-grid {
   padding: 20px;
-  background-color: var(--background); /* Usar variable de color */
+  background-color: var(--background);
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 500px;
-}
-.gridclaro {
-  --background: #ffffff;
-}
-.gridoscuro {
-  --background: #4e4e4e;
+  width: 100%;
+  margin: 0 auto;
 }
 
+/* Modos claro/oscuro */
+.gridclaro { --background: #ffffff; }
+.gridoscuro { --background: #4e4e4e; }
+.fotoclaro { --background: #ffffff; }
+.fotooscuro { --background: #e6e6e6; }
+.itemclaro { --background: #e6e6e6; }
+.itemoscuro { --background: #5e5e5e; }
 
+/* Estilo de la foto - Siempre cuadrada */
 .foto {
-  height: 150px;
+  width: 100%;
+  aspect-ratio: 1/1; /* Mantiene relación cuadrada */
+  max-height: 150px; /* Altura máxima inicial */
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Igual que el segundo */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background-color: var(--background);
-}
-.fotoclaro {
-  --background: #ffffff;
-}
-.fotooscuro {
-  --background: #e6e6e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .foto img {
@@ -46,25 +55,34 @@ ion-grid {
   object-fit: cover;
 }
 
+/* Contenedor de imagen + URL */
+.image-url-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+/* Estilos de los elementos del formulario */
 ion-item {
   border-radius: 12px;
-  --background: #e6e6e6;    /* Igual que el segundo */
+  --background: #e6e6e6;
   --color: #4d4d4d;
   --min-height: 36px;
   margin-bottom: 8px;
 }
-
 
 ion-label {
   font-size: 14px;
   font-weight: bold;
 }
 
-ion-input{
+ion-input {
   margin-top: 10px;
   height: 32px;
 }
 
+/* Botón guardar */
 .boton-guardar {
   --background: #e67e22;
   --background-activated: #d35400;
@@ -73,4 +91,105 @@ ion-input{
   height: 36px;
   font-size: 14px;
   border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* Media Queries para responsive */
+@media (min-width: 1200px) {
+  .popover-content {
+    max-width: 1100px; /* Más ancho para pantallas XL */
+  }
+
+  .foto {
+    max-height: 180px; /* Foto más grande en pantallas grandes */
+  }
+}
+
+@media (max-width: 1199px) {
+  .popover-content {
+    max-width: 900px; /* Un poco menos que en XL pero más que el original */
+  }
+
+  .foto {
+    max-height: 160px;
+  }
+}
+
+@media (max-width: 992px) {
+  .popover-content {
+    max-width: 800px; /* Mantenemos tu valor original para este breakpoint */
+  }
+
+  .foto {
+    max-height: 140px;
+  }
+}
+
+@media (max-width: 768px) {
+  .popover-content {
+    max-width: 90%;
+  }
+
+  ion-grid {
+    padding: 15px;
+  }
+
+  .foto {
+    max-height: 120px;
+  }
+}
+
+@media (max-width: 576px) {
+  .foto {
+    max-height: 90px;
+    min-width: 90px; /* Aseguramos un mínimo */
+  }
+
+  .image-url-container {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .popover-content {
+    max-width: 95%;
+  }
+
+  ion-grid {
+    padding: 12px;
+  }
+
+  .foto {
+    max-height: 90px;
+    min-width: 90px;
+  }
+
+  ion-item {
+    --min-height: 30px;
+    font-size: 12px;
+  }
+
+  ion-input {
+    height: 30px;
+  }
+}
+
+@media (max-width: 360px) {
+  .popover-content {
+    max-width: 100%;
+  }
+
+  ion-grid {
+    padding: 10px;
+  }
+
+  .foto {
+    max-height: 70px;
+    min-width: 70px;
+  }
+
+
+  .boton-guardar {
+    font-size: 12px;
+  }
 }

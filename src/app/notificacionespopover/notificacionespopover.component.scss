@@ -1,8 +1,8 @@
-/* Estilos base del popover */
+/* Estilos base del popover (consistentes con crear alertas) */
 .popover-content {
   --background: transparent !important;
   padding: 0 !important;
-  height: 100%;
+  height: auto;
   width: 100%;
   max-width: 600px;
   border-radius: 20px;
@@ -27,7 +27,7 @@ ion-grid {
   margin: 0 auto;
 }
 
-/* Icono y texto */
+/* Icono y texto (ajustes similares a crear alertas) */
 .icono-alerta {
   font-size: 64px;
   color: #e67e22;
@@ -104,10 +104,6 @@ ion-grid {
   flex-shrink: 0;
 }
 
-.unread {
-  background-color: rgba(230, 126, 34, 0.1);
-}
-
 /* Estado vacío */
 .empty-state {
   display: flex;
@@ -130,15 +126,12 @@ ion-grid {
   margin: 0;
 }
 
-/* Botones */
+/* Botones (estilo consistente con crear alertas) */
 .marcartodastool {
-  --background: #e67e22;
-  --background-activated: #d35400;
-  --color: white;
-  font-weight: bold;
-  height: 36px;
-  font-size: 14px;
-  border-radius: 8px;
+  --background: transparent;
+  --color: #e67e22;
+  padding: 0;
+  min-height: auto;
 }
 
 .boton-marcar-todas {
@@ -147,6 +140,7 @@ ion-grid {
   font-size: 14px;
   text-transform: none;
   margin-right: 8px;
+  font-weight: bold;
 }
 
 .boton-cerrar {
@@ -160,8 +154,7 @@ ion-grid {
   margin-top: 16px;
 }
 
-
-/* Modos claro/oscuro */
+/* Modos claro/oscuro (mantenemos tus clases existentes) */
 .gridclaro { --background: #ffffff; }
 .gridoscuro { --background: #4e4e4e; }
 .backgroundclaro { --background: #f5f5f5; }
@@ -177,30 +170,49 @@ ion-grid {
 .pclaro { color: #666666; }
 .poscuro { color: #bfbfbf; }
 .cardclaro { background: #ffffff; border: 1px solid #e0e0e0; }
-.cardoscuro { background: #4e4e4e; border: 1px solid #555555; box-shadow: 0 2px 8px rgba(255, 255, 255, 0.08); }
+.cardoscuro { background: #6e6e6e; border: 1px solid #555555; box-shadow: 0 2px 8px rgba(255, 255, 255, 0.08); }
 
-/* Responsive */
+/* Media Queries (consistentes con crear alertas) */
 @media (max-width: 768px) {
   .popover-content {
     max-width: 90%;
   }
+
   ion-grid {
     padding: 15px;
   }
-  .icono-alerta, .icono-vacio {
+
+  .icono-alerta {
     font-size: 48px;
   }
-  .subtitulo-alerta, .texto-vacio {
-    font-size: 13px;
+
+  .icono-vacio {
+    font-size: 40px;
   }
+
+  .subtitulo-alerta {
+    font-size: 13px;
+    margin: 0 12px 12px 12px;
+  }
+
+  .texto-vacio {
+    font-size: 14px;
+  }
+
   .scroll-container {
     max-height: 300px;
   }
+
   .text-content h2 {
     font-size: 12px;
   }
+
   .text-content p {
     font-size: 10px;
+  }
+
+  .boton-marcar-todas {
+    font-size: 13px;
   }
 }
 
@@ -209,24 +221,41 @@ ion-grid {
     max-width: 95%;
     min-width: 280px;
   }
+
   ion-grid {
     padding: 12px;
   }
-  .icono-alerta, .icono-vacio {
+
+  .icono-alerta {
     font-size: 40px;
   }
-  .boton-marcar-todas {
-    font-size: 12px;
+
+  .icono-vacio {
+    font-size: 36px;
   }
-  .scroll-container {
-    max-height: 250px;
-  }
+
   .notification-card {
     padding: 6px 10px;
     min-height: 45px;
   }
+
   .text-content h2 {
     font-size: 11px;
+  }
+
+  .boton-marcar-todas {
+    font-size: 12px;
+    margin-right: 4px;
+  }
+
+  .boton-cerrar {
+    height: 32px;
+    font-size: 13px;
+    margin-top: 12px;
+  }
+
+  .scroll-container {
+    max-height: 250px;
   }
 }
 
@@ -235,13 +264,29 @@ ion-grid {
     max-width: 100%;
     min-width: 250px;
   }
+
   ion-grid {
     padding: 10px;
   }
-  .texto-vacio {
+
+  .subtitulo-alerta, .texto-vacio {
     font-size: 12px;
   }
+
   .scroll-container {
     max-height: 200px;
+  }
+
+  .notification-card {
+    padding: 5px 8px;
+    min-height: 40px;
+  }
+
+  .text-content h2 {
+    font-size: 10px;
+  }
+
+  .text-content p {
+    font-size: 9px;
   }
 }
