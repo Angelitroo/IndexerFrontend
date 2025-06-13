@@ -12,6 +12,7 @@ import { IonicModule } from '@ionic/angular';
 export class NotificationPromptComponent {
   @Output() allow = new EventEmitter<void>();
   @Output() deny = new EventEmitter<void>();
+  modo: boolean = true;
 
   onAllowClick() {
     this.allow.emit();
@@ -19,5 +20,10 @@ export class NotificationPromptComponent {
 
   onDenyClick() {
     this.deny.emit();
+  }
+
+  constructor() {
+    const modoGuardado = localStorage.getItem('modo');
+    this.modo = modoGuardado !== null ? JSON.parse(modoGuardado) : true;
   }
 }

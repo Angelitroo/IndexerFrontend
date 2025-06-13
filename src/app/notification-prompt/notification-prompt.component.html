@@ -1,10 +1,13 @@
-<div class="prompt-banner">
-  <div class="prompt-text">
-    <ion-icon name="notifications-circle-outline"></ion-icon>
-    <span>¿Quieres recibir notificaciones sobre tus alertas de precios?</span>
-  </div>
-  <div class="prompt-actions">
-    <ion-button size="small" fill="solid" color="primary" (click)="onAllowClick()">Permitir</ion-button>
-    <ion-button size="small" fill="clear" color="medium" (click)="onDenyClick()">Ahora no</ion-button>
+<div class="prompt-notification" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
+  <div class="prompt-content">
+    <ion-icon name="notifications-circle-outline" class="prompt-icon"></ion-icon>
+    <div class="prompt-text" [class.textoclaro]="modo" [class.textooscuro]="!modo">
+      <span>¿Quieres recibir notificaciones sobre tus alertas de precios?</span>
+    </div>
+    <div class="prompt-actions">
+      <ion-button size="small" fill="solid" class="allow-btn" (click)="onAllowClick()">Permitir</ion-button>
+      <ion-button size="small" fill="outline" class="deny-btn"
+                  [class.btnoscuro]="!modo" (click)="onDenyClick()">Ahora no</ion-button>
+    </div>
   </div>
 </div>
