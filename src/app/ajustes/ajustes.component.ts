@@ -23,7 +23,6 @@ import {PerfilActualizar} from "../models/PerfilActualizar";
 })
 export class AjustesComponent implements OnInit {
   notificacionesEmailActivadas: boolean = true;
-
   modo: boolean = true;
 
   perfilId: number | null = null;
@@ -60,6 +59,8 @@ export class AjustesComponent implements OnInit {
   }
 
 
+
+
   ngOnInit() {
     this.perfilId = this.authService.getPerfilIdFromToken();
     this.cargarDatosPerfil();
@@ -70,7 +71,13 @@ export class AjustesComponent implements OnInit {
     } else {
       this.modo = true;
     }
+
+    const notificacionesGuardadas = sessionStorage.getItem('notificacionesEmailActivadas');
+    if (notificacionesGuardadas !== null) {
+      this.notificacionesEmailActivadas = JSON.parse(notificacionesGuardadas);
+    }
   }
+
 
   async presentToast(message: string, color: 'success' | 'danger' = 'danger') {
     const toast = await this.toastController.create({
@@ -113,6 +120,8 @@ export class AjustesComponent implements OnInit {
   }
 
   actualizarNotificacionesEmail() {
+    sessionStorage.setItem('notificacionesEmailActivadas', JSON.stringify(this.notificacionesEmailActivadas));
+
     if (!this.notificacionesEmailActivadas) {
       this.correonotificaciones = '';
 
@@ -143,6 +152,7 @@ export class AjustesComponent implements OnInit {
       });
     }
   }
+
 
 
 
