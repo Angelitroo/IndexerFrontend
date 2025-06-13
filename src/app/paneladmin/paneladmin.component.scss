@@ -200,7 +200,7 @@ ion-card-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 220px;
+  max-width: 180px;
 }
 
 ion-card-content {
@@ -235,6 +235,27 @@ ion-card-content {
   width: auto;
   padding: 6px 12px;
   animation: none;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+  }
+  70% {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+  }
+}
+
+.hidden {
+  visibility: visible !important;
+  position: relative !important;
+  display: block !important;
 }
 
 .price-row {
@@ -349,25 +370,4 @@ ion-card-content {
 
 ::ng-deep .custom-swiper .swiper-pagination-bullet-active {
   opacity: 1;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
-  }
-  70% {
-    transform: scale(1.04);
-    box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
-  }
-}
-
-.hidden {
-  visibility: visible !important;
-  position: relative !important;
-  display: block !important;
 }

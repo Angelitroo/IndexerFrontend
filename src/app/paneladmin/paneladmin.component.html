@@ -37,6 +37,7 @@
     <ng-template swiperSlide *ngFor="let producto of productos">
       <ion-card class="product-card" [class.cardclaro]="modo" [class.cardoscuro]="!modo">
         <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+
         <ion-card-header>
           <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
           <ion-badge class="descuento"
@@ -44,6 +45,7 @@
             {{ producto.discount }}
           </ion-badge>
         </ion-card-header>
+
         <ion-card-content>
           <div class="price-row">
             <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>

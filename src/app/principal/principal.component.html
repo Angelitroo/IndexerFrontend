@@ -128,7 +128,7 @@
               <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
               <ion-badge class="descuento"
                          *ngIf="producto.discount && producto.oldPrice && producto.oldPrice !== 0 && producto.oldPrice !== producto.actualPrice">
-                {{ producto.discount }} OFF
+                {{ producto.discount }} Off
               </ion-badge>
             </ion-card-header>
             <ion-card-content>

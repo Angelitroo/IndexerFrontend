@@ -256,6 +256,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.productoService.getAllProductsAdmin().subscribe({
       next: (productsadmin: ProductAdmin[]) => {
         this.productsadmin = productsadmin;
+        console.log('Productos destacados:', productsadmin);
       },
       error: (error) => {
         console.error('Error al obtener los productsadmin:', error);
