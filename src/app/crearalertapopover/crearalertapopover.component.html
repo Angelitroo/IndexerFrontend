@@ -50,7 +50,11 @@
 
       <ion-row>
         <ion-col class="ion-text-center">
-          <ion-button expand="block" class="boton-guardar" (click)="crearAlerta()">Crear Alerta</ion-button>
+          <ion-button expand="block" class="boton-guardar" (click)="crearAlerta()" [disabled]="creandoAlerta">
+            <ion-spinner *ngIf="creandoAlerta" name="dots"></ion-spinner>
+            <span *ngIf="!creandoAlerta">Crear Alerta</span>
+          </ion-button>
+
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IonicModule, PopoverController, ToastController } from "@ionic/angular";
 import { FormsModule } from "@angular/forms";
 import { Alerta } from "../models/Alerta";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-crearalertapopover',
@@ -11,10 +12,13 @@ import { Alerta } from "../models/Alerta";
   imports: [
     IonicModule,
     FormsModule,
+    NgIf,
   ]
 })
 export class CrearalertapopoverComponent implements OnInit {
   modo: boolean = true;
+  @Input() creandoAlerta: boolean = false;
+
 
   @Input() alerta: Partial<Alerta> = {
     concepto: '',

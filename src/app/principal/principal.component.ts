@@ -87,6 +87,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   notificacionesCount: number = 0;
 
   showNewProductsPrompt: boolean = true;
+  isCreandoAlerta: boolean = false;
 
 
   private notificationSub: Subscription | undefined;
@@ -476,27 +477,39 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
         alerta: {
           concepto: this.searchTerm,
           precioObjetivo: undefined,
-        }
+        },
+        creandoAlerta: this.isCreandoAlerta
       }
     });
+
     popover.onDidDismiss().then((result) => {
       if (result.data && result.data.submitted) {
         const alertaData = result.data.data as Partial<Alerta>;
+
+        // Desactivar el botón mientras se crea la alerta
+        this.isCreandoAlerta = true;
+
         this.mostrarToast('Alerta creada', 'success', 3000);
         this.alertaService.crearAlerta(alertaData).subscribe({
           next: (response) => {
             console.log('Alerta creada:', response);
+            // Habilitar de nuevo el botón
+            this.isCreandoAlerta = false;
+            this.popoverCtrl.dismiss();
           },
           error: (err: any) => {
             console.error('Error al crear la alerta', err);
             const errorMessage = err.error?.message || 'Error desconocido al crear la alerta.';
             this.mostrarToast(`Error: ${errorMessage}`, 'danger', 5000);
+            this.isCreandoAlerta = false;
           }
         });
       }
     });
+
     await popover.present();
   }
+
 
   async abrirNotificaciones() {
     this.notificationService.getNotifications().subscribe(async (notifications) => {
