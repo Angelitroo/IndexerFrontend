@@ -15,7 +15,7 @@ export class NotificationPromptComponent {
   modo: boolean = true;
 
   onAllowClick() {
-    this.allow.emit();
+    window.location.reload();
   }
 
   onDenyClick() {

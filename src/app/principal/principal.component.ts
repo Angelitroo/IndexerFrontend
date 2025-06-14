@@ -29,6 +29,7 @@ import { Alerta } from '../models/Alerta';
 import { ProductAdmin } from "../models/ProductAdmin";
 import { NotificationService } from '../services/notification.service';
 import { NotificationPromptComponent } from '../notification-prompt/notification-prompt.component';
+import {NewfoundPromptComponent} from "../newfound-prompt/newfound-prompt.component";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -65,7 +66,8 @@ interface SearchResponseWrapper {
     RouterLink,
     SwiperModule,
     MenuizquierdaComponent,
-    NotificationPromptComponent
+    NotificationPromptComponent,
+    NewfoundPromptComponent
   ],
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.scss']
@@ -83,6 +85,10 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   isInitialView: boolean = true;
   modo: boolean = true;
   notificacionesCount: number = 0;
+
+  showNewProductsPrompt: boolean = true;
+
+
   private notificationSub: Subscription | undefined;
   private eventSource: EventSource | undefined;
   private currentSearchCallId = 0;
@@ -535,5 +541,14 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
       (searchbar as any).value = category;
     }
     this.onSearchChange({ target: { value: category } });
+  }
+
+
+//Prompt de nuevos productos encontrados
+  reloadPage() {
+    window.location.reload();
+  }
+  closePrompt() {
+    this.showNewProductsPrompt = false;
   }
 }

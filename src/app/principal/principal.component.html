@@ -42,6 +42,12 @@
     </ion-button>
   </div>
 
+  <app-newfound-prompt
+    *ngIf="showNewProductsPrompt"
+    (allow)="reloadPage()"
+    (deny)="closePrompt()">
+  </app-newfound-prompt>
+
   <div *ngIf="isLoading" class="loading-container">
     <ion-spinner name="crescent"></ion-spinner>
     <p [class.claro]="modo" [class.oscuro]="!modo">{{ currentLoadingMessage }}</p>
