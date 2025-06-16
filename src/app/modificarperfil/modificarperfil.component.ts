@@ -25,7 +25,6 @@ export class ModificarperfilComponent implements OnInit {
   perfilId: number | null = null;
   modo: boolean = true;
 
-  // Datos del perfil
   imagePath: string = '';
   nombre: string = '';
   username: string = '';
@@ -72,7 +71,7 @@ export class ModificarperfilComponent implements OnInit {
   cargarDatosPerfil() {
     if (this.perfilId !== null) {
       this.perfilService.getActualizadoById(this.perfilId).subscribe({
-        next: (data: any) => {  // Usamos 'any' temporalmente para debug
+        next: (data: any) => {
           console.log('📦 Perfil recibido del backend:', data.id);
 
           if (data) {
@@ -82,20 +81,7 @@ export class ModificarperfilComponent implements OnInit {
             this.username = data.username || '';
             this.email = data.email || '';
             this.correonotificaciones = data.correonotificaciones || '';
-
-            // Manejo especial para el email (prioridad: correo > email > correonotificaciones)
-            this.email = data.email || data.email || data.correonotificaciones || '';
-
-            this.password = ''; // No cargamos la contraseña por seguridad
-
-            console.log('Datos asignados:', {
-              imagePath: this.imagePath,
-              nombre: this.nombre,
-              ubicacion: this.ubicacion,
-              username: this.username,
-              email: this.email,
-              correonotificaciones: this.correonotificaciones
-            });
+            this.password = '';
           }
         },
         error: (error) => {
@@ -127,15 +113,16 @@ export class ModificarperfilComponent implements OnInit {
       next: (response) => {
         this.presentToast('Perfil actualizado con éxito', 'success');
         console.log('Perfil actualizado con éxito:', response);
-        this.navCtrl.navigateRoot('/modificarperfil');
+        this.cargarDatosPerfil();
       },
       error: (error) => {
         console.error('Error al actualizar el perfil:', error);
+        this.presentToast('Error al actualizar el perfil', 'danger');
       }
     });
   }
 
   restablecerCampos() {
-    this.cargarDatosPerfil(); // Vuelve a cargar los datos originales
+    this.cargarDatosPerfil();
   }
 }
