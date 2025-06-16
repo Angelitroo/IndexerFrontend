@@ -1,64 +1,61 @@
-<ion-content class="popover-content" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
-  <div class="contenido">
-    <ion-grid [class.gridclaro]="modo" [class.gridoscuro]="!modo">
-      <!-- Contenido de modificación -->
-      <div class="formulario" [class.claro]="modo" [class.oscuro]="!modo">
-        <div class="branding">
-          <h1>Editar Perfil</h1>
-          <p>Modifica tus datos personales</p>
-        </div>
+<ion-content class="background" [class.backgroundclaro]="modo" [class.backgroundoscuro]="!modo">
+  <div class="layout">
+    <!-- Menú lateral -->
+    <app-menuizquierdaconfig></app-menuizquierdaconfig>
 
-        <div class="foto-circular">
-          <ng-container *ngIf="imagePath && imagePath.trim() !== ''; else defaultIcon">
-            <img [src]="imagePath" alt="Foto de perfil" />
-          </ng-container>
-          <ng-template #defaultIcon>
-            <ion-icon name="person-circle" class="icono-defecto"></ion-icon>
-          </ng-template>
-        </div>
-
-        <ion-item class="input-item" lines="none">
-          <ion-label position="floating">URL de foto de perfil</ion-label>
-          <ion-input [(ngModel)]="imagePath" type="url" clearInput></ion-input>
-        </ion-item>
-
-        <ion-item class="input-item" lines="none">
-          <ion-label position="floating">Nombre Completo</ion-label>
-          <ion-input [(ngModel)]="nombre" type="text"></ion-input>
-        </ion-item>
-
-        <ion-item class="input-item" lines="none">
-          <ion-select [(ngModel)]="ubicacion" name="pais" placeholder="Selecciona una provincia">
-            <ion-select-option *ngFor="let pais of paises" [value]="pais">
-              {{ pais }}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-
-        <ion-item class="input-item" lines="none">
-          <ion-label position="floating">Nombre de usuario</ion-label>
-          <ion-input [(ngModel)]="username" type="text"></ion-input>
-        </ion-item>
-
-        <ion-item class="input-item" lines="none">
-          <ion-label position="floating">Correo electrónico</ion-label>
-          <ion-input [(ngModel)]="email" type="email"></ion-input>
-        </ion-item>
-
-        <ion-item class="input-item" lines="none">
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input [(ngModel)]="password" type="password" placeholder="*******"></ion-input>
-        </ion-item>
-
-        <div class="botones-container">
-          <ion-button expand="block" (click)="guardarCambios()" class="login-button">
-            Guardar Cambios
-          </ion-button>
-          <ion-button expand="block" (click)="restablecerCampos()" class="login-button restablecer">
-            Restablecer
-          </ion-button>
-        </div>
+    <!-- Contenido de modificación -->
+    <div class="formulario" [class.claro]="modo" [class.oscuro]="!modo">
+      <div class="branding">
+        <h1>Editar Perfil</h1>
+        <p>Modifica tus datos personales</p>
       </div>
-    </ion-grid>
+
+      <div class="foto-circular">
+        <ng-container *ngIf="imagePath && imagePath.trim() !== ''; else defaultIcon">
+          <img [src]="imagePath" alt="Foto de perfil" />
+        </ng-container>
+        <ng-template #defaultIcon>
+          <ion-icon name="person-circle" class="icono-defecto"></ion-icon>
+        </ng-template>
+      </div>
+
+      <ion-item class="input-item" lines="none">
+        <ion-label position="floating">URL de foto de perfil</ion-label>
+        <ion-input [(ngModel)]="imagePath" type="url" clearInput></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item" lines="none">
+        <ion-label position="floating">Nombre Completo</ion-label>
+        <ion-input [(ngModel)]="nombre" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item" lines="none">
+        <ion-select [(ngModel)]="ubicacion" name="pais" placeholder="Selecciona una provincia">
+          <ion-select-option *ngFor="let pais of paises" [value]="pais">
+            {{ pais }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item" lines="none">
+        <ion-label position="floating">Nombre de usuario</ion-label>
+        <ion-input [(ngModel)]="username" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item" lines="none">
+        <ion-label position="floating">Correo electrónico</ion-label>
+        <ion-input [(ngModel)]="email" type="email"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item" lines="none">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input [(ngModel)]="password" type="password" placeholder="*******"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="guardarCambios()" class="login-button">
+        Guardar Cambios
+      </ion-button>
+      <ion-button class="login-button" style="float: right" (click)="restablecerCampos()">Restablecer</ion-button>
+    </div>
   </div>
 </ion-content>
