@@ -6,8 +6,7 @@
     </div>
     <div class="prompt-actions">
       <ion-button size="small" fill="solid" class="allow-btn" (click)="onAllowClick()">Recargar</ion-button>
-      <ion-button size="small" fill="outline" class="deny-btn"
-                  [class.btnoscuro]="!modo" (click)="onDenyClick()">X</ion-button>
+      <ion-button size="small" fill="outline" class="deny-btn " [class.btnclaro]="modo" [class.btnoscuro]="!modo" (click)="onDenyClick()">X</ion-button>
     </div>
   </div>
 </div>

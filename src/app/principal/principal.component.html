@@ -85,15 +85,22 @@
           <ion-card-header>
             <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ productadmin.title }}</ion-card-title>
             <ion-badge class="descuento"
-                       *ngIf="productadmin.discount && productadmin.oldPrice && productadmin.oldPrice !== 0 && productadmin.oldPrice !== productadmin.actualPrice">
-              {{ productadmin.discount }}Off
+                       *ngIf="productadmin.discount &&
+                      productadmin.oldPrice &&
+                      productadmin.oldPrice > productadmin.actualPrice &&
+                      productadmin.oldPrice !== 0 &&
+                      productadmin.oldPrice !== productadmin.actualPrice">
+                      {{ productadmin.discount }} Off
             </ion-badge>
           </ion-card-header>
           <ion-card-content>
             <div class="price-row">
               <span class="actual-price">€{{ productadmin.actualPrice.toFixed(2) }}</span>
-              <span class="old-price" *ngIf="productadmin.oldPrice && productadmin.oldPrice !== 0 && productadmin.oldPrice !== productadmin.actualPrice">
-                €{{ productadmin.oldPrice.toFixed(2) }}
+              <span class="old-price" *ngIf="productadmin.oldPrice &&
+                               productadmin.oldPrice > productadmin.actualPrice &&
+                               productadmin.oldPrice !== 0 &&
+                               productadmin.oldPrice !== productadmin.actualPrice">
+                              €{{ productadmin.oldPrice.toFixed(2) }}
               </span>
             </div>
             <div class="rating" [class.claro]="modo" [class.oscuro]="!modo">⭐ {{ productadmin.rating }}</div>
@@ -139,15 +146,23 @@
             <ion-card-header>
               <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ producto.title }}</ion-card-title>
               <ion-badge class="descuento"
-                         *ngIf="producto.discount && producto.oldPrice && producto.oldPrice !== 0 && producto.oldPrice !== producto.actualPrice">
-                {{ producto.discount }} Off
+                         *ngIf="producto.discount &&
+                          producto.oldPrice &&
+                          producto.oldPrice > producto.actualPrice &&
+                          producto.oldPrice !== 0 &&
+                          producto.oldPrice !== producto.actualPrice">
+                         {{ producto.discount }} Off
               </ion-badge>
+
             </ion-card-header>
             <ion-card-content>
               <div class="price-row">
                 <span class="actual-price">€{{ producto.actualPrice.toFixed(2) }}</span>
-                <span class="old-price" *ngIf="producto.oldPrice && producto.oldPrice !== 0 && producto.oldPrice !== producto.actualPrice">
-                  €{{ producto.oldPrice.toFixed(2) }}
+                <span class="old-price" *ngIf="producto.oldPrice &&
+                           producto.oldPrice > producto.actualPrice &&
+                           producto.oldPrice !== 0 &&
+                           producto.oldPrice !== producto.actualPrice">
+                           €{{ producto.oldPrice.toFixed(2) }}
                 </span>
               </div>
               <div class="rating" [class.claro]="modo" [class.oscuro]="!modo" *ngIf="producto.rating">⭐ {{ producto.rating }}</div>
