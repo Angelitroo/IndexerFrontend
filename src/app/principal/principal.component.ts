@@ -102,10 +102,12 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   slidesPerView = 5;
   swiperBreakpoints = {
     320: { slidesPerView: 1 },
-    576: { slidesPerView: 2 },
+    410: { slidesPerView: 2 },
     768: { slidesPerView: 3 },
-    992: { slidesPerView: 4 },
-    1200: { slidesPerView: 5 }
+    1000: { slidesPerView: 3 },
+    1150: { slidesPerView: 4 },
+    1350: { slidesPerView: 4 },
+    1400: { slidesPerView: 5 }
   };
   mostrarMenu: boolean = true;
   loadingMessages: string[] = [

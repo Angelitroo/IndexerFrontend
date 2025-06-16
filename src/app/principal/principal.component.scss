@@ -50,7 +50,7 @@
 
 /* ------------------ NOTIFICATION BADGE ------------------ */
 .notification-button {
-  position: relative;
+  position: fixed;
 }
 
 .notification-badge {
@@ -161,6 +161,9 @@
   --background: #e77e3c;
   --padding-start: 8px;
   --padding-end: 8px;
+  z-index: 9999;
+  right: 0;
+  top: 0;
 
   ion-icon {
     font-size: 24px;
