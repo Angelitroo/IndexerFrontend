@@ -1,76 +1,177 @@
+/* Estilos base del popover (consistentes con el primer popover) */
 .popover-content {
   --background: transparent !important;
   padding: 0 !important;
   height: auto;
-  width: 100%;           /* Ocupa todo el ancho posible */
-  min-width: 800px;      /* Máximo ancho más grande que antes */
-  border-radius: 20px;   /* Esquinas más redondas */
+  width: 100%;
+  max-width: 800px; /* Máximo ancho para pantallas grandes */
+  border-radius: 20px;
   box-sizing: border-box;
-  margin: auto;          /* Centrar horizontalmente */
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.contenido {
+  width: 100%;
+  padding: 10px;
 }
 
 ion-grid {
   padding: 20px;
-  background-color: var(--background); /* Usar variable de color */
+  background-color: var(--background);
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 500px;
-}
-.gridclaro {
-  --background: #ffffff;
-}
-.gridoscuro {
-  --background: #4e4e4e;
+  width: 100%;
+  margin: 0 auto;
 }
 
-
+/* Estilos para la foto de perfil */
 .foto {
   height: 150px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Igual que el segundo */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background-color: var(--background);
-}
-.fotoclaro {
-  --background: #ffffff;
-}
-.fotooscuro {
-  --background: #e6e6e6;
+  margin-bottom: 16px;
 }
 
-.foto img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
+/* Estilos para los elementos del formulario */
 ion-item {
   border-radius: 12px;
-  --background: #e6e6e6;    /* Igual que el segundo */
+  --background: #e6e6e6;
   --color: #4d4d4d;
-  --min-height: 36px;
-  margin-bottom: 8px;
+  --min-height: 56px;
+  margin-bottom: 16px;
 }
-
 
 ion-label {
   font-size: 14px;
   font-weight: bold;
 }
 
-ion-input{
+ion-input {
   margin-top: 10px;
   height: 32px;
 }
 
+/* Estilos para el botón */
 .boton-guardar {
   --background: #e67e22;
   --background-activated: #d35400;
   --color: white;
   font-weight: bold;
-  height: 36px;
-  font-size: 14px;
+  height: 48px;
+  font-size: 16px;
   border-radius: 8px;
+  margin-top: 8px;
+}
+
+/* Modos claro/oscuro (consistentes con el primer popover) */
+.gridclaro { --background: #ffffff; }
+.gridoscuro { --background: #4e4e4e; }
+.backgroundclaro { --background: #f5f5f5; }
+.backgroundoscuro { --background: #2e2e2e; }
+.fotoclaro { --background: #ffffff; }
+.fotooscuro { --background: #e6e6e6; }
+.itemclaro { --background: #e6e6e6; --color: #4d4d4d; }
+.itemoscuro { --background: #6e6e6e; --color: #e6e6e6; }
+
+/* Media Queries (consistentes con el primer popover pero adaptadas) */
+@media (max-width: 992px) {
+  .popover-content {
+    max-width: 90%;
+  }
+
+  ion-grid {
+    padding: 16px;
+  }
+
+  .foto {
+    height: 120px;
+  }
+
+  .boton-guardar {
+    height: 42px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .popover-content {
+    max-width: 95%;
+  }
+
+  ion-grid {
+    padding: 14px;
+  }
+
+  .foto {
+    height: 100px;
+    margin-bottom: 12px;
+  }
+
+  ion-item {
+    --min-height: 48px;
+    margin-bottom: 12px;
+  }
+
+  .boton-guardar {
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .popover-content {
+    max-width: 100%;
+    min-width: 280px;
+  }
+
+  ion-grid {
+    padding: 12px;
+  }
+
+  .foto {
+    height: 80px;
+    margin-bottom: 8px;
+  }
+
+  ion-item {
+    --min-height: 44px;
+    margin-bottom: 8px;
+  }
+
+  ion-label {
+    font-size: 13px;
+  }
+
+  ion-input {
+    height: 28px;
+  }
+
+  .boton-guardar {
+    height: 36px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .foto {
+    height: 70px;
+  }
+
+  ion-item {
+    --min-height: 40px;
+  }
+
+  ion-label {
+    font-size: 12px;
+  }
+
+  .boton-guardar {
+    height: 32px;
+    font-size: 12px;
+  }
 }

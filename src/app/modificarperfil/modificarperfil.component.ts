@@ -16,7 +16,6 @@ import { PerfilActualizar } from "../models/PerfilActualizar";
   imports: [
     IonicModule,
     FormsModule,
-    MenuizquierdaconfigComponent,
     NgForOf,
     NgIf
   ]
