@@ -5,7 +5,7 @@ export interface PerfilActualizar{
   pais: string;
   username: string;
   email: string;
-  password: string;
+  password?: string | null;
   baneado?: boolean;
   correonotificaciones?: string;
 }

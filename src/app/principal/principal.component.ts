@@ -29,7 +29,7 @@ import { Alerta } from '../models/Alerta';
 import { ProductAdmin } from "../models/ProductAdmin";
 import { NotificationService } from '../services/notification.service';
 import { NotificationPromptComponent } from '../notification-prompt/notification-prompt.component';
-import {NewfoundPromptComponent} from "../newfound-prompt/newfound-prompt.component";
+import { NewfoundPromptComponent } from "../newfound-prompt/newfound-prompt.component";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -53,6 +53,11 @@ interface BackendProduct {
 interface SearchResponseWrapper {
   products: BackendProduct[];
   fromCache: boolean;
+  newCheaperProductsFound: boolean;
+}
+
+interface UpdateCheckResponse {
+  newProductsAvailable: boolean;
 }
 
 @Component({
@@ -86,14 +91,14 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   modo: boolean = true;
   notificacionesCount: number = 0;
 
-  showNewProductsPrompt: boolean = true;
+  showNewProductsPrompt: boolean = false;
   isCreandoAlerta: boolean = false;
-
 
   private notificationSub: Subscription | undefined;
   private eventSource: EventSource | undefined;
   private currentSearchCallId = 0;
   private searchApiUrl = 'http://localhost:8080/scrap/search';
+  private checkUpdatesApiUrl = 'http://localhost:8080/scrap/search/check-updates';
   private defaultProductsApiUrl = 'http://localhost:8080/scrap/default-products';
   private favoriteApiBaseUrl = 'http://localhost:8080/api/products/favorite';
   productsadmin: ProductAdmin[] = [];
@@ -274,7 +279,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.productoService.getAllProductsAdmin().subscribe({
       next: (productsadmin: ProductAdmin[]) => {
         this.productsadmin = productsadmin;
-        console.log('Productos destacados:', productsadmin);
       },
       error: (error) => {
         console.error('Error al obtener los productsadmin:', error);
@@ -308,9 +312,11 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   onSearchChange(event: any) {
     const query = event.target.value ? event.target.value.toLowerCase().trim() : '';
     this.searchTerm = query;
+    this.showNewProductsPrompt = false;
     this.currentSearchCallId++;
     const localCallId = this.currentSearchCallId;
-    if (!query && (!this.activeFilters || Object.keys(this.activeFilters).length === 0)) {
+
+    if (!query) {
       this.isInitialView = true;
       this.allProducts = [...this.initialDynamicProducts];
       this.processProducts();
@@ -318,56 +324,62 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
       this.stopLoadingMessagesRotation();
       return;
     }
+
     this.isInitialView = false;
-    if (!query && Object.keys(this.activeFilters).length > 0) {
-      this.allProducts = [...this.initialDynamicProducts];
-      this.processProducts();
-      this.isLoading = false;
-      this.stopLoadingMessagesRotation();
-      return;
-    }
-    if (query) {
-      const loadingTimer = setTimeout(() => {
-        this.isLoading = true;
-        this.startLoadingMessagesRotation();
-        this.cdr.detectChanges();
-      }, 250);
-      this.http.get<SearchResponseWrapper>(`${this.searchApiUrl}/${query}`)
-        .pipe(
-          finalize(() => {
-            if (localCallId === this.currentSearchCallId) {
-              this.isLoading = false;
-              this.stopLoadingMessagesRotation();
-            }
-          })
-        )
-        .subscribe({
-          next: (response) => {
-            clearTimeout(loadingTimer);
-            if (localCallId === this.currentSearchCallId) {
-              const productsFromServer = response.products || [];
-              this.allProducts = productsFromServer.map((p: BackendProduct, index: number): Producto => this.mapBackendProductToProducto(p, index));
-              this.processProducts();
-              if (response.fromCache) {
-                this.isLoading = false;
-                this.stopLoadingMessagesRotation();
-              }
-            }
-          },
-          error: (err) => {
-            clearTimeout(loadingTimer);
-            if (localCallId === this.currentSearchCallId) {
-              console.error(`Error al buscar productos para "${query}":`, err);
-              this.allProducts = [];
-              this.processProducts();
+    const loadingTimer = setTimeout(() => {
+      this.isLoading = true;
+      this.startLoadingMessagesRotation();
+      this.cdr.detectChanges();
+    }, 250);
+
+    this.http.get<SearchResponseWrapper>(`${this.searchApiUrl}/${query}`)
+      .pipe(
+        finalize(() => {
+          if (localCallId === this.currentSearchCallId) {
+            this.isLoading = false;
+            this.stopLoadingMessagesRotation();
+          }
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          clearTimeout(loadingTimer);
+          if (localCallId === this.currentSearchCallId) {
+            this.allProducts = (response.products || []).map((p, index) => this.mapBackendProductToProducto(p, index));
+            this.processProducts();
+
+            if (response.fromCache) {
+              setTimeout(() => this.checkForUpdates(query, localCallId), 100);
             }
           }
-        });
-    } else {
-      this.isLoading = false;
-      this.stopLoadingMessagesRotation();
-      this.processProducts();
+        },
+        error: (err) => {
+          clearTimeout(loadingTimer);
+          if (localCallId === this.currentSearchCallId) {
+            console.error(`Error al buscar productos para "${query}":`, err);
+            this.allProducts = [];
+            this.processProducts();
+          }
+        }
+      });
+  }
+
+  private checkForUpdates(query: string, searchCallId: number) {
+    if (this.currentSearchCallId !== searchCallId) {
+      return;
     }
+
+    this.http.get<UpdateCheckResponse>(`${this.checkUpdatesApiUrl}/${query}`).subscribe({
+      next: (updateResponse) => {
+        if (this.currentSearchCallId === searchCallId && updateResponse.newProductsAvailable) {
+          this.showNewProductsPrompt = true;
+          this.cdr.detectChanges();
+        }
+      },
+      error: (err) => {
+        console.error('Error checking for product updates:', err);
+      }
+    });
   }
 
   onFiltersChanged(filters: ProductFilters) {
@@ -487,15 +499,11 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     popover.onDidDismiss().then((result) => {
       if (result.data && result.data.submitted) {
         const alertaData = result.data.data as Partial<Alerta>;
-
-        // Desactivar el botón mientras se crea la alerta
         this.isCreandoAlerta = true;
-
         this.mostrarToast('Alerta creada', 'success', 3000);
         this.alertaService.crearAlerta(alertaData).subscribe({
           next: (response) => {
             console.log('Alerta creada:', response);
-            // Habilitar de nuevo el botón
             this.isCreandoAlerta = false;
             this.popoverCtrl.dismiss();
           },
@@ -508,10 +516,8 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       }
     });
-
     await popover.present();
   }
-
 
   async abrirNotificaciones() {
     this.notificationService.getNotifications().subscribe(async (notifications) => {
@@ -558,11 +564,11 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.onSearchChange({ target: { value: category } });
   }
 
-
-//Prompt de nuevos productos encontrados
   reloadPage() {
-    window.location.reload();
+    this.showNewProductsPrompt = false;
+    this.onSearchChange({ target: { value: this.searchTerm } });
   }
+
   closePrompt() {
     this.showNewProductsPrompt = false;
   }
