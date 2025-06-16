@@ -39,7 +39,8 @@ ion-grid {
 .foto {
   width: 100%;
   aspect-ratio: 1/1; /* Mantiene relación cuadrada */
-  max-height: 150px; /* Altura máxima inicial */
+  max-height: 120px;
+  max-width: 120px;/* Altura máxima inicial */
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -101,7 +102,8 @@ ion-input {
   }
 
   .foto {
-    max-height: 180px; /* Foto más grande en pantallas grandes */
+    max-height: 120px; /* Foto más grande en pantallas grandes */
+    max-width: 120px;
   }
 }
 
@@ -111,7 +113,8 @@ ion-input {
   }
 
   .foto {
-    max-height: 160px;
+    max-height: 120px; /* Foto más grande en pantallas grandes */
+    max-width: 120px;
   }
 }
 
@@ -121,7 +124,8 @@ ion-input {
   }
 
   .foto {
-    max-height: 140px;
+    max-width: 100px;
+    max-height: 100px;
   }
 }
 
@@ -135,7 +139,8 @@ ion-input {
   }
 
   .foto {
-    max-height: 120px;
+    max-width: 100px;
+    max-height: 100px;
   }
 }
 
