@@ -81,6 +81,11 @@
           <div class="heart-icon" (click)="toggleFavorito(productadmin)">
             <ion-icon [name]="productadmin.favorito ? 'heart' : 'heart-outline'"></ion-icon>
           </div>
+
+          <div *ngIf="productadmin.sourceQualityTag === 'NON_AI_FILL_UP'" class="interest-badge">
+            <ion-badge>Te podría interesar</ion-badge>
+          </div>
+
           <img [src]="productadmin.image" alt="Imagen de {{ productadmin.title }}" />
           <ion-card-header>
             <ion-card-title [class.claro]="modo" [class.oscuro]="!modo">{{ productadmin.title }}</ion-card-title>
@@ -90,7 +95,7 @@
                       productadmin.oldPrice > productadmin.actualPrice &&
                       productadmin.oldPrice !== 0 &&
                       productadmin.oldPrice !== productadmin.actualPrice">
-                      {{ productadmin.discount }} Off
+              {{ productadmin.discount }} Off
             </ion-badge>
           </ion-card-header>
           <ion-card-content>
@@ -151,7 +156,7 @@
                           producto.oldPrice > producto.actualPrice &&
                           producto.oldPrice !== 0 &&
                           producto.oldPrice !== producto.actualPrice">
-                         {{ producto.discount }} Off
+                {{ producto.discount }} Off
               </ion-badge>
 
             </ion-card-header>

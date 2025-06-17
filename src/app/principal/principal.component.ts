@@ -51,6 +51,7 @@ interface BackendProduct {
 }
 
 interface SearchResponseWrapper {
+  featuredProducts: BackendProduct[];
   products: BackendProduct[];
   fromCache: boolean;
   newCheaperProductsFound: boolean;
@@ -83,6 +84,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   availableEmpresas: string[] = ['Amazon', 'eBay', 'PCComponentes', 'MediaMarkt', 'Carrefour', 'El Corte Inglés'];
   private initialDynamicProducts: Producto[] = [];
   allProducts: Producto[] = [];
+  featuredProducts: Producto[] = [];
   groupedProducts: { empresa: string, items: Producto[] }[] = [];
   searchTerm: string = '';
   activeFilters: ProductFilters = {};
@@ -152,7 +154,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isInitialView = true;
     this.isLoading = true;
     this.loadInitialDynamicProducts();
-    this.cargarProductosAdmin();
+    this.cargarProductosDestacados();
     const modoGuardado = localStorage.getItem('modo');
     if (modoGuardado !== null) {
       this.modo = JSON.parse(modoGuardado);
@@ -275,13 +277,15 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  cargarProductosAdmin() {
-    this.productoService.getAllProductsAdmin().subscribe({
-      next: (productsadmin: ProductAdmin[]) => {
-        this.productsadmin = productsadmin;
+  cargarProductosDestacados() {
+    this.productoService.getFeaturedProducts().subscribe({
+      next: (products: ProductAdmin[]) => {
+        this.productsadmin = products;
+        this.cdr.detectChanges();
       },
       error: (error) => {
-        console.error('Error al obtener los productsadmin:', error);
+        console.error('Error al obtener los productos destacados:', error);
+        this.productsadmin = [];
       }
     });
   }
@@ -318,6 +322,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (!query) {
       this.isInitialView = true;
+      this.featuredProducts = [];
       this.allProducts = [...this.initialDynamicProducts];
       this.processProducts();
       this.isLoading = false;
@@ -345,6 +350,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
         next: (response) => {
           clearTimeout(loadingTimer);
           if (localCallId === this.currentSearchCallId) {
+            this.featuredProducts = (response.featuredProducts || []).map((p, index) => this.mapBackendProductToProducto(p, index));
             this.allProducts = (response.products || []).map((p, index) => this.mapBackendProductToProducto(p, index));
             this.processProducts();
 
@@ -357,6 +363,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
           clearTimeout(loadingTimer);
           if (localCallId === this.currentSearchCallId) {
             console.error(`Error al buscar productos para "${query}":`, err);
+            this.featuredProducts = [];
             this.allProducts = [];
             this.processProducts();
           }

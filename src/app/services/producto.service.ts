@@ -34,4 +34,9 @@ export class ProductoService {
     const options = this.authService.getAuthHeaders();
     return this.httpClient.get<ProductAdmin[]>(`${this.apiUrl}/api/products/admin`, options);
   }
+
+  getFeaturedProducts(): Observable<ProductAdmin[]> {
+    const options = this.authService.getAuthHeaders();
+    return this.httpClient.get<ProductAdmin[]>(`${this.apiUrl}/scrap/featured-products`, options);
+  }
 }

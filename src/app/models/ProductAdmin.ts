@@ -9,4 +9,5 @@ export interface ProductAdmin {
   url: string;
   empresa: string;
   favorito: boolean;
+  sourceQualityTag?: string;
 }
