@@ -113,6 +113,7 @@ export class ModificarperfilComponent implements OnInit {
       next: (response) => {
         this.presentToast('Perfil actualizado con éxito', 'success');
         console.log('Perfil actualizado con éxito:', response);
+        window.location.reload();
         this.cargarDatosPerfil();
       },
       error: (error) => {

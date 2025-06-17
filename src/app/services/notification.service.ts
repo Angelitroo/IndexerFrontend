@@ -56,11 +56,15 @@ export class NotificationService {
 
     if (!token) {
       console.error('SSE Error: No auth token found. Cannot subscribe.');
-      return new EventSource('about:blank');
+      return new EventSourcePolyfill('about:blank');
     }
 
-    const urlWithToken = `${this.apiUrl}/subscribe?token=${encodeURIComponent(token)}`;
-    const eventSource = new EventSourcePolyfill(urlWithToken);
+    const url = `${this.apiUrl}/subscribe`;
+    const eventSource = new EventSourcePolyfill(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
 
     eventSource.addEventListener('new_notification', () => {
       this.notificationSubject.next();

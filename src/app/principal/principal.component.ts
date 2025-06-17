@@ -80,7 +80,6 @@ interface UpdateCheckResponse {
 })
 export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   showNotificationPrompt = false;
-
   availableEmpresas: string[] = ['Amazon', 'eBay', 'PCComponentes', 'MediaMarkt', 'Carrefour', 'El Corte Inglés'];
   private initialDynamicProducts: Producto[] = [];
   allProducts: Producto[] = [];
@@ -92,10 +91,8 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   isInitialView: boolean = true;
   modo: boolean = true;
   notificacionesCount: number = 0;
-
   showNewProductsPrompt: boolean = false;
   isCreandoAlerta: boolean = false;
-
   private notificationSub: Subscription | undefined;
   private eventSource: EventSource | undefined;
   private currentSearchCallId = 0;
@@ -168,7 +165,8 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   checkNotificationPermission() {
     if ('Notification' in window) {
-      if (this.notificationService.getPermissionState() === 'default') {
+      const deniedByUser = localStorage.getItem('notification_permission_denied') === 'true';
+      if (this.notificationService.getPermissionState() === 'default' && !deniedByUser) {
         this.showNotificationPrompt = true;
       }
     }
@@ -180,6 +178,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   handleDenyNotifications() {
+    localStorage.setItem('notification_permission_denied', 'true');
     this.showNotificationPrompt = false;
   }
 
