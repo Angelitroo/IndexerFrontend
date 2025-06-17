@@ -54,13 +54,21 @@ export class CrearalertapopoverComponent implements OnInit {
     await toast.present();
   }
 
-  crearAlerta(): void {
+  async crearAlerta(): Promise<void> {
     if (!this.alerta.concepto || !this.alerta.precioObjetivo || !this.alerta.empresas || this.alerta.empresas.length === 0) {
       this.mostrarToast('Todos los campos son obligatorios.', 'danger');
       return;
     }
+    this.creandoAlerta = true;
 
-    this.popoverCtrl.dismiss({ submitted: true, data: this.alerta });
+    this.popoverCtrl.dismiss({
+      submitted: true,
+      data: this.alerta,
+      creandoAlerta: true
+    });
+    setTimeout(() => {
+      this.creandoAlerta = false;
+    }, 10000);
   }
 
   cancelar(): void {

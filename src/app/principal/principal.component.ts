@@ -507,12 +507,14 @@ export class PrincipalComponent implements OnInit, AfterViewInit, OnDestroy {
       if (result.data && result.data.submitted) {
         const alertaData = result.data.data as Partial<Alerta>;
         this.isCreandoAlerta = true;
+
         this.mostrarToast('Alerta creada', 'success', 3000);
         this.alertaService.crearAlerta(alertaData).subscribe({
           next: (response) => {
             console.log('Alerta creada:', response);
-            this.isCreandoAlerta = false;
-            this.popoverCtrl.dismiss();
+            setTimeout(() => {
+              this.isCreandoAlerta = false;
+            }, 10000);
           },
           error: (err: any) => {
             console.error('Error al crear la alerta', err);
