@@ -38,7 +38,9 @@ export class HistorialComponent  implements OnInit {
     }
     this.cargarHistorial();
   }
-
+  ionViewWillEnter() {
+    this.cargarHistorial();
+  }
   cargarHistorial() {
     this.isLoading = true;
     this.errorMensaje = null;

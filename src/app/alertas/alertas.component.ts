@@ -40,7 +40,9 @@ export class AlertasComponent implements OnInit {
     this.modo = modoGuardado ? JSON.parse(modoGuardado) : true;
     this.cargarAlertas();
   }
-
+  ionViewWillEnter() {
+    this.cargarAlertas();
+  }
   cargarAlertas() {
     this.alertaService.getAlertas().subscribe({
       next: (data) => {

@@ -65,7 +65,9 @@ export class OfertasguardadasComponent implements OnInit {
     }
     this.loadFavoritos();
   }
-
+  ionViewWillEnter() {
+    this.loadFavoritos();
+  }
   loadFavoritos(): void {
     this.isLoading = true;
     this.errorMessage = null;
